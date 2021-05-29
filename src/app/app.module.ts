@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -40,6 +42,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
     NgxPaginationModule,
   ],
   providers: [],
