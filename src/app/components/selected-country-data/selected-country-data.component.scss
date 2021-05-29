@@ -1,0 +1,44 @@
+@import "../countries-list/countries-list.component.scss";
+
+.main-content {
+  .back-button {
+    background-color: hsl(209, 23%, 22%);
+    color: hsl(0, 0%, 100%);
+    font-size: 12px;
+  }
+
+  .text-content {
+    color: hsl(0, 0%, 100%);
+    font-size: 14px;
+    .img-flag {
+      object-fit: cover;
+      height: 300px;
+    }
+    .country-name {
+      font-size: 22px;
+      font-weight: bolder;
+    }
+    .label-txt {
+      font-weight: bold;
+    }
+    .label-content {
+      font-weight: normal;
+    }
+
+    .border-list {
+      p {
+        font-weight: bold;
+        font-size: 14px !important;
+      }
+
+      .border-btn {
+        font-size: 13px;
+        color: hsl(0, 0%, 100%);
+        background-color: hsl(209, 23%, 22%);
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+      }
+    }
+  }
+}

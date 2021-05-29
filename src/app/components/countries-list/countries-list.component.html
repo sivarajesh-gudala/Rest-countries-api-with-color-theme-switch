@@ -1,0 +1,89 @@
+<section class="main-content" [ngClass]="">
+  <div class="container p-5">
+    <form [formGroup]="countryListForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-8 float-start">
+            <div class="input-group search-box">
+              <span class="material-icons-outlined m-3"> search </span>
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Search for a country..."
+                formControlName="country"
+                (input)="search($event.target.value)"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-6 float-end">
+            <select
+              class="form-select search-box fw-bold"
+              formControlName="region"
+              (change)="regionsList($event.target.value)"
+            >
+              <option value="" selected disabled class="default-txt">
+                Filter by Region
+              </option>
+              <option value="{{ region }}" *ngFor="let region of newRegArr">
+                {{ region }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="all-list p-5">
+    <div class="row">
+      <ng-container
+        *ngFor="
+          let data of listOfCountries
+            | paginate: { itemsPerPage: 4, currentPage: page }
+        "
+      >
+        <div
+          class="col-md-3 cards-data mb-5"
+          (click)="countryData(data.name)"
+          [routerLink]="['/country']"
+          [queryParams]="{ name: data.name }"
+        >
+          <div class="card card-info">
+            <div *ngIf="data">
+              <img
+                class="card-img-top country-flag"
+                [src]="data.flag"
+                alt="flag"
+              />
+              <div class="card-body card-content m-2">
+                <p class="country-name">{{ data.name }}</p>
+                <p class="card-text">
+                  <span class="card-labels"> Population: </span>
+                  <span>
+                    {{ data.population | comaSeperator }}
+                  </span>
+                </p>
+                <p class="card-text">
+                  <span class="card-labels"> Region: </span>
+                  <span>
+                    {{ data.region }}
+                  </span>
+                </p>
+                <p class="card-text">
+                  <span class="card-labels"> Capital: </span>
+                  <span>
+                    {{ data.capital }}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+</section>
+<router-outlet></router-outlet>

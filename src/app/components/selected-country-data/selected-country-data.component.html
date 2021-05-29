@@ -1,0 +1,100 @@
+<section class="main-content">
+  <div class="container p-5">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn back-button" type="button" routerLink="/">
+          Back
+        </button>
+      </div>
+      <div class="text-content">
+        <ng-container *ngFor="let content of countryInfo">
+          <div *ngIf="content.length != 0">
+            <div class="row p-5">
+              <div class="col-md-4">
+                <img
+                  [src]="content.flag"
+                  alt="{{ content.name }}"
+                  class="img-fluid img-flag"
+                />
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-7 mt-3">
+                <p class="country-name">{{ content.name }}</p>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p>
+                      <span class="label-txt"> Native Name: </span>
+                      <span>{{ content.nativeName }}</span>
+                    </p>
+                    <p>
+                      <span> Population: </span>
+                      <span>{{ content.population | comaSeperator }}</span>
+                    </p>
+                    <p>
+                      <span> Region: </span>
+                      <span>{{ content.region }}</span>
+                    </p>
+                    <p>
+                      <span>Sub Region: </span>
+                      <span> {{ content.subregion }} </span>
+                    </p>
+                    <p>
+                      <span> Capital: </span>
+                      <span> {{ content.capital }} </span>
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>
+                      Top Level Domain:
+                      <span
+                        *ngFor="
+                          let domain of content.topLevelDomain;
+                          let i = index
+                        "
+                      >
+                        {{ domain }}
+                        {{ i === content.topLevelDomain.length - 1 ? "" : "," }}
+                      </span>
+                    </p>
+                    <p>
+                      Currencies:
+                      <span
+                        *ngFor="
+                          let currency of content.currencies;
+                          let i = index
+                        "
+                      >
+                        {{ currency.name }}
+                        {{ i === content.currencies.length - 1 ? "" : "," }}
+                      </span>
+                    </p>
+                    <p>
+                      Languages:
+                      <span
+                        *ngFor="let lang of content.languages; let i = index"
+                      >
+                        {{ lang.name }}
+                        {{ i === content.languages.length - 1 ? "" : "," }}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-list" *ngIf="content.borders.length != 0">
+                  <p>
+                    Border Countries:
+                    <span *ngFor="let border of content.borders">
+                      <span class="border-btn" *ngIf="border.length > 0">
+                        {{ border }}
+                      </span>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
