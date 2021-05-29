@@ -18,6 +18,7 @@ import { ComaSeperatorPipe } from './shared/coma-seperator.pipe';
 import { SelectedCountryDataComponent } from './components/selected-country-data/selected-country-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeDirective } from './dark-theme/theme.directive';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ThemeDirective } from './dark-theme/theme.directive';
     ComaSeperatorPipe,
     SelectedCountryDataComponent,
     ThemeDirective,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
