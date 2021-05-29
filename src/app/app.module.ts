@@ -19,8 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComaSeperatorPipe } from './shared/coma-seperator.pipe';
 import { SelectedCountryDataComponent } from './components/selected-country-data/selected-country-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ThemeDirective } from './dark-theme/theme.directive';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ThemeModule } from './theme/theme.module';
+import { lightTheme } from './theme/light-theme';
+import { darkTheme } from './theme/dark-theme';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     CountriesListComponent,
     ComaSeperatorPipe,
     SelectedCountryDataComponent,
-    ThemeDirective,
     PageNotFoundComponent,
   ],
   imports: [
@@ -45,6 +46,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MatSlideToggleModule,
     MatCheckboxModule,
     NgxPaginationModule,
+    ThemeModule.forRoot({
+      themes: [lightTheme, darkTheme],
+      active: 'light',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

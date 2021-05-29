@@ -62,7 +62,7 @@ export class CountriesListComponent implements OnInit {
   getAllCounriesInfo(): void {
     this.apiService.getAllCountriesData().subscribe((data) => {
       this.listOfCountries = data;
-      console.log(data);
+      // console.log(data);
       this.totalLength = data.length;
 
       const oldRegArr = this.listOfCountries.map((item, i, arr) => {

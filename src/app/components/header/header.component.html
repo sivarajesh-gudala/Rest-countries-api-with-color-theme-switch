@@ -1,21 +1,11 @@
-<div class="header">
+<div class="header" app-theme>
   <nav class="nav justify-content-center p-4">
     <div class="col-md-12">
       <li class="nav-item float-start fw-bold">Where in the World?</li>
-      <form [formGroup]="toggleForm">
-        <li class="nav-item float-end fw-bold">
-          <mat-checkbox
-            formControlName="slideme"
-            [checked]="item"
-            (change)="onToggle($event)"
-          >
-          </mat-checkbox>
-          <span *ngIf="item" class="material-icons p-2"> dark_mode </span>
-          <span *ngIf="!item" class="material-icons-outlined p-2">
-            light_mode
-          </span>
-        </li>
-      </form>
+      <li class="nav-item float-end fw-bold">
+        <input type="checkbox" (click)="onToggle()" />
+        <span class="slider round"></span>
+      </li>
     </div>
   </nav>
   <router-outlet></router-outlet>
