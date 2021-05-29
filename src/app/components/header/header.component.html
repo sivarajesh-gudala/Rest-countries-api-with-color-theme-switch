@@ -1,10 +1,26 @@
-<div class="header" app-theme>
-  <nav class="nav justify-content-center p-4">
-    <div class="col-md-12">
-      <li class="nav-item float-start fw-bold">Where in the World?</li>
-      <li class="nav-item float-end fw-bold">
-        <input type="checkbox" (click)="onToggle()" />
-        <span class="slider round"></span>
+<div class="header">
+  <nav class="nav justify-content-center navbar-dark navbar-expand-lg">
+    <div class="col-md-12 p-4">
+      <li class="nav-item float-start fw-bolder fs-4">Where in the world?</li>
+
+      <li class="nav-item float-end">
+        <input
+          id="darkMode"
+          type="checkbox"
+          [checked]="darkMode$ | async"
+          (change)="onToggle()"
+          class="toggle"
+        />
+        <label class="toggle-label" for="darkMode">
+          <img
+            src="../../../assets/icons/dark_mode_black_24dp.svg"
+            class="moon w-100 h-75 p-0"
+          />
+          <img
+            src="../../../assets/icons/light_mode_white_24dp.svg"
+            class="sun w-100 h-75 p-0"
+          />
+        </label>
       </li>
     </div>
   </nav>

@@ -1,8 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThemeDirective } from './theme.directive';
+import { ThemeDirective } from '../theme/theme.directive';
 
-import { ThemeService } from './theme.service';
+import { ThemeService } from '../theme/theme.service';
 import { THEMES, ACTIVE_THEME, ThemeOptions } from './symbols';
 
 @NgModule({

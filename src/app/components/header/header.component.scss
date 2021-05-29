@@ -1,27 +1,48 @@
 .header {
   font-family: "Nunito Sans", sans-serif;
-  font-size: 14px;
-
-  input:checked + .slider {
-    background-color: #ff0070;
+  // nav {
+  //   -webkit-box-shadow: 10px hsl(209, 23%, 22%); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  //   -moz-box-shadow: 10px hsl(209, 23%, 22%); /* Firefox 3.5 - 3.6 */
+  //   box-shadow: 10px hsl(209, 23%, 22%);
+  // }
+  nav.light-mode {
+    background-color: #2f3542;
+    color: #2f3542;
+  }
+  .toggle {
+    display: none;
   }
 
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
+  .toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
   }
 
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+  .sun,
+  .moon {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transition: top 0.3s;
   }
 
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
+  .sun {
+    top: 0;
   }
 
-  .slider.round:before {
-    border-radius: 50%;
+  .moon {
+    top: -150%;
+  }
+
+  .toggle:checked + .toggle-label .sun {
+    top: 150%;
+  }
+
+  .toggle:checked + .toggle-label .moon {
+    top: 0;
   }
 }

@@ -36,6 +36,10 @@ import { darkTheme } from './theme/dark-theme';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ThemeModule.forRoot({
+      themes: [lightTheme, darkTheme],
+      active: 'light',
+    }),
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -46,10 +50,6 @@ import { darkTheme } from './theme/dark-theme';
     MatSlideToggleModule,
     MatCheckboxModule,
     NgxPaginationModule,
-    ThemeModule.forRoot({
-      themes: [lightTheme, darkTheme],
-      active: 'light',
-    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

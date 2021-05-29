@@ -1,4 +1,4 @@
-import { Theme } from './symbols';
+import { Theme } from '../theme/symbols';
 
 export const lightTheme: Theme = {
   name: 'light',
@@ -6,6 +6,6 @@ export const lightTheme: Theme = {
     '--background': '#f6f7f9',
     '--on-background': '#000',
     '--primary': '#1976d2',
-    '--on-primary': '#000'
-  }
+    '--on-primary': '#000',
+  },
 };

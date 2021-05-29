@@ -6,9 +6,19 @@
 html,
 body {
   height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+body:not(.dark-mode-preloading) {
+  transition: all 0.3s linear;
+}
+
+body.dark-mode {
+  background-color: #2f3542;
+  color: #f1f2f6;
+}
+
+body.light-mode {
+  background-color: #f1f2f6;
+  color: #2f3542;
 }

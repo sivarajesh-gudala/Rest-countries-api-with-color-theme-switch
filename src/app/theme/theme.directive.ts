@@ -1,8 +1,8 @@
 import { Directive, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { ThemeService } from './theme.service';
+import { ThemeService } from '../theme/theme.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Theme } from './symbols';
+import { Theme } from '../theme/symbols';
 
 @Directive({
   selector: '[app-theme]',

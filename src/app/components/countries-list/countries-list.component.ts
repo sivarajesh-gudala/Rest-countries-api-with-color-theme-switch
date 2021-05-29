@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -10,6 +16,7 @@ import { PageEvent } from '@angular/material/paginator';
   selector: 'app-countries-list',
   templateUrl: './countries-list.component.html',
   styleUrls: ['./countries-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CountriesListComponent implements OnInit {
   // regions: any[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
@@ -85,6 +92,15 @@ export class CountriesListComponent implements OnInit {
       this.listOfCountries = this.countryOptions;
       this.filterCountryOptions();
       this.totalLength = data.length;
+      if (region) {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { region: region },
+          queryParamsHandling: 'merge',
+        });
+      } else {
+        this.router.navigate(['']);
+      }
     });
   }
 
@@ -159,11 +175,6 @@ export class CountriesListComponent implements OnInit {
     this.getDataByRegion(value);
 
     console.log(value);
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { region: value },
-      queryParamsHandling: 'merge',
-    });
   }
 
   countryData(name): void {
