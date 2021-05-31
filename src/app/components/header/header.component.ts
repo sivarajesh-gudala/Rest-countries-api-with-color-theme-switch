@@ -18,17 +18,20 @@ export class HeaderComponent implements OnInit {
   toggle: boolean = false;
 
   modeName: string = 'Dark Mode';
-  item: boolean;
+  modeStatus: boolean;
   constructor(
     private darkModeService: DarkModeService,
-    private themeService: ThemeService,
     private fb: FormBuilder
   ) {
     this.toggleForm = this.fb.group({
       slideme: false,
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.darkModeService.darkMode$.subscribe((val) => {
+      this.modeStatus = val;
+    });
+  }
 
   onToggle(): void {
     this.darkModeService.toggle();

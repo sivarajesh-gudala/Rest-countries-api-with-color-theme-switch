@@ -2,14 +2,23 @@
   <div class="container p-5">
     <div class="row">
       <div class="col-md-12">
-        <button class="btn back-button" type="button" routerLink="/">
+        <button
+          class="btn back-button"
+          type="button"
+          click="back()"
+          [routerLink]="['/countries']"
+          [queryParams]="{ region: regionParam }"
+        >
           Back
         </button>
       </div>
-      <div class="text-content">
+      <div class="text-content col-md-12">
         <ng-container *ngFor="let content of countryInfo">
           <div *ngIf="content.length != 0">
-            <div class="row p-5">
+            <div
+              class="row p-5"
+              [ngClass]="darkModeStatus == true ? 'dark-text' : 'light-text'"
+            >
               <div class="col-md-4">
                 <img
                   [src]="content.flag"
@@ -43,7 +52,7 @@
                       <span> {{ content.capital }} </span>
                     </p>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 p-3">
                     <p>
                       Top Level Domain:
                       <span
@@ -81,14 +90,19 @@
                 </div>
 
                 <div class="border-list" *ngIf="content.borders.length != 0">
-                  <p>
-                    Border Countries:
-                    <span *ngFor="let border of content.borders">
-                      <span class="border-btn" *ngIf="border.length > 0">
-                        {{ border }}
-                      </span>
-                    </span>
-                  </p>
+                  <p class="col-md-3">Border Countries:</p>
+                  <span class="" *ngFor="let border of content.borders">
+                    <button
+                      mat-raised-button
+                      class="border-btn"
+                      *ngIf="border.length > 0"
+                      [ngClass]="
+                        darkModeStatus == true ? 'dark-btn' : 'light-btn'
+                      "
+                    >
+                      {{ border }}
+                    </button>
+                  </span>
                 </div>
               </div>
             </div>

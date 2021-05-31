@@ -2,57 +2,101 @@
   font-family: "Nunito Sans", sans-serif;
   font-size: 14px;
   font-weight: 600px;
-  .search-box {
+
+  .has-search .form-control {
+    padding-left: 2.375rem;
+    border: none !important;
     border-radius: 5px;
-    color: hsl(209, 23%, 22%);
-    background-color: hsl(0, 0%, 100%);
-    // -webkit-box-shadow: 10px hsl(209, 23%, 22%); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    // -moz-box-shadow: 10px hsl(209, 23%, 22%); /* Firefox 3.5 - 3.6 */
-    // box-shadow: 10px hsl(209, 23%, 22%);
-
-    span {
-      font-size: 24px !important;
-    }
-    input[type="text"].search-input {
-      background-color: hsl(0, 0%, 100%);
-    }
-    input[type="text"]::placeholder {
-      color: hsl(207, 26%, 17%);
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .search-input {
-      border: none !important;
-    }
-    .search-input:focus {
-      border: none !important;
-      outline: none !important;
-    }
   }
-  .all-list {
-    .cards-data {
-      height: auto !important;
-      .card-info {
-        color: hsl(209, 23%, 22%) !important;
-        background-color: hsl(0, 0%, 100%);
-        .country-flag {
-          object-fit: cover;
-          height: 170px;
-        }
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 10px;
+    margin: 0px auto;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  }
 
-        .card-content {
-          font-size: 14px;
-          color: hsl(209, 23%, 22%) !important;
-          .card-labels {
-            font-size: 14px !important;
-            font-weight: 700 !important;
-          }
-          .country-name {
-            font-size: 16px !important;
-            font-weight: 900 !important;
-          }
-        }
+  span.dark-icon {
+    color: hsl(0, 0%, 100%) !important;
+  }
+  span.light-icon {
+    color: #aaa !important;
+  }
+
+  input.dark-input {
+    background-color: hsl(209, 23%, 22%);
+    color: hsl(0, 0%, 100%);
+  }
+  input.dark-input::placeholder {
+    color: hsl(0, 0%, 100%);
+  }
+  input.light-input {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(200, 15%, 8%);
+  }
+  input.light-input::placeholder {
+    color: hsl(200, 15%, 8%) !important;
+    font-size: 13px;
+  }
+
+  .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    padding: 4px;
+    font-weight: normal;
+  }
+  select.dark-select {
+    background-color: hsl(209, 23%, 22%);
+    color: hsl(0, 0%, 100%);
+  }
+
+  select.light-select {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(200, 15%, 8%);
+  }
+  select {
+    border: none !important;
+    border-radius: 5px;
+    width: 100%;
+    padding: 11px 11px;
+    margin: 0px auto;
+    box-sizing: border-box;
+    font-size: 14px;
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  }
+
+  .card-content {
+    padding: 16px;
+    img.country-flag {
+      object-fit: cover;
+      height: 170px;
+    }
+    mat-card.dark-card {
+      background-color: hsl(209, 23%, 22%);
+      color: hsl(0, 0%, 100%);
+      button {
+        background-color: hsl(209, 23%, 22%);
+        color: hsl(0, 0%, 100%);
       }
     }
+    mat-card.light-mode {
+      color: hsl(200, 15%, 8%);
+      background-color: hsl(0, 0%, 100%);
+      button {
+        color: hsl(200, 15%, 8%);
+        background-color: hsl(0, 0%, 100%);
+      }
+    }
+  }
+  .card-content > mat-card {
+    width: 200px;
   }
 }

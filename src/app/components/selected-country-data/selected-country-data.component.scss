@@ -10,6 +10,15 @@
   .text-content {
     color: hsl(0, 0%, 100%);
     font-size: 14px;
+    .dark-text {
+      color: hsl(0, 0%, 100%) !important;
+      .country-name {
+        color: hsl(0, 0%, 100%) !important;
+      }
+    }
+    .light-text {
+      color: hsl(209, 15%, 8%);
+    }
     .img-flag {
       object-fit: cover;
       height: 300px;
@@ -17,6 +26,7 @@
     .country-name {
       font-size: 22px;
       font-weight: bolder;
+      padding: 10px;
     }
     .label-txt {
       font-weight: bold;
@@ -29,15 +39,22 @@
       p {
         font-weight: bold;
         font-size: 14px !important;
+        padding: 10px;
+      }
+      button.dark-btn {
+        color: hsl(0, 0%, 100%);
+        background-color: hsl(209, 23%, 22%);
+      }
+      button.light-btn {
+        background-color: hsl(0, 0%, 100%);
+        color: hsl(209, 23%, 22%);
       }
 
       .border-btn {
         font-size: 13px;
         color: hsl(0, 0%, 100%);
         background-color: hsl(209, 23%, 22%);
-        padding: 10px;
-        margin: 10px;
-        border-radius: 5px;
+        margin-bottom: 15px;
       }
     }
   }

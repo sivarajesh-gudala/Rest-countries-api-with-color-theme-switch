@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DarkModeService } from 'angular-dark-mode';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -10,27 +11,41 @@ import { ApiService } from 'src/app/services/api.service';
 export class SelectedCountryDataComponent implements OnInit {
   countryInfo: any;
   currencies: any;
+  darkMode$ = this.darkModeService.darkMode$;
+  darkModeStatus: boolean;
+  regionParam: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private darkModeService: DarkModeService
   ) {}
 
   ngOnInit(): void {
     this.getCountryData();
+    this.getDarkModeStatus();
+  }
+
+  getDarkModeStatus(): void {
+    this.darkModeService.darkMode$.subscribe((val) => {
+      this.darkModeStatus = val;
+    });
   }
 
   getCountryData(): void {
     this.route.queryParams.subscribe((params) => {
-      console.log(params, params.name);
-
+      this.regionParam = params['region'];
       this.apiService
         .getCountriesByName(params.name.toLowerCase())
         .subscribe((data) => {
-          console.log('countries by name', data);
           this.countryInfo = data;
           this.currencies = data.currencies;
         });
     });
   }
+
+  // back(): void {
+  //   this.route.queryParams.subscribe((params) => {});
+  // }
 }

@@ -1,48 +1,37 @@
 .header {
   font-family: "Nunito Sans", sans-serif;
-  // nav {
-  //   -webkit-box-shadow: 10px hsl(209, 23%, 22%); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  //   -moz-box-shadow: 10px hsl(209, 23%, 22%); /* Firefox 3.5 - 3.6 */
-  //   box-shadow: 10px hsl(209, 23%, 22%);
-  // }
-  nav.light-mode {
-    background-color: #2f3542;
-    color: #2f3542;
-  }
   .toggle {
     display: none;
   }
-
   .toggle-label {
     position: relative;
     display: inline-block;
-    width: 3rem;
-    height: 3rem;
+    width: 1.7rem;
+    height: 1.3rem;
     overflow: hidden;
+    .sun,
+    .moon {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: auto;
+      transition: top 0.3s;
+    }
   }
-
-  .sun,
-  .moon {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: auto;
-    transition: top 0.3s;
-  }
-
   .sun {
     top: 0;
   }
-
   .moon {
     top: -150%;
   }
-
   .toggle:checked + .toggle-label .sun {
     top: 150%;
   }
-
   .toggle:checked + .toggle-label .moon {
     top: 0;
+  }
+  .text-mode {
+    transition: top 0.3s !important;
+    font-style: italic;
   }
 }

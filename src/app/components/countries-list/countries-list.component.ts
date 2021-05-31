@@ -1,184 +1,261 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { PageEvent } from '@angular/material/paginator';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { DarkModeService } from 'angular-dark-mode';
 
 @Component({
   selector: 'app-countries-list',
   templateUrl: './countries-list.component.html',
   styleUrls: ['./countries-list.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class CountriesListComponent implements OnInit {
-  // regions: any[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
-  listOfCountries: any[];
-  countryName: any;
-  countryOptions: any;
-  filterByCountry: Observable<string[]>;
+  searchFilterOptions: any[] = [
+    'Name',
+    'Full Name',
+    'Code',
+    'Currency',
+    'Language',
+    'Capital City',
+    'Calling Code',
+    'Regional Bloc',
+  ];
+  listOfCountries: any;
   countryListForm: FormGroup;
   totalLength: any;
   page: number = 1;
   newRegArr: any[];
+  regionValue: any;
+  darkMode$ = this.darkModeService.darkMode$;
+  darkModeStatus: boolean;
+  allCountriesList: any;
+  regionCountriesList: any;
+  regionParams: any;
+  searchedData: any;
+  searchFilterOption: any;
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-    private fbBuilder: FormBuilder
+    private fbBuilder: FormBuilder,
+    private SpinnerService: NgxSpinnerService,
+    private darkModeService: DarkModeService
   ) {
+    this.coutriesForm();
+  }
+
+  coutriesForm(): void {
     this.countryListForm = this.fbBuilder.group({
       country: [''],
+      filterOptions: ['Name'],
       region: [''],
     });
+  }
+
+  ngOnInit(): void {
+    this.getQueryParams();
     this.getAllCounriesInfo();
+    this.updatedSearchValue();
+    this.getDarkModeStatus();
   }
 
-  ngOnInit(): void {}
+  /** based on query params setting region value*/
+  getQueryParams(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.regionParams = params['region'];
+      if (this.regionParams) {
+        this.countryListForm.patchValue({
+          region: this.regionParams,
+        });
+      }
+    });
+  }
 
-  /** Filter methods */
+  /** storing Dark mode status */
+  getDarkModeStatus(): void {
+    this.darkModeService.darkMode$.subscribe((val) => {
+      this.darkModeStatus = val;
+    });
+  }
 
-  filterCountryOptions(): void {
-    this.filterByCountry = this.countryListForm
+  /** storing searched
+   * value and
+   * based on that filtering data */
+  updatedSearchValue(): void {
+    this.countryListForm
       .get('country')
-      .valueChanges.pipe(
-        startWith(''),
-        map((val) => this.filterByCountryName(val))
-      );
+      .valueChanges.pipe()
+      .subscribe((changes) => {
+        this.searchedData = changes;
+      });
+    this.countryListForm
+      .get('filterOptions')
+      .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((changes) => {
+        this.searchFilterOption = changes;
+      });
   }
 
-  filterByCountryName(country: string): string[] {
-    if (country) {
-      return this.countryOptions.filter(
-        (con) => con.value.toLowerCase().indexOf(country.toLowerCase()) === 0
-      );
-    } else {
-      return this.countryOptions;
-    }
-  }
-
-  /** API'S */
+  /** Subscribing API'S
+   * method:Get
+   */
   getAllCounriesInfo(): void {
+    this.SpinnerService.show();
     this.apiService.getAllCountriesData().subscribe((data) => {
-      this.listOfCountries = data;
-      // console.log(data);
+      this.allCountriesList = data;
       this.totalLength = data.length;
-
-      const oldRegArr = this.listOfCountries.map((item, i, arr) => {
+      if (this.countryListForm.get('region').value) {
+        this.getDataByRegion(this.countryListForm.get('region').value);
+      } else {
+        this.listOfCountries = data;
+      }
+      const oldRegArr = data.map((item, i, arr) => {
         return arr[i].region;
       });
       const regArr = [...new Set(oldRegArr)];
-      // console.log(regArr);
-      // console.log(regArr.slice(0, -1));
       this.newRegArr = regArr.slice(0, -1);
-      // this.newRegArr = regArr;
-      // this.newRegArr = regArr.map(function (item) {
-      //   return item == '' ? 'No-Region' : item;
-      // });
+      setTimeout(() => {
+        this.SpinnerService.hide();
+      }, 2000);
     });
   }
 
   getDataByRegion(region: any): void {
+    this.SpinnerService.show();
     this.apiService.getCountriesByRegion(region).subscribe((data) => {
-      this.countryOptions = data;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.regionCountriesList = data;
+      this.listOfCountries = data.slice();
       this.totalLength = data.length;
       if (region) {
+        setTimeout(() => {
+          this.SpinnerService.hide();
+        }, 2000);
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { region: region },
           queryParamsHandling: 'merge',
         });
-      } else {
-        this.router.navigate(['']);
       }
     });
   }
 
   getDataByName(name): void {
     this.apiService.getCountriesByName(name).subscribe((val) => {
-      this.countryOptions = val;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.listOfCountries = val;
+      this.filterItemsInRegion(val);
     });
   }
 
   getDataByFullName(fullName): void {
     this.apiService.getCountriesByFullName(fullName).subscribe((val) => {
-      this.countryOptions = val;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.listOfCountries = val;
+      this.filterItemsInRegion(val);
     });
   }
 
   getDataByCurrency(currency): void {
     this.apiService.getCountriesByCurrency(currency).subscribe((val) => {
-      this.countryOptions = val;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.listOfCountries = val;
+      this.filterItemsInRegion(val);
+    });
+  }
+
+  getDataByCode(code): void {
+    this.apiService.getCountriesByCode(code).subscribe((val) => {
+      this.filterItemsInRegion(val);
     });
   }
 
   getDataByCapitalCity(capital): void {
     this.apiService.getCountriesbyCapital(capital).subscribe((val) => {
-      this.countryOptions = val;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.listOfCountries = val;
+      this.filterItemsInRegion(val);
     });
   }
 
   getDataByLanguage(language): void {
     this.apiService.getCountriesByLanguage(language).subscribe((val) => {
-      console.log(val);
-      this.countryOptions = val;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.listOfCountries = val;
+      this.filterItemsInRegion(val);
     });
   }
 
   getDataByCallingCode(callingcode): void {
     this.apiService.getCountriesByLanguage(callingcode).subscribe((val) => {
-      this.countryOptions = val;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.listOfCountries = val;
+      this.filterItemsInRegion(val);
     });
   }
 
   getDataByRegionalbloc(regbloc): void {
     this.apiService.getCountriesByLanguage(regbloc).subscribe((val) => {
-      this.countryOptions = val;
-      this.listOfCountries = this.countryOptions;
-      this.filterCountryOptions();
+      this.listOfCountries = val;
+      this.filterItemsInRegion(val);
     });
   }
 
+  /** search based on selected value from drop down */
+  commonSearchFilter(): any {
+    if (this.searchedData !== '' || this.countryListForm.get('country').value) {
+      switch (this.searchFilterOption) {
+        case 'Name':
+          return this.getDataByName(this.searchedData);
+        case 'Full Name':
+          return this.getDataByFullName(this.searchedData);
+        case 'Code':
+          return this.getDataByCode(this.searchedData);
+        case 'Currency':
+          return this.getDataByCurrency(this.searchedData);
+        case 'Language':
+          return this.getDataByLanguage(this.searchedData);
+        case 'Capital City':
+          return this.getDataByCapitalCity(this.searchedData);
+        case 'Calling Code':
+          return this.getDataByCallingCode(this.searchedData);
+        case 'Regional Bloc':
+          return this.getDataByRegionalbloc(this.searchedData);
+      }
+    }
+  }
+
+  /** Events methods and functions */
+  regionsList(event): void {
+    this.regionValue = event.target.value;
+    this.getDataByRegion(this.regionValue);
+  }
+
+  // searching entries
   search(value): void {
-    this.getDataByName(value);
-    this.getDataByFullName(value);
-    this.getDataByCurrency(value);
-    this.getDataByCapitalCity(value);
-    this.getDataByLanguage(value);
-    this.getDataByCallingCode(value);
-    this.getDataByRegionalbloc(value);
+    if (this.countryListForm.get('filterOptions').value) {
+      this.commonSearchFilter();
+    }
+    if ((value = '')) {
+      if (this.countryListForm.get('region').value) {
+        this.listOfCountries = this.regionCountriesList;
+      } else {
+        this.listOfCountries = this.allCountriesList;
+      }
+    }
   }
 
-  regionsList(value): void {
-    this.getDataByRegion(value);
-
-    console.log(value);
+  /** filter items only if particular country
+   * exists in the list of selected region
+   */
+  filterItemsInRegion(data): void {
+    let filterData = data.filter((item, i, arr) => {
+      if (arr[i].region == this.countryListForm.get('region').value) {
+        return arr[i];
+      }
+    });
+    if (this.countryListForm.get('region').value !== '') {
+      this.listOfCountries = filterData;
+    }
   }
 
-  countryData(name): void {
-    this.countryName = name;
-    console.log(this.countryName);
+  searchFilter(event) {
+    this.commonSearchFilter();
   }
 }

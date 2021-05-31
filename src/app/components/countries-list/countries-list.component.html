@@ -1,89 +1,121 @@
-<section class="main-content" [ngClass]="">
-  <div class="container p-5">
-    <form [formGroup]="countryListForm">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="col-md-8 float-start">
-            <div class="input-group search-box">
-              <span class="material-icons-outlined m-3"> search </span>
-              <input
-                type="text"
-                class="search-input"
-                placeholder="Search for a country..."
-                formControlName="country"
-                (input)="search($event.target.value)"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="col-md-6 float-end">
-            <select
-              class="form-select search-box fw-bold"
-              formControlName="region"
-              (change)="regionsList($event.target.value)"
+<section class="main-content ms-2 me-2">
+  <div class="container mt-4">
+    <form [formGroup]="countryListForm" class="row g-3">
+      <div class="col-md-6">
+        <div class="input-field">
+          <div class="form-group has-search">
+            <span
+              class="material-icons-outlined form-control-feedback"
+              [ngClass]="darkModeStatus == true ? 'dark-icon' : 'light-icon'"
             >
-              <option value="" selected disabled class="default-txt">
-                Filter by Region
-              </option>
-              <option value="{{ region }}" *ngFor="let region of newRegArr">
-                {{ region }}
-              </option>
-            </select>
+              search
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search for a country..."
+              formControlName="country"
+              (input)="search($event.target.value)"
+              [ngClass]="darkModeStatus == true ? 'dark-input' : 'light-input'"
+            />
           </div>
         </div>
       </div>
+      <div class="col-md-3">
+        <select
+          class="form-select"
+          formControlName="filterOptions"
+          (change)="searchFilter($event)"
+          [ngClass]="darkModeStatus == true ? 'dark-select' : 'light-select'"
+        >
+          <option [value]="items" *ngFor="let items of searchFilterOptions">
+            Search by {{ items }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select
+          class="form-select"
+          formControlName="region"
+          (change)="regionsList($event)"
+          [ngClass]="darkModeStatus == true ? 'dark-select' : 'light-select'"
+        >
+          <option value="" selected disabled>Filter by Region</option>
+          <option value="{{ region }}" *ngFor="let region of newRegArr">
+            {{ region }}
+          </option>
+        </select>
+      </div>
     </form>
   </div>
-
-  <div class="all-list p-5">
-    <div class="row">
+  <!-- cards  -->
+  <div class="card-content mt-4">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
       <ng-container
         *ngFor="
           let data of listOfCountries
-            | paginate: { itemsPerPage: 4, currentPage: page }
+            | filter: searchedData
+            | paginate: { itemsPerPage: 4, currentPage: page };
+          let i = index
         "
       >
-        <div
-          class="col-md-3 cards-data mb-5"
-          (click)="countryData(data.name)"
-          [routerLink]="['/country']"
-          [queryParams]="{ name: data.name }"
-        >
-          <div class="card card-info">
-            <div *ngIf="data">
-              <img
-                class="card-img-top country-flag"
-                [src]="data.flag"
-                alt="flag"
-              />
-              <div class="card-body card-content m-2">
-                <p class="country-name">{{ data.name }}</p>
-                <p class="card-text">
-                  <span class="card-labels"> Population: </span>
-                  <span>
-                    {{ data.population | comaSeperator }}
-                  </span>
-                </p>
-                <p class="card-text">
-                  <span class="card-labels"> Region: </span>
-                  <span>
-                    {{ data.region }}
-                  </span>
-                </p>
-                <p class="card-text">
-                  <span class="card-labels"> Capital: </span>
-                  <span>
-                    {{ data.capital }}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%">
+          <mat-card
+            class="mat-elevation-z4"
+            [ngClass]="darkModeStatus == true ? 'dark-card' : 'light-card'"
+          >
+            <img
+              mat-card-image
+              [src]="data.flag"
+              alt="{{ data.name }}"
+              class="country-flag"
+            />
+            <mat-card-content>
+              <p class="card-text">
+                <span class="card-labels"> Population: </span>
+                <span>
+                  {{ data.population | comaSeperator }}
+                </span>
+              </p>
+              <p class="card-text">
+                <span class="card-labels"> Region: </span>
+                <span>
+                  {{ data.region }}
+                </span>
+              </p>
+              <p class="card-text">
+                <span class="card-labels"> Capital: </span>
+                <span>
+                  {{ data.capital }}
+                </span>
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button
+                mat-raised-button
+                [routerLink]="['/country']"
+                [queryParams]="{ name: data.name }"
+              >
+                {{ data.name }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
         </div>
       </ng-container>
     </div>
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+  <div class="p-4 float-end">
+    <pagination-controls
+      [ngClass]="darkModeStatus == true ? 'dark-page' : 'light-page'"
+      (pageChange)="page = $event"
+    ></pagination-controls>
   </div>
 </section>
+<ngx-spinner
+  bdColor="rgba(51, 51, 51, 0.8)"
+  size="default"
+  type="ball-spin-clockwise"
+>
+  <p style="color: white">Please Wait.</p>
+</ngx-spinner>
 <router-outlet></router-outlet>
