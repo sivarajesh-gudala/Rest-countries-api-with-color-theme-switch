@@ -4,7 +4,6 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DarkModeService } from 'angular-dark-mode';
 import { Observable } from 'rxjs';
-import { ThemeService } from 'src/app/theme/theme.service';
 
 @Component({
   selector: 'app-header',
