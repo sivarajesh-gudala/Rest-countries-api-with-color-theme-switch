@@ -1,17 +1,21 @@
-<section class="main-content">
-  <div class="container p-5">
+<section class="main-content mt-4">
+  <div class="container">
     <div class="row">
       <div class="col-md-12">
         <button
-          class="btn back-button"
-          type="button"
+          [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
+          class="btn fs-6"
+          mat-raised-button
           click="back()"
           [routerLink]="['/countries']"
           [queryParams]="{ region: regionParam }"
         >
+          <mat-icon>arrow_back</mat-icon>
           Back
         </button>
       </div>
+
+      <!-- Displaying country Info  -->
       <div class="text-content col-md-12">
         <ng-container *ngFor="let content of countryInfo">
           <div *ngIf="content.length != 0">
@@ -27,34 +31,34 @@
                 />
               </div>
               <div class="col-md-1"></div>
-              <div class="col-md-7 mt-3">
-                <p class="country-name">{{ content.name }}</p>
+              <div class="col-md-7 mt-3 fs-6">
+                <h1 class="mat-display-6">{{ content.name }}</h1>
                 <div class="row">
                   <div class="col-md-6">
                     <p>
-                      <span class="label-txt"> Native Name: </span>
+                      <span class="fw-bold fs-5"> Native Name: </span>
                       <span>{{ content.nativeName }}</span>
                     </p>
                     <p>
-                      <span> Population: </span>
+                      <span class="fw-bold fs-5"> Population: </span>
                       <span>{{ content.population | comaSeperator }}</span>
                     </p>
                     <p>
-                      <span> Region: </span>
+                      <span class="fw-bold fs-5"> Region: </span>
                       <span>{{ content.region }}</span>
                     </p>
                     <p>
-                      <span>Sub Region: </span>
+                      <span class="fw-bold fs-5">Sub Region: </span>
                       <span> {{ content.subregion }} </span>
                     </p>
                     <p>
-                      <span> Capital: </span>
+                      <span class="fw-bold fs-5"> Capital: </span>
                       <span> {{ content.capital }} </span>
                     </p>
                   </div>
                   <div class="col-md-6 p-3">
                     <p>
-                      Top Level Domain:
+                      <span class="fw-bold fs-5"> Top Level Domain: </span>
                       <span
                         *ngFor="
                           let domain of content.topLevelDomain;
@@ -66,7 +70,7 @@
                       </span>
                     </p>
                     <p>
-                      Currencies:
+                      <span class="fw-bold fs-5">Currencies:</span>
                       <span
                         *ngFor="
                           let currency of content.currencies;
@@ -78,7 +82,7 @@
                       </span>
                     </p>
                     <p>
-                      Languages:
+                      <span class="fw-bold fs-5">Languages:</span>
                       <span
                         *ngFor="let lang of content.languages; let i = index"
                       >
@@ -90,11 +94,11 @@
                 </div>
 
                 <div class="border-list" *ngIf="content.borders.length != 0">
-                  <p class="col-md-3">Border Countries:</p>
+                  <p class="fs-5 fw-bold">Border Countries:</p>
                   <span class="" *ngFor="let border of content.borders">
                     <button
                       mat-raised-button
-                      class="border-btn"
+                      class="border-btn me-3"
                       *ngIf="border.length > 0"
                       [ngClass]="
                         darkModeStatus == true ? 'dark-btn' : 'light-btn'

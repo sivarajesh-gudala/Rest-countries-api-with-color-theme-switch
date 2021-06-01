@@ -79,6 +79,23 @@
       object-fit: cover;
       height: 170px;
     }
+    mat-card-content {
+      .card-text {
+        font-size: 13px;
+        .card-labels {
+          font-weight: 700;
+          font-size: 14px;
+        }
+      }
+    }
+    mat-card-actions {
+      button {
+        font-weight: 900;
+        font-family: "Nunito Sans", sans-serif;
+        font-size: 16px;
+      }
+    }
+
     mat-card.dark-card {
       background-color: hsl(209, 23%, 22%);
       color: hsl(0, 0%, 100%);

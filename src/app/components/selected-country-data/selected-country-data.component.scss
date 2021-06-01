@@ -1,20 +1,23 @@
 @import "../countries-list/countries-list.component.scss";
 
 .main-content {
-  .back-button {
+  mat-icon {
+    font-size: 22px;
+    padding-right: 2rem;
+  }
+  button.light-btn {
+    color: hsl(200, 15%, 8%);
+    background-color: hsl(0, 0%, 100%);
+  }
+
+  button.dark-btn {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
-    font-size: 12px;
   }
 
   .text-content {
-    color: hsl(0, 0%, 100%);
-    font-size: 14px;
     .dark-text {
       color: hsl(0, 0%, 100%) !important;
-      .country-name {
-        color: hsl(0, 0%, 100%) !important;
-      }
     }
     .light-text {
       color: hsl(209, 15%, 8%);
@@ -23,24 +26,7 @@
       object-fit: cover;
       height: 300px;
     }
-    .country-name {
-      font-size: 22px;
-      font-weight: bolder;
-      padding: 10px;
-    }
-    .label-txt {
-      font-weight: bold;
-    }
-    .label-content {
-      font-weight: normal;
-    }
-
     .border-list {
-      p {
-        font-weight: bold;
-        font-size: 14px !important;
-        padding: 10px;
-      }
       button.dark-btn {
         color: hsl(0, 0%, 100%);
         background-color: hsl(209, 23%, 22%);
@@ -49,12 +35,9 @@
         background-color: hsl(0, 0%, 100%);
         color: hsl(209, 23%, 22%);
       }
-
       .border-btn {
-        font-size: 13px;
         color: hsl(0, 0%, 100%);
         background-color: hsl(209, 23%, 22%);
-        margin-bottom: 15px;
       }
     }
   }
