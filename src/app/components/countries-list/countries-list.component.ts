@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -66,6 +66,7 @@ export class CountriesListComponent implements OnInit {
   getQueryParams(): void {
     this.route.queryParams.subscribe((params) => {
       this.regionParams = params['region'];
+      sessionStorage.setItem('region', this.regionParams);
       if (this.regionParams) {
         this.countryListForm.patchValue({
           region: this.regionParams,
@@ -87,7 +88,7 @@ export class CountriesListComponent implements OnInit {
   updatedSearchValue(): void {
     this.countryListForm
       .get('country')
-      .valueChanges.pipe()
+      .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((changes) => {
         this.searchedData = changes;
       });
@@ -100,7 +101,7 @@ export class CountriesListComponent implements OnInit {
   }
 
   /** Subscribing API'S
-   * method:Get
+   * method :Get
    */
   getAllCounriesInfo(): void {
     this.SpinnerService.show();
@@ -136,7 +137,6 @@ export class CountriesListComponent implements OnInit {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { region: region },
-          queryParamsHandling: 'merge',
         });
       }
     });
@@ -255,7 +255,7 @@ export class CountriesListComponent implements OnInit {
     }
   }
 
-  searchFilter(event) {
+  searchFilter(event): void {
     this.commonSearchFilter();
   }
 }

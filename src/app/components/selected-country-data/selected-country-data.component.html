@@ -5,10 +5,9 @@
         <button
           [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
           class="btn fs-6"
+          type="button"
           mat-raised-button
-          click="back()"
-          [routerLink]="['/countries']"
-          [queryParams]="{ region: regionParam }"
+          (click)="back()"
         >
           <mat-icon>arrow_back</mat-icon>
           Back

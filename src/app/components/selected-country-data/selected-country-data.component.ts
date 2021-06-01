@@ -33,9 +33,10 @@ export class SelectedCountryDataComponent implements OnInit {
     });
   }
 
+  /** Get Countries API */
+
   getCountryData(): void {
     this.route.queryParams.subscribe((params) => {
-      this.regionParam = params['region'];
       this.apiService
         .getCountriesByName(params.name.toLowerCase())
         .subscribe((data) => {
@@ -45,7 +46,16 @@ export class SelectedCountryDataComponent implements OnInit {
     });
   }
 
-  // back(): void {
-  //   this.route.queryParams.subscribe((params) => {});
-  // }
+  /** Events  */
+  back(): void {
+    const regParam = sessionStorage.getItem('region');
+    console.log(regParam);
+    if (regParam !== 'undefined') {
+      this.router.navigate([''], {
+        queryParams: { region: regParam },
+      });
+    } else {
+      this.router.navigate(['']);
+    }
+  }
 }

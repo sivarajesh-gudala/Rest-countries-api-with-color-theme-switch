@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, share } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,6 +12,9 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Get All the Countries List
+   */
   getAllCountriesData(): Observable<any> {
     return this.http.get<any>(`${this.apiCountries}all`).pipe(
       map((res) => {
@@ -20,6 +23,10 @@ export class ApiService {
     );
   }
 
+  /**
+   * Get countries list based on region
+   * @param region
+   */
   getCountriesByRegion(region): Observable<any> {
     return this.http.get<any>(`${this.apiCountries}region/${region}`).pipe(
       map((res) => {
@@ -28,6 +35,10 @@ export class ApiService {
     );
   }
 
+  /**
+   * Get countries list based on country name
+   * @param name
+   */
   getCountriesByName(name): Observable<any> {
     return this.http.get<any>(`${this.apiCountries}name/${name}`).pipe(
       map((res) => {
@@ -36,9 +47,13 @@ export class ApiService {
     );
   }
 
-  getCountriesByFullName(fullname): Observable<any> {
+  /**
+   * Get countries list based on Country full Name
+   * @param fullName
+   */
+  getCountriesByFullName(fullName): Observable<any> {
     return this.http
-      .get<any>(`${this.apiCountries}name/${fullname}?fullText=true`)
+      .get<any>(`${this.apiCountries}name/${fullName}?fullText=true`)
       .pipe(
         map((res) => {
           return res;
@@ -46,6 +61,10 @@ export class ApiService {
       );
   }
 
+  /**
+   * Get countries list based on aplha code
+   * @param code
+   */
   getCountriesByCode(code): Observable<any> {
     return this.http.get<any>(`${this.apiCountries}alpha/${code}`).pipe(
       map((res) => {
@@ -54,6 +73,10 @@ export class ApiService {
     );
   }
 
+  /**
+   * Get countries list based on currency
+   * @param currency
+   */
   getCountriesByCurrency(currency): Observable<any> {
     return this.http.get<any>(`${this.apiCountries}currency/${currency}`).pipe(
       map((res) => {
@@ -62,6 +85,10 @@ export class ApiService {
     );
   }
 
+  /**
+   * Get countries list based on language codes
+   * @param langCode
+   */
   getCountriesByLanguage(langCode): Observable<any> {
     return this.http.get<any>(`${this.apiCountries}lang/${langCode}`).pipe(
       map((res) => {
@@ -70,6 +97,10 @@ export class ApiService {
     );
   }
 
+  /**
+   * Get countries list based on capital city
+   * @param capitalCity
+   */
   getCountriesbyCapital(capitalCity): Observable<any> {
     return this.http
       .get<any>(`${this.apiCountries}capital/${capitalCity}`)
@@ -80,6 +111,10 @@ export class ApiService {
       );
   }
 
+  /**
+   * Get countries list based on calling code
+   * @param callingcode
+   */
   getCountriesByCallingCode(callingcode): Observable<any> {
     return this.http
       .get<any>(`${this.apiCountries}callingcode/${callingcode}`)
@@ -90,9 +125,13 @@ export class ApiService {
       );
   }
 
-  getCountriesByRegionalbloc(regionalbloc): Observable<any> {
+  /**
+   * Get countries list based on regionalbloc
+   * @param regionalBloc
+   */
+  getCountriesByRegionalbloc(regionalBloc): Observable<any> {
     return this.http
-      .get<any>(`${this.apiCountries}regionalbloc/${regionalbloc}`)
+      .get<any>(`${this.apiCountries}regionalbloc/${regionalBloc}`)
       .pipe(
         map((res) => {
           return res;
