@@ -3,6 +3,21 @@
   font-size: 14px;
   font-weight: 600px;
 
+  .clear-btn {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 10px;
+    position: relative;
+    bottom: -12px;
+    &:disabled {
+      cursor: auto;
+    }
+    button.disable {
+      opacity: 0.8;
+      pointer-events: none;
+    }
+  }
   .has-search .form-control {
     padding-left: 2.375rem;
     border: none !important;
@@ -74,28 +89,25 @@
   }
 
   .card-content {
-    padding: 16px;
     img.country-flag {
       object-fit: cover;
-      height: 170px;
+      height: 160px;
     }
-    mat-card-content {
-      .card-text {
-        font-size: 13px;
-        .card-labels {
-          font-weight: 700;
-          font-size: 14px;
-        }
+    mat-card-header {
+      img {
+        background-size: cover;
+      }
+      mat-card-title {
+        padding: 3px 0px 0px 0px;
       }
     }
     mat-card-actions {
       button {
         font-weight: 900;
         font-family: "Nunito Sans", sans-serif;
-        font-size: 16px;
+        font-size: 13px;
       }
     }
-
     mat-card.dark-card {
       background-color: hsl(209, 23%, 22%);
       color: hsl(0, 0%, 100%);

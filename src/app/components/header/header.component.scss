@@ -30,8 +30,4 @@
   .toggle:checked + .toggle-label .moon {
     top: 0;
   }
-  .text-mode {
-    transition: top 0.3s !important;
-    font-style: italic;
-  }
 }
