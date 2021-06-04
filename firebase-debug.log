@@ -1,0 +1,25 @@
+[debug] [2021-06-04T21:14:15.804Z] ----------------------------------------------------------------------
+[debug] [2021-06-04T21:14:15.805Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\sivar\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-06-04T21:14:15.806Z] CLI Version:   9.12.1
+[debug] [2021-06-04T21:14:15.806Z] Platform:      win32
+[debug] [2021-06-04T21:14:15.806Z] Node Version:  v12.18.2
+[debug] [2021-06-04T21:14:15.807Z] Time:          Sat Jun 05 2021 02:44:15 GMT+0530 (India Standard Time)
+[debug] [2021-06-04T21:14:15.807Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-06-04T21:14:15.812Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-06-04T21:14:15.813Z] > authorizing via signed-in user (sivarajesh480@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Front end Projects\rest-countries\Rest-countries-api-with-color-theme-switch
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
