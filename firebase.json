@@ -1,6 +1,9 @@
 {
+  "database": {
+    "rules": "database.rules.json"
+  },
   "hosting": {
-    "public": "dist",
+    "public": "dist/rest-countries-api",
     "ignore": [
       "firebase.json",
       "**/.*",
