@@ -19,44 +19,43 @@
         <ng-container *ngFor="let content of countryInfo">
           <div *ngIf="content.length != 0">
             <div
-              class="row p-5"
+              class="p-5"
               [ngClass]="darkModeStatus == true ? 'dark-text' : 'light-text'"
             >
-              <div class="col-md-4">
+              <div class="col-md-12">
                 <img
                   [src]="content.flag"
                   alt="{{ content.name }}"
-                  class="img-fluid img-flag"
+                  class="img-fluid mx-auto d-block img-flag"
                 />
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-7 mt-3 fs-6">
-                <h1 class="mat-display-6">{{ content.name }}</h1>
-                <div class="row">
+              <div class="col-md-12 mt-5 fs-6">
+                <h1 class="mat-display-6 text-center">{{ content.name }}</h1>
+                <div class="row pr-5 pl-5 pt-5 pb-3">
                   <div class="col-md-6">
-                    <p>
+                    <p *ngIf="content?.nativeName !== ''">
                       <span class="fw-bold fs-5"> Native Name: </span>
                       <span>{{ content.nativeName }}</span>
                     </p>
-                    <p>
+                    <p *ngIf="content?.population !== ''">
                       <span class="fw-bold fs-5"> Population: </span>
                       <span>{{ content.population | comaSeperator }}</span>
                     </p>
-                    <p>
+                    <p *ngIf="content?.region !== ''">
                       <span class="fw-bold fs-5"> Region: </span>
                       <span>{{ content.region }}</span>
                     </p>
-                    <p>
+                    <p *ngIf="content?.subregion !== ''">
                       <span class="fw-bold fs-5">Sub Region: </span>
                       <span> {{ content.subregion }} </span>
                     </p>
-                    <p>
+                    <p *ngIf="content?.capital !== ''">
                       <span class="fw-bold fs-5"> Capital: </span>
                       <span> {{ content.capital }} </span>
                     </p>
                   </div>
-                  <div class="col-md-6 p-3">
-                    <p>
+                  <div class="col-md-6">
+                    <p *ngIf="content?.topLevelDomain.length > 0">
                       <span class="fw-bold fs-5"> Top Level Domain: </span>
                       <span
                         *ngFor="
@@ -68,7 +67,7 @@
                         {{ i === content.topLevelDomain.length - 1 ? "" : "," }}
                       </span>
                     </p>
-                    <p>
+                    <p *ngIf="content?.currencies.length > 0">
                       <span class="fw-bold fs-5">Currencies:</span>
                       <span
                         *ngFor="
@@ -80,7 +79,7 @@
                         {{ i === content.currencies.length - 1 ? "" : "," }}
                       </span>
                     </p>
-                    <p>
+                    <p *ngIf="content?.languages.length > 0">
                       <span class="fw-bold fs-5">Languages:</span>
                       <span
                         *ngFor="let lang of content.languages; let i = index"
@@ -92,13 +91,15 @@
                   </div>
                 </div>
 
-                <div class="border-list" *ngIf="content.borders.length != 0">
+                <div
+                  class="border-list col-md-12 text-center"
+                  *ngIf="content.borders.length > 0"
+                >
                   <p class="fs-5 fw-bold">Border Countries:</p>
                   <span class="" *ngFor="let border of content.borders">
                     <button
                       mat-raised-button
-                      class="border-btn me-3"
-                      *ngIf="border.length > 0"
+                      class="border-btn me-3 mb-3"
                       [ngClass]="
                         darkModeStatus == true ? 'dark-btn' : 'light-btn'
                       "

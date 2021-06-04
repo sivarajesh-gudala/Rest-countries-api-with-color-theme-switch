@@ -1,0 +1,23 @@
+h1,
+h3,
+h2 {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+}
+
+.login-form {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

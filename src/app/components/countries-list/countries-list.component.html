@@ -1,141 +1,210 @@
 <section class="main-content mt-4">
-  <form [formGroup]="countryListForm" class="row g-3">
-    <div class="col-md-4">
-      <div class="input-field">
-        <div class="form-group has-search">
-          <span
-            class="material-icons-outlined form-control-feedback"
-            [ngClass]="darkModeStatus == true ? 'dark-icon' : 'light-icon'"
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <div class="float-end ms-5 mt-3 logout-btn">
+          <button
+            mat-button
+            type="button"
+            [ngClass]="
+              darkModeStatus == true ? 'dark-btn-logout' : 'light-btn-logout'
+            "
+            (click)="signOut()"
           >
-            search
-          </span>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search for a country..."
-            formControlName="country"
-            (input)="search($event.target.value)"
-            [ngClass]="darkModeStatus == true ? 'dark-input' : 'light-input'"
-          />
+            <mat-icon>exit_to_app</mat-icon>Logout
+          </button>
         </div>
       </div>
-    </div>
-
-    <div class="col-md-2">
-      <button
-        mat-button
-        color="primary"
-        [disabled]="
-          countryListForm.get('country').value != null &&
-          countryListForm.get('country').value.length < 1
-        "
-        (click)="countryListForm.get('country').reset()"
-        class="fst-italic clear-btn"
-      >
-        <mat-icon class="fs-4">clear_all</mat-icon>
-        <span class="fs-6">Clear</span>
-      </button>
-    </div>
-    <div class="col-md-3">
-      <select
-        class="form-select"
-        formControlName="filterOptions"
-        (change)="searchFilter($event)"
-        [ngClass]="darkModeStatus == true ? 'dark-select' : 'light-select'"
-      >
-        <option [value]="items" *ngFor="let items of searchFilterOptions">
-          Search by {{ items }}
-        </option>
-      </select>
-    </div>
-    <div class="col-md-3">
-      <select
-        class="form-select"
-        formControlName="region"
-        (change)="regionsList($event)"
-        [ngClass]="darkModeStatus == true ? 'dark-select' : 'light-select'"
-      >
-        <option value="" selected disabled>Filter by Region</option>
-        <option value="{{ region }}" *ngFor="let region of newRegArr">
-          {{ region }}
-        </option>
-      </select>
-    </div>
-  </form>
-
-  <!-- Displaying cards  -->
-  <div class="row">
-    <div class="card-content mt-4">
-      <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <ng-container
-          *ngFor="
-            let data of listOfCountries
-              | filter: searchedData
-              | paginate: { itemsPerPage: 4, currentPage: page };
-            let i = index
-          "
-        >
-          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%">
-            <mat-card
-              class="mat-elevation-z4"
-              [ngClass]="darkModeStatus == true ? 'dark-card' : 'light-card'"
-            >
-              <mat-card-header>
-                <img [src]="data.flag" alt="{{ data.name }}" mat-card-avatar />
-                <mat-card-title>{{ data.name }}</mat-card-title>
-              </mat-card-header>
-              <img
-                mat-card-image
-                [src]="data.flag"
-                alt="{{ data.name }}"
-                class="country-flag"
-              />
-              <mat-card-content align="start">
-                <ul class="list-inline text-nowrap">
-                  <li class="list-inline-item mat-body-strong">Population :</li>
-                  <li class="list-inline-item mat-body">
-                    {{ data.population | comaSeperator }}
-                  </li>
-                </ul>
-                <ul class="list-inline text-nowrap">
-                  <li class="list-inline-item mat-body-strong">Region :</li>
-                  <li class="list-inline-item mat-body">
-                    {{ data.region }}
-                  </li>
-                </ul>
-                <ul class="list-inline text-nowrap">
-                  <li class="list-inline-item mat-body-strong">Capital :</li>
-                  <li class="list-inline-item mat-body">
-                    {{ data.capital }}
-                  </li>
-                </ul>
-              </mat-card-content>
-              <mat-card-actions align="start">
-                <button
-                  mat-button
-                  class="mat-elevation-z10"
-                  [routerLink]="['/country']"
-                  [queryParams]="{ name: data.name }"
+      <div class="col-md-12">
+        <form [formGroup]="countryListForm" class="row g-3">
+          <div class="col-md-4">
+            <div class="input-field">
+              <div class="form-group has-search">
+                <span
+                  class="material-icons-outlined form-control-feedback"
+                  [ngClass]="
+                    darkModeStatus == true ? 'dark-icon' : 'light-icon'
+                  "
                 >
-                  More Details
-                </button>
-              </mat-card-actions>
-            </mat-card>
+                  search
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search for a country..."
+                  formControlName="country"
+                  (input)="search($event.target.value)"
+                  [ngClass]="
+                    darkModeStatus == true ? 'dark-input' : 'light-input'
+                  "
+                />
+              </div>
+            </div>
+            <span>
+              <button
+                mat-button
+                [ngClass]="
+                  darkModeStatus == true ? 'dark-clear-btn' : 'light-clear-btn'
+                "
+                (click)="clearAll()"
+                [disabled]="
+                  (countryListForm.get('country').value !== null &&
+                    countryListForm.get('country').value.length < 1) ||
+                  disable_clear_btn === true
+                "
+                (click)="countryListForm.get('country').reset()"
+                class="fst-italic clear-btn mt-2"
+              >
+                <mat-icon class="fs-4">clear_all</mat-icon>
+                <span class="fs-6">Clear all search</span>
+              </button>
+            </span>
           </div>
-        </ng-container>
-      </div>
-    </div>
-  </div>
 
-  <!-- pagination  -->
-  <div class="row mt-3">
-    <div class="col-md-4"></div>
-    <div class="col-md-8">
-      <pagination-controls
-        class="float-end"
-        [ngClass]="darkModeStatus == true ? 'dark-page' : 'light-page'"
-        (pageChange)="page = $event"
-      ></pagination-controls>
+          <div class="col-md-4">
+            <select
+              class="form-select"
+              formControlName="filterOptions"
+              (change)="searchFilter($event)"
+              [ngClass]="
+                darkModeStatus == true ? 'dark-select' : 'light-select'
+              "
+            >
+              <option [value]="items" *ngFor="let items of searchFilterOptions">
+                Search by {{ items }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <select
+              class="form-select"
+              formControlName="region"
+              (change)="regionsList($event)"
+              [ngClass]="
+                darkModeStatus == true ? 'dark-select' : 'light-select'
+              "
+            >
+              <option value="" selected disabled>Filter by Region</option>
+              <option value="{{ region }}" *ngFor="let region of newRegArr">
+                {{ region }}
+              </option>
+            </select>
+          </div>
+        </form>
+
+        <!-- Displaying cards  -->
+        <div class="row">
+          <div class="card-content mt-4">
+            <div fxLayout="row wrap" fxLayoutGap="16px grid">
+              <ng-container
+                *ngFor="
+                  let data of listOfCountries
+                    | filter: searchedData
+                    | paginate: { itemsPerPage: 4, currentPage: page };
+                  let i = index
+                "
+              >
+                <div
+                  fxFlex="25%"
+                  fxFlex.xs="100%"
+                  fxFlex.sm="50%"
+                  class="country-card"
+                >
+                  <mat-card
+                    class="mat-elevation-z4"
+                    [ngClass]="
+                      darkModeStatus == true ? 'dark-card' : 'light-card'
+                    "
+                  >
+                    <mat-card-header>
+                      <img
+                        [src]="data.flag"
+                        alt="{{ data.name }}"
+                        mat-card-avatar
+                      />
+                      <mat-card-title class="fs-6">{{
+                        data.name
+                      }}</mat-card-title>
+                    </mat-card-header>
+                    <img
+                      mat-card-image
+                      [src]="data.flag"
+                      alt="{{ data.name }}"
+                      class="country-flag"
+                    />
+                    <mat-card-content align="start">
+                      <ul
+                        class="list-inline text-nowrap"
+                        *ngIf="data?.population !== ''"
+                      >
+                        <li class="list-inline-item mat-body-strong">
+                          Population :
+                        </li>
+                        <li class="list-inline-item mat-body">
+                          {{ data.population | comaSeperator }}
+                        </li>
+                      </ul>
+                      <ul
+                        class="list-inline text-nowrap"
+                        *ngIf="data?.region !== ''"
+                      >
+                        <li class="list-inline-item mat-body-strong">
+                          Region :
+                        </li>
+                        <li class="list-inline-item mat-body">
+                          {{ data.region }}
+                        </li>
+                      </ul>
+                      <ul
+                        class="list-inline text-nowrap"
+                        *ngIf="data?.capital !== ''"
+                      >
+                        <li class="list-inline-item mat-body-strong">
+                          Capital :
+                        </li>
+                        <li class="list-inline-item mat-body">
+                          {{ data.capital }}
+                        </li>
+                      </ul>
+                    </mat-card-content>
+                    <mat-card-actions align="start">
+                      <button
+                        mat-button
+                        class="mat-elevation-z10"
+                        [routerLink]="['/country']"
+                        [queryParams]="{ name: data.name }"
+                      >
+                        More Details
+                      </button>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <!-- pagination  -->
+        <div class="row mt-3 mb-3">
+          <div class="col-md-4"></div>
+          <div class="col-md-8">
+            <pagination-controls
+              class="float-end"
+              [ngClass]="darkModeStatus == true ? 'dark-page' : 'light-page'"
+              (pageChange)="page = $event"
+              maxSize="4"
+              directionLinks="true"
+              autoHide="true"
+              responsive="true"
+              previousLabel="Previous Page"
+              nextLabel="Next Page"
+              screenReaderPaginationLabel="Pagination"
+              screenReaderPageLabel="{{ page }}"
+              screenReaderCurrentLabel="You're on {{ page }}"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

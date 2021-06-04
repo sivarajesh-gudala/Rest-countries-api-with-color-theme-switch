@@ -1,23 +1,31 @@
 .main-content {
   font-family: "Nunito Sans", sans-serif;
-  font-size: 14px;
-  font-weight: 600px;
 
-  .clear-btn {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 16px;
-    margin-top: 10px;
-    position: relative;
-    bottom: -12px;
-    &:disabled {
-      cursor: auto;
+  span {
+    button.clear-btn {
+      font-weight: 600;
+      float: right;
+      font-family: "Nunito Sans", sans-serif !important;
     }
-    button.disable {
-      opacity: 0.8;
-      pointer-events: none;
+    .clear-btn {
+      &:disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        color: #c0c0c0;
+      }
+    }
+
+    button.dark-clear-btn {
+      border-color: hsl(0, 0%, 100%);
+      box-shadow: 0 0 1px hsl(0, 0%, 100%);
+    }
+
+    button.light-clear-btn {
+      border-color: hsl(200, 15%, 8%);
+      box-shadow: 0 0 1px hsl(200, 15%, 8%);
     }
   }
+
   .has-search .form-control {
     padding-left: 2.375rem;
     border: none !important;
@@ -28,8 +36,6 @@
     padding: 10px 10px;
     margin: 0px auto;
     box-sizing: border-box;
-    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
-      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
   }
 
   span.dark-icon {
@@ -42,6 +48,8 @@
   input.dark-input {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 1px hsl(0, 0%, 100%);
   }
   input.dark-input::placeholder {
     color: hsl(0, 0%, 100%);
@@ -49,10 +57,12 @@
   input.light-input {
     background-color: hsl(0, 0%, 100%);
     color: hsl(200, 15%, 8%);
+    border-color: hsl(200, 15%, 8%);
+    box-shadow: 0 0 1px hsl(200, 15%, 8%);
   }
   input.light-input::placeholder {
     color: hsl(200, 15%, 8%) !important;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .has-search .form-control-feedback {
@@ -70,11 +80,15 @@
   select.dark-select {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 1px hsl(0, 0%, 100%);
   }
 
   select.light-select {
     background-color: hsl(0, 0%, 100%);
     color: hsl(200, 15%, 8%);
+    border-color: hsl(200, 15%, 8%);
+    box-shadow: 0 0 1px hsl(200, 15%, 8%);
   }
   select {
     border: none !important;
@@ -89,13 +103,25 @@
   }
 
   .card-content {
+    @media screen and (max-width: 992px) and (min-width: 959px) {
+      div.country-card {
+        display: flex !important;
+        flex: 1 1 50% !important;
+        box-sizing: border-box;
+        max-width: 50% !important;
+        padding: 0px 16px 16px 0px;
+      }
+    }
+    .card-content > mat-card {
+      width: 200px;
+    }
     img.country-flag {
       object-fit: cover;
       height: 160px;
     }
     mat-card-header {
       img {
-        background-size: cover;
+        height: 30px;
       }
       mat-card-title {
         padding: 3px 0px 0px 0px;
@@ -125,7 +151,29 @@
       }
     }
   }
-  .card-content > mat-card {
-    width: 200px;
+
+  .logout-btn {
+    .mat-button {
+      font-family: "Nunito Sans", sans-serif !important;
+      font-size: 14px;
+      font-weight: 600px;
+    }
+    mat-icon {
+      font-size: 22px;
+      padding-right: 2rem;
+    }
+    .dark-btn-logout {
+      background-color: hsl(209, 23%, 22%);
+      color: hsl(0, 0%, 100%);
+      border-color: hsl(0, 0%, 100%);
+      box-shadow: 0 0 1px hsl(0, 0%, 100%);
+    }
+    .light-btn-logout {
+      background-color: hsl(0, 0%, 100%);
+      color: hsl(200, 15%, 8%);
+      border-color: hsl(200, 15%, 8%);
+      box-shadow: 0 0 1px hsl(200, 15%, 8%);
+    }
   }
 }
+

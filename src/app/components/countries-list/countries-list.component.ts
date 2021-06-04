@@ -5,6 +5,12 @@ import { ApiService } from 'src/app/services/api.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogModel,
+} from './confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-countries-list',
@@ -35,14 +41,17 @@ export class CountriesListComponent implements OnInit {
   regionParams: any;
   searchedData: any;
   searchFilterOption: any;
+  disable_clear_btn: boolean = false;
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private fbBuilder: FormBuilder,
-    private SpinnerService: NgxSpinnerService,
-    private darkModeService: DarkModeService
+    private spinnerService: NgxSpinnerService,
+    private darkModeService: DarkModeService,
+    private firebaseService: FirebaseService,
+    private dialog: MatDialog
   ) {
     this.coutriesForm();
   }
@@ -104,7 +113,7 @@ export class CountriesListComponent implements OnInit {
    * method :Get
    */
   getAllCounriesInfo(): void {
-    this.SpinnerService.show();
+    this.spinnerService.show();
     this.apiService.getAllCountriesData().subscribe((data) => {
       this.allCountriesList = data;
       this.totalLength = data.length;
@@ -119,20 +128,20 @@ export class CountriesListComponent implements OnInit {
       const regArr = [...new Set(oldRegArr)];
       this.newRegArr = regArr.slice(0, -1);
       setTimeout(() => {
-        this.SpinnerService.hide();
+        this.spinnerService.hide();
       }, 2000);
     });
   }
 
   getDataByRegion(region: any): void {
-    this.SpinnerService.show();
+    this.spinnerService.show();
     this.apiService.getCountriesByRegion(region).subscribe((data) => {
       this.regionCountriesList = data;
       this.listOfCountries = data.slice();
       this.totalLength = data.length;
       if (region) {
         setTimeout(() => {
-          this.SpinnerService.hide();
+          this.spinnerService.hide();
         }, 2000);
         this.router.navigate([], {
           relativeTo: this.route,
@@ -257,5 +266,30 @@ export class CountriesListComponent implements OnInit {
 
   searchFilter(event): void {
     this.commonSearchFilter();
+  }
+
+  /** Clear all searched data */
+  clearAll(): void {
+    this.countryListForm.get('country').valueChanges.subscribe((val) => {
+      console.log(val);
+      if (val === null) {
+        this.disable_clear_btn = true;
+      } else {
+        this.disable_clear_btn = false;
+      }
+    });
+  }
+
+  /** Logout from the Website */
+  signOut(): void {
+    const message = `Are you sure you want to Sign out?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+
+    this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData,
+      backdropClass: 'bdrop',
+      hasBackdrop: false,
+    });
   }
 }
