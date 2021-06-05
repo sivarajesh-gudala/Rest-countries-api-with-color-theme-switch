@@ -5,7 +5,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
-import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatDialog } from '@angular/material/dialog';
 import {
   ConfirmDialogComponent,
@@ -50,7 +49,6 @@ export class CountriesListComponent implements OnInit {
     private fbBuilder: FormBuilder,
     private spinnerService: NgxSpinnerService,
     private darkModeService: DarkModeService,
-    private firebaseService: FirebaseService,
     private dialog: MatDialog
   ) {
     this.coutriesForm();

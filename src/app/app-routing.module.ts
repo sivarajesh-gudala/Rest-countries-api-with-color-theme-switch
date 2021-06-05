@@ -7,9 +7,9 @@ import { SelectedCountryDataComponent } from './components/selected-country-data
 import { AuthGuardGuard } from './shared/auth-guard.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: '', pathMatch: 'full', redirectTo: 'signup' },
   {
-    path: 'login',
+    path: 'signup',
     component: LoginComponent,
   },
   {

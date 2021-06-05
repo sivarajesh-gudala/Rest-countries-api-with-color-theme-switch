@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxPaginationModule,
     FlexLayoutModule,
     NgxSpinnerModule,
+    ToastrModule.forRoot({
+      maxOpened: 1,
+      preventDuplicates: true,
+      autoDismiss: true,
+      closeButton: true,
+      tapToDismiss: false,
+    }),
   ],
   exports: [
     MaterialModule,
@@ -25,6 +33,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxPaginationModule,
     FlexLayoutModule,
     NgxSpinnerModule,
+    ToastrModule,
   ],
 })
 export class SharedLibModule {}

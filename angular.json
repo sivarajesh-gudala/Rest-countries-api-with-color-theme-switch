@@ -32,7 +32,8 @@
               "src/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/angular-dark-mode/angular-dark-mode.js"
+              "./node_modules/angular-dark-mode/angular-dark-mode.js",
+              "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

@@ -29,6 +29,7 @@
     "material-icons": "^0.6.4",
     "ngx-pagination": "^5.1.0",
     "ngx-spinner": "^11.0.1",
+    "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

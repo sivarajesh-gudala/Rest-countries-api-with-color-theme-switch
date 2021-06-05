@@ -2,25 +2,25 @@
   font-family: "Nunito Sans", sans-serif;
 
   span {
-    button.clear-btn {
+    a.clear-btn {
       font-weight: 600;
       float: right;
       font-family: "Nunito Sans", sans-serif !important;
     }
-    .clear-btn {
-      &:disabled {
-        cursor: not-allowed;
-        pointer-events: none;
-        color: #c0c0c0;
-      }
+
+    a.dark-clear-btn.mat-button-disabled {
+      cursor: not-allowed;
+      pointer-events: none !important;
+      opacity: 0.3;
+      color: hsl(0, 0%, 100%);
     }
 
-    button.dark-clear-btn {
+    a.dark-clear-btn {
       border-color: hsl(0, 0%, 100%);
       box-shadow: 0 0 1px hsl(0, 0%, 100%);
     }
 
-    button.light-clear-btn {
+    a.light-clear-btn {
       border-color: hsl(200, 15%, 8%);
       box-shadow: 0 0 1px hsl(200, 15%, 8%);
     }
@@ -176,4 +176,3 @@
     }
   }
 }
-

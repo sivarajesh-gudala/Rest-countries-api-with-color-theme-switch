@@ -2,6 +2,8 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap");
 @import "~material-icons/iconfont/material-icons.css";
+@import "../node_modules/ngx-toastr/toastr.css";
+// @import "~ngx-toastr/toastr-bs4-alert";
 
 html,
 body {
@@ -48,4 +50,3 @@ pagination-controls.light-page {
     background-color: hsl(0, 0%, 100%);
   }
 }
-

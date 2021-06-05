@@ -1,6 +1,5 @@
 h1,
-h3,
-h2 {
+h4 {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
 }
@@ -10,6 +9,12 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Nunito Sans", sans-serif;
+
+  span.help-block {
+    font-size: smaller;
+    color: red;
+  }
 }
 
 .container {

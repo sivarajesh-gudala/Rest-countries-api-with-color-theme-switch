@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -19,12 +20,13 @@ export class SelectedCountryDataComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private apiService: ApiService,
-    private darkModeService: DarkModeService
+    private darkModeService: DarkModeService,
+    private spinnerService: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
-    this.getCountryData();
     this.getDarkModeStatus();
+    this.getCountryData();
   }
 
   getDarkModeStatus(): void {
@@ -40,6 +42,7 @@ export class SelectedCountryDataComponent implements OnInit {
       this.apiService
         .getCountriesByName(params.name.toLowerCase())
         .subscribe((data) => {
+          this.spinnerService.show();
           this.countryInfo = data;
           this.currencies = data.currencies;
         });

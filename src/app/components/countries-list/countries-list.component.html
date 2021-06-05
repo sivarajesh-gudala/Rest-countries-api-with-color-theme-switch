@@ -41,7 +41,7 @@
               </div>
             </div>
             <span>
-              <button
+              <a
                 mat-button
                 [ngClass]="
                   darkModeStatus == true ? 'dark-clear-btn' : 'light-clear-btn'
@@ -57,7 +57,7 @@
               >
                 <mat-icon class="fs-4">clear_all</mat-icon>
                 <span class="fs-6">Clear all search</span>
-              </button>
+              </a>
             </span>
           </div>
 
@@ -170,6 +170,7 @@
                     <mat-card-actions align="start">
                       <button
                         mat-button
+                        type="button"
                         class="mat-elevation-z10"
                         [routerLink]="['/country']"
                         [queryParams]="{ name: data.name }"
