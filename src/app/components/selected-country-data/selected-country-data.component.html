@@ -97,8 +97,10 @@
                   *ngIf="content.borders.length > 0"
                 >
                   <p class="fs-5 fw-bold">Border Countries:</p>
-                  <span class="" *ngFor="let border of content.borders">
+                  <span class="">
                     <button
+                      type="button"
+                      *ngFor="let border of borderNames"
                       mat-raised-button
                       class="border-btn me-3 mb-3"
                       [ngClass]="

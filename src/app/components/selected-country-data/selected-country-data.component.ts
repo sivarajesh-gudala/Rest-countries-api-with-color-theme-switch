@@ -15,6 +15,9 @@ export class SelectedCountryDataComponent implements OnInit {
   darkMode$ = this.darkModeService.darkMode$;
   darkModeStatus: boolean;
   regionParam: any;
+  borders: any;
+  alphaCode: any;
+  borderNames: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +48,23 @@ export class SelectedCountryDataComponent implements OnInit {
           this.spinnerService.show();
           this.countryInfo = data;
           this.currencies = data.currencies;
+          data.map((val, index, arr) => {
+            this.borders = arr[index].borders;
+            console.log(this.borders);
+            this.apiService.getAllCountriesData().subscribe((result) => {
+              result.map((total, i, totArr) => {
+                // console.log(total.alpha3Code);
+                this.alphaCode = totArr[i].alpha3Code;
+                // console.log(this.alphaCode);
+                this.borders.map((border, i, arr) => {
+                  if (border == this.alphaCode) {
+                    console.log('there', this.alphaCode, totArr[i].name);
+                    this.borderNames.push(total.name);
+                  }
+                });
+              });
+            });
+          });
         });
     });
   }
@@ -61,4 +81,12 @@ export class SelectedCountryDataComponent implements OnInit {
       this.router.navigate(['/countries']);
     }
   }
+
+  // borderCountry(country): void {
+  //   console.log(country);
+  //   this.router.navigate([], {
+  //     queryParams: { border: country },
+  //   });
+  //   this.borderNames = [];
+  // }
 }
