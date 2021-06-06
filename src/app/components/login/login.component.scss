@@ -41,8 +41,35 @@
       background-color: hsl(209, 23%, 22%);
     }
   }
-  span.help-block {
-    font-size: smaller;
-    color: red;
+}
+
+span.help-block {
+  font-size: smaller;
+  color: red;
+}
+
+.modal {
+  font-family: "Nunito Sans", sans-serif;
+  input::placeholder {
+    font-family: "Nunito Sans", sans-serif;
+    color: hsl(209, 23%, 22%);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  h2,
+  h6 {
+    font-weight: 700;
+    color: hsl(209, 23%, 22%);
+  }
+  .modal-footer {
+    button {
+      font-family: "Nunito Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    button.reset-btn {
+      background-color: hsl(209, 23%, 22%);
+      color: hsl(0%, 0%, 100%);
+    }
   }
 }

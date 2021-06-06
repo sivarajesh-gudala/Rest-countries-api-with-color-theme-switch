@@ -64,8 +64,88 @@
               >Don't have an account yet? Sign up</a
             >
           </div>
+          <div class="float-end">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#resetModal"
+            >
+              Reset Password?
+            </button>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="resetModal"
+  tabindex="-1"
+  aria-labelledby="resetModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 mat-title id="resetModalLabel">Reset Passoword</h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h6 mat-body-1>Please enter your email to reset your password</h6>
+        <form [formGroup]="resetForm" class="row">
+          <div class="form-group mb-3 col-lg-7">
+            <input
+              type="email"
+              placeholder="Email"
+              class="form-control form-control-sm"
+              formControlName="resetpwdemail"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                resetForm.get('resetpwdemail').hasError('required') &&
+                resetForm.get('resetpwdemail').touched &&
+                !resetForm.get('resetpwdemail').hasError('email')
+              "
+              >Email shoudn't be empty</span
+            >
+            <span
+              class="help-block"
+              *ngIf="resetForm.get('resetpwdemail').hasError('email')"
+              >Email is Invalid</span
+            >
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-sm btn-dark"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm reset-btn"
+              [disabled]="resetForm.invalid"
+              data-bs-dismiss="modal"
+              (click)="resetPassword()"
+            >
+              Send Link to Email
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.signupForm = this.fb.group({
+      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -32,8 +33,9 @@ export class RegisterComponent implements OnInit {
     this.fireService.createAccount(this.signupCreds).subscribe(
       (result) => {
         if (this.fireService.isLoggedin === true) {
-          this.toastr.success('SignUp Successfull', '', {
-            timeOut: 3000,
+          console.log(result);
+          this.toastr.success(this.signupForm.value.username, 'Welcome', {
+            timeOut: 5000,
           });
           this.router.navigate(['/countries']);
         }

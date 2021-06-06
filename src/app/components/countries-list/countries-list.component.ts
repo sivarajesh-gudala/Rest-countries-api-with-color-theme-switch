@@ -10,6 +10,7 @@ import {
   ConfirmDialogComponent,
   ConfirmDialogModel,
 } from './confirm-dialog/confirm-dialog.component';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-countries-list',
@@ -49,7 +50,8 @@ export class CountriesListComponent implements OnInit {
     private fbBuilder: FormBuilder,
     private spinnerService: NgxSpinnerService,
     private darkModeService: DarkModeService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private fireService: FirebaseService
   ) {
     this.coutriesForm();
   }

@@ -16,8 +16,10 @@ export class SelectedCountryDataComponent implements OnInit {
   darkModeStatus: boolean;
   regionParam: any;
   borders: any;
-  alphaCode: any;
+  alphaCode: any[] = [];
   borderNames: any[] = [];
+  countryName: any;
+  bordersList: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,34 +40,18 @@ export class SelectedCountryDataComponent implements OnInit {
     });
   }
 
-  /** Get Countries API */
+  /** Get All Countries  API */
 
   getCountryData(): void {
     this.route.queryParams.subscribe((params) => {
-      this.apiService
-        .getCountriesByName(params.name.toLowerCase())
-        .subscribe((data) => {
-          this.spinnerService.show();
-          this.countryInfo = data;
-          this.currencies = data.currencies;
-          data.map((val, index, arr) => {
-            this.borders = arr[index].borders;
-            console.log(this.borders);
-            this.apiService.getAllCountriesData().subscribe((result) => {
-              result.map((total, i, totArr) => {
-                // console.log(total.alpha3Code);
-                this.alphaCode = totArr[i].alpha3Code;
-                // console.log(this.alphaCode);
-                this.borders.map((border, i, arr) => {
-                  if (border == this.alphaCode) {
-                    console.log('there', this.alphaCode, totArr[i].name);
-                    this.borderNames.push(total.name);
-                  }
-                });
-              });
-            });
-          });
-        });
+      this.spinnerService.show();
+      this.apiService.getCountriesByName(params.name).subscribe((data) => {
+        setTimeout(() => {
+          this.spinnerService.hide();
+        }, 2000);
+        this.countryInfo = data;
+        this.currencies = data.currencies;
+      });
     });
   }
 
@@ -82,11 +68,21 @@ export class SelectedCountryDataComponent implements OnInit {
     }
   }
 
-  // borderCountry(country): void {
-  //   console.log(country);
-  //   this.router.navigate([], {
-  //     queryParams: { border: country },
-  //   });
-  //   this.borderNames = [];
-  // }
+  /** Redirect to border Countries */
+  borderCountry(val): void {
+    // console.log(val.target.innerText);
+    this.spinnerService.show();
+    this.apiService
+      .getCountriesByCode(val.target.innerText)
+      .subscribe((res) => {
+        setTimeout(() => {
+          this.spinnerService.hide();
+        }, 2000);
+        // console.log(res, res.name);
+        this.router.navigate(['/country'], {
+          relativeTo: this.route,
+          queryParams: { name: res.name },
+        });
+      });
+  }
 }

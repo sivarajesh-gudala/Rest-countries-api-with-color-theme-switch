@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
 import { Observable, from } from 'rxjs';
 import { userDetails } from '../shared/user-details.interface';
 
@@ -8,6 +9,7 @@ import { userDetails } from '../shared/user-details.interface';
 })
 export class FirebaseService {
   isLoggedin = false;
+  userDetails: any;
   constructor(private authService: AngularFireAuth) {}
 
   signInCredentials(credentials: userDetails): Observable<any> {
@@ -27,8 +29,17 @@ export class FirebaseService {
         .createUserWithEmailAndPassword(credentials.email, credentials.password)
         .then((res) => {
           this.isLoggedin = true;
+          res.user.updateProfile({
+            displayName: credentials.username,
+          });
           localStorage.setItem('user-details', JSON.stringify(res.user));
         })
+    );
+  }
+
+  resetPassword(email: any): Observable<any> {
+    return from(
+      this.authService.sendPasswordResetEmail(email).then((res) => {})
     );
   }
 
