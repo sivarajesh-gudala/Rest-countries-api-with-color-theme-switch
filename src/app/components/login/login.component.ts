@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   credentials: userDetails;
   loginForm: FormGroup;
   resetForm: FormGroup;
+  toggle: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -67,5 +68,15 @@ export class LoginComponent implements OnInit {
           this.toastr.error(err.message, '', { timeOut: 5000 });
         }
       );
+  }
+
+  showPassword(): void {
+    this.toggle = !this.toggle;
+    let value = document.getElementById('password');
+    if (value['type'] == 'password') {
+      value['type'] = 'text';
+    } else {
+      value['type'] = 'password';
+    }
   }
 }

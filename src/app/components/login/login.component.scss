@@ -19,6 +19,13 @@
         font-size: 12px;
         font-weight: 600;
       }
+      .input-group {
+        span {
+          cursor: pointer;
+          background-color: hsl(209, 23%, 22%);
+          color: hsl(0%, 0%, 100%);
+        }
+      }
       button.btn,
       a.mat-button {
         font-family: "Nunito Sans", sans-serif;
