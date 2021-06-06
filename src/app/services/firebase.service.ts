@@ -33,7 +33,6 @@ export class FirebaseService {
   }
 
   logout() {
-    
     this.authService.signOut();
     localStorage.removeItem('user-details');
   }

@@ -25,7 +25,7 @@ export class ConfirmDialogComponent implements OnInit {
   signOut(): void {
     this.firebaseService.logout();
     this.dialogRef.close();
-    this.router.navigate(['/signup']);
+    this.router.navigate(['login']);
   }
 
   close(): void {

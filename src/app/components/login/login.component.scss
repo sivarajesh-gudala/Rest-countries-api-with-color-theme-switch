@@ -1,28 +1,48 @@
-h1,
-h4 {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
-}
-
 .login-form {
-  height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Nunito Sans", sans-serif;
-
+  .container-fluid {
+    .right-sidebar {
+      color: hsl(209, 23%, 22%);
+      display: flex;
+      justify-content: center;
+      height: 100vh;
+      align-items: center;
+      max-width: 100%;
+      background-color: hsl(0%, 0%, 98%);
+      h2 {
+        font-family: "Nunito Sans", sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+      }
+      input::placeholder {
+        font-family: "Nunito Sans", sans-serif;
+        color: hsl(209, 23%, 22%);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      button.btn,
+      a.mat-button {
+        font-family: "Nunito Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      a.mat-button {
+        color: hsl(209, 23%, 22%);
+      }
+      button {
+        background-color: hsl(209, 23%, 22%);
+      }
+    }
+    .left-sidebar {
+      display: flex;
+      justify-content: center;
+      height: 100vh;
+      align-items: center;
+      max-width: 100%;
+      background-color: hsl(209, 23%, 22%);
+    }
+  }
   span.help-block {
     font-size: smaller;
     color: red;
   }
-}
-
-.container {
-  max-width: 700px;
-  width: 100%;
-  margin: auto;
-  height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

@@ -1,0 +1,21 @@
+.container-fluid {
+  font-family: "Nunito Sans", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #fff;
+  h6,
+  h3,
+  h6 {
+    font-weight: 700;
+    color: hsl(0%, 0%, 52%);
+  }
+  button {
+    background-color: #2b3945;
+    font-size: 14px;
+    color: hsl(0%, 0%, 100%);
+  }
+}

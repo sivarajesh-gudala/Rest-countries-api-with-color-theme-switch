@@ -2,11 +2,12 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 left-sidebar">
-        <app-sidebar class="justify-content-center"></app-sidebar>
+        <app-sidebar></app-sidebar>
       </div>
       <div class="col-md-6 right-sidebar">
-        <form [formGroup]="loginForm">
-          <h2 mat-title class="text-center text-uppercase">Welcome Back</h2>
+        <form [formGroup]="signupForm">
+          <h2 mat-title class="text-center text-uppercase">Welcome</h2>
+
           <div class="form-group mb-3">
             <input
               type="email"
@@ -17,15 +18,15 @@
             <span
               class="help-block"
               *ngIf="
-                loginForm.get('email').hasError('required') &&
-                loginForm.get('email').touched &&
-                !loginForm.get('email').hasError('email')
+                signupForm.get('email').hasError('required') &&
+                signupForm.get('email').touched &&
+                !signupForm.get('email').hasError('email')
               "
               >Email shoudn't be empty</span
             >
             <span
               class="help-block"
-              *ngIf="loginForm.get('email').hasError('email')"
+              *ngIf="signupForm.get('email').hasError('email')"
               >Email is Invalid</span
             >
           </div>
@@ -39,15 +40,15 @@
             <span
               class="help-block"
               *ngIf="
-                loginForm.get('password').hasError('required') &&
-                loginForm.get('password').touched &&
-                !loginForm.get('password').hasError('minlength')
+                signupForm.get('password').hasError('required') &&
+                signupForm.get('password').touched &&
+                !signupForm.get('password').hasError('minlength')
               "
               >Password shoudn't be empty</span
             >
             <span
               class="help-block"
-              *ngIf="loginForm.get('password').hasError('minlength')"
+              *ngIf="signupForm.get('password').hasError('minlength')"
               >Password must be 6 characters atleast</span
             >
           </div>
@@ -55,14 +56,12 @@
             <button
               type="button"
               class="btn btn-primary btn-sm"
-              [disabled]="loginForm.invalid"
-              (click)="login()"
+              [disabled]="signupForm.invalid"
+              (click)="signUp()"
             >
-              Login
+              Sign Up
             </button>
-            <a mat-button routerLink="/signup"
-              >Don't have an account yet? Sign up</a
-            >
+            <a mat-button routerLink="/login">Already a user? Login here</a>
           </div>
         </form>
       </div>

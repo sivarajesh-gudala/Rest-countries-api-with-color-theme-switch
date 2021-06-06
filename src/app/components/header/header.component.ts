@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DarkModeService } from 'angular-dark-mode';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-header',
