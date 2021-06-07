@@ -219,5 +219,14 @@
   size="default"
   type="ball-spin-clockwise"
 >
-  <p style="color: white">Please Wait.</p>
+  <h4 mat-subheading-1 class="fs-5">
+    {{
+      regionSelected === true
+        ? "Getting " + regionValue + " Countries"
+        : "Please Wait."
+    }}
+  </h4>
+  <p class="text-center fs-6" mat-body-1 *ngIf="regionSelected === true">
+    Please Wait.
+  </p>
 </ngx-spinner>

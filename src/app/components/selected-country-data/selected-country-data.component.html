@@ -123,9 +123,12 @@
 
 <!-- spinner while loading screen  -->
 <ngx-spinner
-  bdColor="rgba(51, 51, 51, 0.8)"
-  size="default"
-  type="ball-spin-clockwise"
+  bdOpacity="0.9"
+  bdColor="rgba(51, 51, 51,1)"
+  size="medium"
+  template="<img src='{{ flagImage }}' class='img-fluid mx-auto d-block'
+  style='object-fit:cover;height:170px;width:170px; border-radius:50%';
+ />"
 >
-  <p style="color: white">Please Wait.</p>
+  <p class="">{{ countryName }} ...</p>
 </ngx-spinner>

@@ -37,9 +37,15 @@ export class LoginComponent implements OnInit {
     this.credentials = this.loginForm.value;
     this.fireService.signInCredentials(this.credentials).subscribe(
       (success) => {
+        let userName = JSON.parse(localStorage.getItem('user-details'));
+
+        // console.log(
+        //   JSON.parse(localStorage.getItem('user-details')),
+        //   userName.displayName
+        // );
         if (this.fireService.isLoggedin === true) {
-          this.toastr.success('Welcome', '', {
-            timeOut: 3000,
+          this.toastr.success(userName.displayName, 'Welcome Back', {
+            timeOut: 5000,
           });
           this.router.navigate(['/countries']);
         }

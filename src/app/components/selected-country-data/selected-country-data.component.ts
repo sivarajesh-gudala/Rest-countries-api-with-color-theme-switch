@@ -20,6 +20,7 @@ export class SelectedCountryDataComponent implements OnInit {
   borderNames: any[] = [];
   countryName: any;
   bordersList: any;
+  flagImage: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,11 +28,12 @@ export class SelectedCountryDataComponent implements OnInit {
     private apiService: ApiService,
     private darkModeService: DarkModeService,
     private spinnerService: NgxSpinnerService
-  ) {}
+  ) {
+    this.getCountryData();
+  }
 
   ngOnInit(): void {
     this.getDarkModeStatus();
-    this.getCountryData();
   }
 
   getDarkModeStatus(): void {
@@ -45,10 +47,19 @@ export class SelectedCountryDataComponent implements OnInit {
   getCountryData(): void {
     this.route.queryParams.subscribe((params) => {
       this.spinnerService.show();
+
       this.apiService.getCountriesByName(params.name).subscribe((data) => {
+        // console.log(data);
+        data
+          .map((country) => {
+            this.flagImage = country.flag;
+            this.countryName = country.name;
+          })
+          .join('');
+        // console.log(this.flagImage);
         setTimeout(() => {
           this.spinnerService.hide();
-        }, 2000);
+        }, 3000);
         this.countryInfo = data;
         this.currencies = data.currencies;
       });
@@ -75,9 +86,13 @@ export class SelectedCountryDataComponent implements OnInit {
     this.apiService
       .getCountriesByCode(val.target.innerText)
       .subscribe((res) => {
+        // console.log(res);
+        this.flagImage = res.flag;
+        this.countryName = res.name;
+
         setTimeout(() => {
           this.spinnerService.hide();
-        }, 2000);
+        }, 3000);
         // console.log(res, res.name);
         this.router.navigate(['/country'], {
           relativeTo: this.route,

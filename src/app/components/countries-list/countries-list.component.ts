@@ -42,6 +42,7 @@ export class CountriesListComponent implements OnInit {
   searchedData: any;
   searchFilterOption: any;
   disable_clear_btn: boolean = false;
+  regionSelected: boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -129,12 +130,14 @@ export class CountriesListComponent implements OnInit {
       this.newRegArr = regArr.slice(0, -1);
       setTimeout(() => {
         this.spinnerService.hide();
-      }, 2000);
+      }, 3000);
     });
   }
 
   getDataByRegion(region: any): void {
     this.spinnerService.show();
+    this.regionSelected = true;
+    this.regionValue = region;
     this.apiService.getCountriesByRegion(region).subscribe((data) => {
       this.regionCountriesList = data;
       this.listOfCountries = data.slice();
@@ -142,7 +145,7 @@ export class CountriesListComponent implements OnInit {
       if (region) {
         setTimeout(() => {
           this.spinnerService.hide();
-        }, 2000);
+        }, 3000);
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { region: region },
@@ -233,6 +236,7 @@ export class CountriesListComponent implements OnInit {
   /** Events methods and functions */
   regionsList(event): void {
     this.regionValue = event.target.value;
+    this.regionSelected = true;
     this.getDataByRegion(this.regionValue);
   }
 
