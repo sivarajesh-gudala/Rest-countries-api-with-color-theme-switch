@@ -82,13 +82,13 @@ export class SelectedCountryDataComponent implements OnInit {
   /** Redirect to border Countries */
   borderCountry(val): void {
     // console.log(val.target.innerText);
-    this.spinnerService.show();
     this.apiService
       .getCountriesByCode(val.target.innerText)
       .subscribe((res) => {
         // console.log(res);
         this.flagImage = res.flag;
         this.countryName = res.name;
+        this.spinnerService.show();
 
         setTimeout(() => {
           this.spinnerService.hide();

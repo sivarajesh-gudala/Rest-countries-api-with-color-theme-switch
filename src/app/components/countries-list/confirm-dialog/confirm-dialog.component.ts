@@ -17,7 +17,7 @@ export class ConfirmDialogComponent implements OnInit {
     private firebaseService: FirebaseService,
     private router: Router
   ) {
-    this.title = data.title;
+    this.title = 'Confirm';
     this.message = data.message;
   }
 

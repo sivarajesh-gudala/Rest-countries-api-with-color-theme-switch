@@ -286,14 +286,14 @@ export class CountriesListComponent implements OnInit {
 
   /** Logout from the Website */
   signOut(): void {
-    const message = `Are you sure you want to Sign out?`;
+    const message = `Are you sure you want to sign out?`;
     const dialogData = new ConfirmDialogModel('Confirm Action', message);
 
     this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '400px',
       data: dialogData,
       backdropClass: 'bdrop',
-      hasBackdrop: false,
+      disableClose: true,
     });
   }
 }
