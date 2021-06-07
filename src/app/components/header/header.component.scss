@@ -1,5 +1,12 @@
 .header {
   font-family: "Nunito Sans", sans-serif;
+  ul {
+    .ip-tracker {
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
   .toggle {
     display: none;
   }

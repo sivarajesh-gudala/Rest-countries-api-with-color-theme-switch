@@ -20,6 +20,7 @@ import { FirebaseService } from './services/firebase.service';
 import { ConfirmDialogComponent } from './components/countries-list/confirm-dialog/confirm-dialog.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { IpAddressTrackerComponent } from './components/ip-address-tracker/ip-address-tracker.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ConfirmDialogComponent,
     RegisterComponent,
     SidebarComponent,
+    IpAddressTrackerComponent,
   ],
   imports: [
     BrowserModule,

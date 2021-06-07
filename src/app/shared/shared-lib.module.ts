@@ -7,7 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
-
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 @NgModule({
   declarations: [],
   imports: [
@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
     NgxPaginationModule,
     FlexLayoutModule,
     NgxSpinnerModule,
+    LeafletModule,
     ToastrModule.forRoot({
       maxOpened: 1,
       preventDuplicates: true,
@@ -34,6 +35,7 @@ import { ToastrModule } from 'ngx-toastr';
     FlexLayoutModule,
     NgxSpinnerModule,
     ToastrModule,
+    LeafletModule,
   ],
 })
 export class SharedLibModule {}

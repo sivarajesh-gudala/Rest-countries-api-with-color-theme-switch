@@ -1,0 +1,25 @@
+@import "../header/header.component";
+
+.ip-address-search {
+  background-image: url("../../../assets/ip-address/pattern-bg.png") !important;
+  height: 200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  .content {
+    max-width: 400px;
+
+    h2 {
+      font-family: "Nunito Sans", sans-serif;
+      text-align: center;
+    }
+  }
+  .input-group {
+    .input-group-text {
+      background-color: hsl(209, 23%, 22%);
+    }
+  }
+}

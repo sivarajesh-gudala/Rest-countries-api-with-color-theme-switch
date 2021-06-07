@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CountriesListComponent } from './components/countries-list/countries-list.component';
+import { IpAddressTrackerComponent } from './components/ip-address-tracker/ip-address-tracker.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
     path: 'country',
     component: SelectedCountryDataComponent,
   },
+  { path: 'ip-address-tracker', component: IpAddressTrackerComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'page-not-found' },
   { path: 'page-not-found', component: PageNotFoundComponent },
 ];

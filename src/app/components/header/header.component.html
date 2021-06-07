@@ -1,8 +1,15 @@
 <!-- header -->
 <div class="header">
   <nav class="navbar justify-content-center navbar-dark navbar-expand-lg">
-    <a class="navbar-brand fw-bolder ms-4">Where in the world?</a>
+    <a class="navbar-brand fw-bolder ms-4" routerLink="/countries"
+      >Where in the world?</a
+    >
     <div class="container">
+      <ul class="navbar-nav">
+        <li class="nav-item ip-tracker" routerLink="/ip-address-tracker">
+          IP Address Tracker
+        </li>
+      </ul>
       <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
         <li class="nav-item">
           <input
