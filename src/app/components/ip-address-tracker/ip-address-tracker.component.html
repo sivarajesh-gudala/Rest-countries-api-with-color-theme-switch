@@ -1,15 +1,23 @@
+<!-- header  -->
 <app-header></app-header>
+<!-- Map-content -->
 <div class="container-fluid">
   <div class="row">
     <div class="ip-address-search">
       <div class="row content">
         <h2 mat-title>IP Address Tracker</h2>
-        <div class="input-group rounded-circle">
-          <input type="text" class="form-control" />
-          <span class="input-group-text">
-            <img src="../../../assets/ip-address/icon-arrow.svg" />
-          </span>
-        </div>
+        <form [formGroup]="mapForm">
+          <div class="input-group rounded-circle">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="ipaddress"
+            />
+            <span class="input-group-text" (click)="searchAddress()">
+              <img src="../../../assets/ip-address/icon-arrow.svg" />
+            </span>
+          </div>
+        </form>
       </div>
     </div>
     <div id="map"></div>

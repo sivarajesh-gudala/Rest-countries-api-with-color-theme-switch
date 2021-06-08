@@ -15,11 +15,13 @@
     h2 {
       font-family: "Nunito Sans", sans-serif;
       text-align: center;
+      color: hsl(0%, 0%, 100%) !important;
     }
   }
   .input-group {
     .input-group-text {
       background-color: hsl(209, 23%, 22%);
+      cursor: pointer;
     }
   }
 }

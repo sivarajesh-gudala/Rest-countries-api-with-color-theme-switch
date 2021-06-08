@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as L from 'leaflet';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 @Component({
   selector: 'app-ip-address-tracker',
@@ -10,16 +12,20 @@ export class IpAddressTrackerComponent implements OnInit {
   map: any;
   longitudePosition: any;
   latitudePosition: any;
-  constructor(private apiService: ApiService) {}
-  ngOnInit(): void {
-    // this.apiService.getMapLocation().subscribe((res) => {
-    //   console.log(res);
-    // });
-    this.getLocation();
-    this.getMap();
-  }
+  mapForm: FormGroup;
 
-  getMap() {}
+  constructor(
+    private apiService: ApiService,
+    private fb: FormBuilder,
+    private tostr: ToastrService
+  ) {
+    this.mapForm = this.fb.group({
+      ipaddress: ['', [Validators.required, Validators.minLength(1)]],
+    });
+  }
+  ngOnInit(): void {
+    this.getLocation();
+  }
 
   getLocation(): void {
     if (!navigator.geolocation) {
@@ -28,16 +34,20 @@ export class IpAddressTrackerComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       this.longitudePosition = position.coords.longitude;
       this.latitudePosition = position.coords.latitude;
-      console.log(this.longitudePosition, this.latitudePosition);
-      this.map = L.map('map').setView(
-        [this.latitudePosition, this.longitudePosition],
-        13
-      );
+      // console.log(this.longitudePosition, this.latitudePosition);
+
+      this.setCoordinate(this.latitudePosition, this.longitudePosition);
+
+      console.log(this.map);
+      console.log(this.map._lastCenter.lat, this.map._lastCenter.lng);
+      // console.log(
+      //   this.map.NewClass.lastCenter.LatLng.lng,
+      //   this.map.NewClass.lastCenter.LatLng.lat
+      // );
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        minZoom: 0,
-        maxZoom: 18,
+        minZoom: 2,
       }).addTo(this.map);
 
       var LeafIcon = new L.Icon({
@@ -74,4 +84,40 @@ export class IpAddressTrackerComponent implements OnInit {
   //     }
   //   );
   // }
+
+  setCoordinate(gps_lat, gps_long) {
+    this.map = L.map('map').setView([gps_lat, gps_long], 13);
+  }
+  /** Search Location by ip address with IP Geolocation API */
+  searchAddress(): void {
+    if (this.mapForm.valid) {
+      console.log('invalid');
+      const ipAddress = this.mapForm.value.ipaddress;
+      const regex =
+        /((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/;
+      if (regex.test(ipAddress)) {
+        // console.log('valid');
+        var container = L.DomUtil.get('map');
+        if (container != null) {
+          container._leaflet_id = null;
+        }
+        this.apiService.getMapLocation(ipAddress).subscribe((res) => {
+          console.log(res);
+          this.latitudePosition = res.location.lat;
+          this.longitudePosition = res.location.lng;
+
+          this.setCoordinate(res.location.lat, res.location.lng);
+          // console.log(this.latitudePosition, this.longitudePosition);
+        });
+      } else {
+        this.tostr.error('Please enter a valid ip address', '', {
+          timeOut: 5000,
+        });
+      }
+    } else {
+      this.tostr.error('Please enter a valid ip address', '', {
+        timeOut: 5000,
+      });
+    }
+  }
 }
