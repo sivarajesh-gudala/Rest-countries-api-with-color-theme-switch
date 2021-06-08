@@ -9,7 +9,9 @@ import { environment } from '../../environments/environment';
 })
 export class ApiService {
   apiCountries = `${environment.apiCountriesList}`;
-
+  apiKey = 'at_Y6YoKAMjsUQEY3KHyEH7vZ8oCVvAp';
+  mapUrl =
+    'https://geo.ipify.org/api/v1?apiKey=at_Y6YoKAMjsUQEY3KHyEH7vZ8oCVvAp&ipAddress=8.8.8.8';
   constructor(private http: HttpClient) {}
 
   /**
@@ -138,4 +140,14 @@ export class ApiService {
         })
       );
   }
+
+  // getMapLocation(): Observable<any> {
+  // return this.http
+  //   .get<any>(`https://geo.ipify.org/api/v1?apiKey=${this.apiKey}`)
+  //   .pipe(
+  //     map((res) => {
+  //       return res;
+  //     })
+  //   );
+  // }
 }

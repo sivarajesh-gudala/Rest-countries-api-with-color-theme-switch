@@ -6,8 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { ToastrModule } from 'ngx-toastr';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -34,8 +35,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     NgxPaginationModule,
     FlexLayoutModule,
     NgxSpinnerModule,
-    ToastrModule,
     LeafletModule,
+    ToastrModule,
   ],
 })
 export class SharedLibModule {}

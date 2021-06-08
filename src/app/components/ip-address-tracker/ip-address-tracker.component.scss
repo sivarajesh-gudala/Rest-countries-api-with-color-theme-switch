@@ -2,7 +2,7 @@
 
 .ip-address-search {
   background-image: url("../../../assets/ip-address/pattern-bg.png") !important;
-  height: 200px;
+  height: 20vh;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -22,4 +22,9 @@
       background-color: hsl(209, 23%, 22%);
     }
   }
+}
+
+#map {
+  height: 71vh;
+  margin: auto;
 }
