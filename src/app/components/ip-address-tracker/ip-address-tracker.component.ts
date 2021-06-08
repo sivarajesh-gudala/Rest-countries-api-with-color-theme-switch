@@ -100,7 +100,7 @@ export class IpAddressTrackerComponent implements OnInit {
 
         this.apiService.getMapLocation(ipAddress).subscribe((res) => {
           console.log(res);
-          var container = L.DomUtil.get(this.map);
+          var container = L.DomUtil.get(document.getElementById('map'));
           if (!container || container._leaflet_id) {
             return;
           }
