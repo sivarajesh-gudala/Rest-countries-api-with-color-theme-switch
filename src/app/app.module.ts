@@ -17,7 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { FirebaseService } from './services/firebase.service';
-import { ConfirmDialogComponent } from './components/countries-list/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from './components/header/confirm-dialog/confirm-dialog.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { IpAddressTrackerComponent } from './components/ip-address-tracker/ip-address-tracker.component';

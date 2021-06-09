@@ -151,30 +151,6 @@
       }
     }
   }
-
-  .logout-btn {
-    .mat-button {
-      font-family: "Nunito Sans", sans-serif !important;
-      font-size: 14px;
-      font-weight: 600px;
-    }
-    mat-icon {
-      font-size: 22px;
-      padding-right: 2rem;
-    }
-    .dark-btn-logout {
-      background-color: hsl(209, 23%, 22%);
-      color: hsl(0, 0%, 100%);
-      border-color: hsl(0, 0%, 100%);
-      box-shadow: 0 0 1px hsl(0, 0%, 100%);
-    }
-    .light-btn-logout {
-      background-color: hsl(0, 0%, 100%);
-      color: hsl(200, 15%, 8%);
-      border-color: hsl(200, 15%, 8%);
-      box-shadow: 0 0 1px hsl(200, 15%, 8%);
-    }
-  }
 }
 ngx-spinner {
   h4,

@@ -6,7 +6,7 @@
     <div class="ip-address-search">
       <div class="row content">
         <div class="col-md-12">
-          <div class="col-md-4 mx-auto mt-4 mb-3">
+          <div class="col-md-5 mx-auto mt-4 mb-3">
             <h2 mat-title>IP Address Tracker</h2>
             <form [formGroup]="mapForm">
               <div class="input-group">
@@ -15,7 +15,6 @@
                   class="form-control"
                   formControlName="ipaddress"
                   placeholder="Search by any IP address or domain"
-                  autocomplete="on"
                 />
                 <img
                   class="input-group-text"
@@ -26,33 +25,54 @@
             </form>
           </div>
         </div>
-
-        <div class="col-md-6 map-card">
-          <div
-            class="card"
-            [ngClass]="darkModeStatus ? 'dark-card' : 'bg-light'"
-          >
-            <div class="card-body">
-              <!-- <h5 class="card-title">Card title</h5> -->
-              <div class="row">
-                <div class="col-md-3">
-                  <p class="card-text">IP Address</p>
-                  <p>{{ ipAddress }}</p>
-                </div>
-                <div class="col-md-3">
-                  <p class="card-text">location</p>
-                  <p>{{ country }}</p>
-                </div>
-                <div class="col-md-3">
-                  <p class="card-text">time zone</p>
-                  <p>{{ timeZone }}</p>
-                </div>
-                <div class="col-md-3">
-                  <p class="card-text">isp</p>
-                  <p>{{ isp }}</p>
-                </div>
-              </div>
-            </div>
+      </div>
+    </div>
+    <div
+      class="card"
+      [ngClass]="darkModeStatus ? 'bg-dark' : 'bg-light'"
+      *ngIf="locationDetails && invalidIpAddr === false"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <ul>
+              <li>
+                IP Address :
+                <span>
+                  {{ ipAddress }}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>
+                location:
+                <span>
+                  {{ country }}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>
+                time zone:
+                <span>
+                  {{ timeZone }}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <ul>
+              <li>
+                isp:
+                <span>
+                  {{ isp }}
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

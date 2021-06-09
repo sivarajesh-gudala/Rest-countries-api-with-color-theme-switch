@@ -2,7 +2,7 @@
 
 .ip-address-search {
   background-image: url("../../../assets/ip-address/pattern-bg.png") !important;
-  height: 30vh;
+  height: 20vh;
   width: 100%;
   margin: 0 auto;
 
@@ -17,13 +17,13 @@
   }
   input::placeholder {
     font-family: "Nunito Sans", sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     color: hsl(209, 23%, 22%);
   }
   input {
     border: none !important;
-    border-radius: 10px;
+    border-radius: 7px;
   }
   .input-group {
     .input-group-text {
@@ -35,63 +35,57 @@
   }
 }
 
-.map-card {
-  position: relative;
-  width: 70%;
-  margin: 0 auto;
-
-  .card {
-    display: inline-block;
-    position: absolute;
-    z-index: 7 !important;
-    height: 150px !important;
-    width: 100%;
-    p.card-text {
-      // font-family: "Nunito Sans", sans-serif;
-      font-family: "Rubik", sans-serif;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 12px;
-      padding-bottom: 10px;
-      letter-spacing: 3px;
-    }
+.card {
+  height: 20vh;
+  width: 100%;
+  border: none !important;
+  border-radius: 0px !important;
+  ul > li {
+    // font-family: "Nunito Sans", sans-serif;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 3px;
+    list-style-type: none;
   }
-  .card.dark-card {
-    background-color: hsl(209, 23%, 22%);
-    color: hsl(0%, 0%, 100%);
-  }
-  .card.bg-light {
-    color: hsl(209, 23%, 22%);
+  span {
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
   }
 }
-
-@media screen and (max-width: 768px) {
-  .map-card {
-    width: 90%;
-    margin: 0 10px 10px;
+.card.bg-dark {
+  ul > li {
+    color: yellow;
+  }
+  span {
+    color: hsl(0%, 0%, 100%);
+  }
+}
+.card.bg-light {
+  ul > li {
+    color: hsl(209, 23%, 22%);
+  }
+  span {
+    color: purple;
   }
 }
 
 #map {
-  height: 71vh;
+  height: 70vh;
   margin: 0 auto;
-  // margin-top: -40px;
-  z-index: 6 !important;
-}
-.coordinate {
-  position: absolute;
-  bottom: 10px;
-  color: hsl(209, 23%, 22%);
-  font-weight: 700;
-  font-family: "Nunito Sans", sans-serif;
+  .coordinate {
+    position: absolute;
+    float: right !important;
+    color: hsl(209, 23%, 22%);
+    font-weight: 700;
+    font-family: "Nunito Sans", sans-serif;
+    bottom: 10px;
+  }
 }
 
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
-  background-color: hsl(209, 23%, 22%) !important;
-  color: hsl(0%, 0%, 100%);
-  border-radius: 5px;
-}
-.leaflet-popup-content {
-  font-family: "Nunito Sans", sans-serif;
+@media screen and (max-width: 768px) {
+  .card {
+    height: 32vh !important;
+  }
 }

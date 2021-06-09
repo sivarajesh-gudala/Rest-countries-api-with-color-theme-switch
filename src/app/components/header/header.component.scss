@@ -1,29 +1,59 @@
 .header {
   font-family: "Nunito Sans", sans-serif;
-  ul {
-    .ip-tracker {
-      font-weight: 700;
-      cursor: pointer;
-      button {
-        font-family: "Nunito Sans", sans-serif;
-        font-weight: 800;
-        mat-icon {
-          height: 30px !important;
-        }
-      }
-      .mat-raised-button.dark-nav-btn {
-        color: hsl(0, 0%, 100%);
-        background-color: hsl(209, 23%, 22%);
-        border-color: hsl(0, 0%, 100%);
-        box-shadow: 0px 0px 1px hsl(0, 0%, 100%);
-      }
-      .mat-raised-button.light-nav-btn {
-        background-color: hsl(0, 0%, 100%);
-        color: hsl(209, 23%, 22%);
-        border-color: hsl(209, 23%, 22%);
-        box-shadow: 0px 0px 1px hsl(209, 23%, 22%);
-      }
+  ul > li > a {
+    font-weight: 700;
+  }
+  li {
+    list-style-type: none;
+  }
+  li.dark-nav-btn {
+    a {
+      color: hsl(0%, 0%, 100%);
     }
+    a.active {
+      background-color: hsl(0%, 0%, 100%);
+      color: hsl(209, 23%, 22%);
+    }
+  }
+  li.light-nav-btn {
+    a {
+      color: hsl(209, 23%, 22%);
+    }
+    a.active {
+      background-color: purple;
+      color: hsl(0%, 0%, 100%);
+    }
+  }
+
+  ul.navbar-nav {
+    span.dark-text {
+      color: hsl(0%, 0%, 100%);
+    }
+    span.light-text {
+      color: purple;
+    }
+  }
+
+  .logout-btn.mat-button {
+    font-family: "Nunito Sans", sans-serif !important;
+    font-size: 14px;
+    font-weight: 600px;
+  }
+  mat-icon {
+    font-size: 22px;
+    padding-right: 2rem;
+  }
+  .logout-btn.dark-btn-logout {
+    background-color: hsl(209, 23%, 22%);
+    color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 1px hsl(0, 0%, 100%);
+  }
+  .logout-btn.light-btn-logout {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(200, 15%, 8%);
+    border-color: hsl(200, 15%, 8%);
+    box-shadow: 0 0 1px hsl(200, 15%, 8%);
   }
 
   .toggle {

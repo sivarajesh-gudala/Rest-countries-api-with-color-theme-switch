@@ -11,14 +11,16 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class IpAddressTrackerComponent implements OnInit {
   map: any;
-  longitudePosition: any;
-  latitudePosition: any;
   mapForm: FormGroup;
   darkModeStatus: boolean;
   ipAddress: any;
   country: any;
   timeZone: any;
   isp: any;
+  locationDetails: any;
+  invalidIpAddr: boolean = true;
+  ipRegex =
+    /((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/;
 
   constructor(
     private apiService: ApiService,
@@ -27,12 +29,13 @@ export class IpAddressTrackerComponent implements OnInit {
     private darkModeService: DarkModeService
   ) {
     this.mapForm = this.fb.group({
-      ipaddress: ['', [Validators.required, Validators.minLength(1)]],
+      ipaddress: ['', [Validators.required]],
     });
   }
   ngOnInit(): void {
     this.getLocation();
     this.getDarkModeStatus();
+    this.searchValueChanges();
   }
 
   /** storing Dark mode status */
@@ -45,19 +48,12 @@ export class IpAddressTrackerComponent implements OnInit {
   getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position, position.timestamp);
-        console.log(new Date());
-
-        this.longitudePosition = position.coords.longitude;
-        this.latitudePosition = position.coords.latitude;
-        // console.log(this.longitudePosition, this.latitudePosition);
         this.mapLayer(
           position.coords.latitude,
           position.coords.longitude,
           '',
           ''
         );
-
         // this.watchPosition();
       });
     } else {
@@ -68,19 +64,15 @@ export class IpAddressTrackerComponent implements OnInit {
     }
   }
 
-  // setting Map Layer based on latitude and longitude
+  /**
+   * setting Map based on
+   * latitude and longitude
+   * */
   mapLayer(latPos, longPos, region, city): void {
     // map initialization
     this.map = L.map('map').setView([latPos, longPos], 13);
 
-    // console.log(this.map);
-    // console.log(this.map._lastCenter.lat, this.map._lastCenter.lng);
-    // console.log(
-    //   this.map.NewClass.lastCenter.LatLng.lng,
-    //   this.map.NewClass.lastCenter.LatLng.lat
-    // );
-
-    // Map Layer
+    //Setting Map Layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -93,65 +85,31 @@ export class IpAddressTrackerComponent implements OnInit {
       iconSize: [30, 40],
     });
 
-    //Marker
+    //changing position of Marker
     var marker = L.marker([latPos, longPos], {
       icon: LeafIcon,
       draggable: true,
     });
 
-    var popUp = marker.bindPopup('' + marker.getLatLng()).openPopup();
+    var popUp = marker.bindPopup(city + ' ' + marker.getLatLng()).openPopup();
     popUp.addTo(this.map);
 
-    var my_map = document.getElementById('map');
     this.map.on('mousemove', (e) => {
       document.getElementsByClassName(
         'coordinate'
       )[0].innerHTML = `Lat: ${e.latlng.lat}, Lng: ${e.latlng.lng}`;
-      // console.log(e);
-      // console.log(
-      //   'Lat' + '---->' + e.latlng.lat,
-      //   'Lng' + '---->' + e.latlng.lng
-      // );
     });
   }
-
-  // watchPosition() {
-  //   let desLat = 0;
-  //   let desLong = 0;
-  //   let id = navigator.geolocation.watchPosition(
-  //     (position) => {
-  //       console.log(position.coords.latitude, position.coords.longitude);
-  //       if (position.coords.latitude === desLat) {
-  //         navigator.geolocation.clearWatch(id);
-  //       }
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     },
-  //     {
-  //       enableHighAccuracy: false,
-  //       timeout: 5000,
-  //       maximumAge: 0,
-  //     }
-  //   );
-  // }
-
-  // setCoordinate(gps_lat, gps_long) {
-  //   this.map = L.map('map').setView([gps_lat, gps_long], 13);
-  // }
 
   /** Search Location by ip address with IP Geolocation API */
   searchAddress(): void {
     if (this.mapForm.valid) {
-      console.log('invalid');
       const ipAddress = this.mapForm.value.ipaddress;
-      const regex =
-        /((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/;
-      if (regex.test(ipAddress)) {
-        console.log('valid');
-
+      if (this.ipRegex.test(ipAddress)) {
         this.apiService.getMapLocation(ipAddress).subscribe((res) => {
+          this.invalidIpAddr = false;
           console.log(res);
+          this.locationDetails = res;
           this.map.remove();
           this.mapLayer(
             res.location.lat,
@@ -163,19 +121,26 @@ export class IpAddressTrackerComponent implements OnInit {
           this.country = res.location.country;
           this.timeZone = res.location.timezone;
           this.isp = res.isp;
-          // this.latitudePosition = res.location.lat;
-          // this.longitudePosition = res.location.lng;
-          // console.log(this.latitudePosition, this.longitudePosition);
         });
       } else {
-        this.tostr.error('Please enter a valid ip address', '', {
+        this.invalidIpAddr = true;
+        this.tostr.error('Please enter a valid IP Address', '', {
           timeOut: 5000,
         });
       }
     } else {
-      this.tostr.error('Please enter a valid ip address', '', {
+      this.invalidIpAddr = true;
+      this.tostr.error('Please enter a valid IP address', '', {
         timeOut: 5000,
       });
     }
+  }
+
+  searchValueChanges(): void {
+    this.mapForm.get('ipaddress').valueChanges.subscribe((val) => {
+      if (val === '' || !this.ipRegex.test(val)) {
+        this.invalidIpAddr = true;
+      }
+    });
   }
 }

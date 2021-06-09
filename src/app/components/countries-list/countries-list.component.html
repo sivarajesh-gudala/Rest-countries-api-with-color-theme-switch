@@ -1,21 +1,8 @@
 <app-header></app-header>
+
 <section class="main-content mt-4">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 mb-3">
-        <div class="float-end ms-5 mt-3 logout-btn">
-          <button
-            mat-button
-            type="button"
-            [ngClass]="
-              darkModeStatus == true ? 'dark-btn-logout' : 'light-btn-logout'
-            "
-            (click)="signOut()"
-          >
-            <mat-icon>exit_to_app</mat-icon>Logout
-          </button>
-        </div>
-      </div>
       <div class="col-md-12">
         <form [formGroup]="countryListForm" class="row g-3">
           <div class="col-md-4">

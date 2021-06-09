@@ -5,11 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  ConfirmDialogComponent,
-  ConfirmDialogModel,
-} from './confirm-dialog/confirm-dialog.component';
+
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
@@ -51,7 +47,6 @@ export class CountriesListComponent implements OnInit {
     private fbBuilder: FormBuilder,
     private spinnerService: NgxSpinnerService,
     private darkModeService: DarkModeService,
-    private dialog: MatDialog,
     private fireService: FirebaseService
   ) {
     this.coutriesForm();
@@ -284,16 +279,16 @@ export class CountriesListComponent implements OnInit {
     });
   }
 
-  /** Logout from the Website */
-  signOut(): void {
-    const message = `Are you sure you want to sign out?`;
-    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+  // /** Logout from the Website */
+  // signOut(): void {
+  //   const message = `Are you sure you want to sign out?`;
+  //   const dialogData = new ConfirmDialogModel('Confirm Action', message);
 
-    this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: '400px',
-      data: dialogData,
-      backdropClass: 'bdrop',
-      disableClose: true,
-    });
-  }
+  //   this.dialog.open(ConfirmDialogComponent, {
+  //     maxWidth: '400px',
+  //     data: dialogData,
+  //     backdropClass: 'bdrop',
+  //     disableClose: true,
+  //   });
+  // }
 }
