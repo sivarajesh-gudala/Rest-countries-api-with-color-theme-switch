@@ -5,21 +5,40 @@
   <div class="row">
     <div class="ip-address-search">
       <div class="row content">
-        <h2 mat-title>IP Address Tracker</h2>
-        <form [formGroup]="mapForm">
-          <div class="input-group rounded-circle">
-            <input
-              type="text"
-              class="form-control"
-              formControlName="ipaddress"
-            />
-            <span class="input-group-text" (click)="searchAddress()">
-              <img src="../../../assets/ip-address/icon-arrow.svg" />
-            </span>
+        <div class="col-md-12">
+          <h2 mat-title>IP Address Tracker</h2>
+
+          <div class="d-flex justify-content-center">
+            <form [formGroup]="mapForm">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="ipaddress"
+                  placeholder="Search by any IP address or domain"
+                />
+                <img
+                  class="input-group-text"
+                  src="../../../assets/ip-address/icon-arrow.svg"
+                  (click)="searchAddress()"
+                />
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
+        <div class="col-md-12">
+          <div class="card mx-auto mt-5">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="map"></div>
+
+    <div id="map">
+      <div class="leaflet-control coordinate"></div>
+    </div>
   </div>
 </div>

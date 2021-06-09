@@ -7,6 +7,9 @@
       button {
         font-family: "Nunito Sans", sans-serif;
         font-weight: 800;
+        mat-icon {
+          height: 30px !important;
+        }
       }
       .mat-raised-button.dark-nav-btn {
         color: hsl(0, 0%, 100%);

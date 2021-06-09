@@ -28,40 +28,71 @@ export class IpAddressTrackerComponent implements OnInit {
   }
 
   getLocation(): void {
-    if (!navigator.geolocation) {
-      console.log('no location ');
-    }
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.longitudePosition = position.coords.longitude;
-      this.latitudePosition = position.coords.latitude;
-      // console.log(this.longitudePosition, this.latitudePosition);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position, position.timestamp);
+        console.log(new Date());
 
-      this.setCoordinate(this.latitudePosition, this.longitudePosition);
+        this.longitudePosition = position.coords.longitude;
+        this.latitudePosition = position.coords.latitude;
+        // console.log(this.longitudePosition, this.latitudePosition);
+        this.mapLayer(position.coords.latitude, position.coords.longitude);
 
-      console.log(this.map);
-      console.log(this.map._lastCenter.lat, this.map._lastCenter.lng);
-      // console.log(
-      //   this.map.NewClass.lastCenter.LatLng.lng,
-      //   this.map.NewClass.lastCenter.LatLng.lat
-      // );
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        minZoom: 2,
-      }).addTo(this.map);
-
-      var LeafIcon = new L.Icon({
-        // iconUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-icon.png',
-        iconUrl: '../../../assets/ip-address/icon-location.svg',
-        iconSize: [20, 20],
+        // this.watchPosition();
       });
-      L.marker([this.latitudePosition, this.longitudePosition], {
-        icon: LeafIcon,
-      })
-        .addTo(this.map)
-        .openPopup();
+    } else {
+      this.tostr.error('Please switch on your GPS Location', '', {
+        timeOut: 5000,
+      });
+      console.log('No Location');
+    }
+  }
+
+  // setting Map Layer based on latitude and longitude
+  mapLayer(latPos, longPos): void {
+    // map initialization
+    this.map = L.map('map').setView([latPos, longPos], 13);
+
+    // console.log(this.map);
+    // console.log(this.map._lastCenter.lat, this.map._lastCenter.lng);
+    // console.log(
+    //   this.map.NewClass.lastCenter.LatLng.lng,
+    //   this.map.NewClass.lastCenter.LatLng.lat
+    // );
+
+    // Map Layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map);
+
+    // marker Icon
+    var LeafIcon = new L.Icon({
+      // iconUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-icon.png',
+      iconUrl: '../../../assets/ip-address/icon-location.svg',
+      iconSize: [30, 40],
     });
-    // this.watchPosition();
+
+    //Marker
+    var marker = L.marker([latPos, longPos], {
+      icon: LeafIcon,
+      draggable: true,
+    });
+
+    var popUp = marker.bindPopup('' + marker.getLatLng()).openPopup();
+    popUp.addTo(this.map);
+
+    var my_map = document.getElementById('map');
+    this.map.on('mousemove', (e) => {
+      document.getElementsByClassName(
+        'coordinate'
+      )[0].innerHTML = `Lat: ${e.latlng.lat}, Lng: ${e.latlng.lng}`;
+      // console.log(e);
+      // console.log(
+      //   'Lat' + '---->' + e.latlng.lat,
+      //   'Lng' + '---->' + e.latlng.lng
+      // );
+    });
   }
 
   // watchPosition() {
@@ -85,9 +116,10 @@ export class IpAddressTrackerComponent implements OnInit {
   //   );
   // }
 
-  setCoordinate(gps_lat, gps_long) {
-    this.map = L.map('map').setView([gps_lat, gps_long], 13);
-  }
+  // setCoordinate(gps_lat, gps_long) {
+  //   this.map = L.map('map').setView([gps_lat, gps_long], 13);
+  // }
+
   /** Search Location by ip address with IP Geolocation API */
   searchAddress(): void {
     if (this.mapForm.valid) {
@@ -100,11 +132,10 @@ export class IpAddressTrackerComponent implements OnInit {
 
         this.apiService.getMapLocation(ipAddress).subscribe((res) => {
           console.log(res);
-          this.latitudePosition = res.location.lat;
-          this.longitudePosition = res.location.lng;
-
-          // this.setCoordinate(res.location.lat, res.location.lng);
-          // this.getLocation();
+          this.map.remove();
+          this.mapLayer(res.location.lat, res.location.lng);
+          // this.latitudePosition = res.location.lat;
+          // this.longitudePosition = res.location.lng;
           // console.log(this.latitudePosition, this.longitudePosition);
         });
       } else {

@@ -2,31 +2,70 @@
 
 .ip-address-search {
   background-image: url("../../../assets/ip-address/pattern-bg.png") !important;
-  height: 20vh;
+  height: 30vh;
   width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   max-width: 100%;
-  .content {
-    max-width: 400px;
 
+  .content {
     h2 {
       font-family: "Nunito Sans", sans-serif;
       text-align: center;
       color: hsl(0%, 0%, 100%) !important;
+      font-size: 16px;
+      font-weight: 800;
     }
+  }
+  input::placeholder {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: hsl(209, 23%, 22%);
+  }
+  input {
+    border: none !important;
+    border-radius: 10px;
   }
   .input-group {
     .input-group-text {
       background-color: hsl(209, 23%, 22%);
       cursor: pointer;
+      border: none !important;
+      border-radius: 10px;
     }
   }
+}
+
+.card {
+  width: 50rem;
+  z-index: 3;
+  height: 120px;
+  // margin-top: 120px;
 }
 
 #map {
   height: 71vh;
   margin: auto;
+  // margin-top: -40px;
+  z-index: 3;
+}
+.coordinate {
+  position: absolute;
+  bottom: 10px;
+  color: hsl(209, 23%, 22%);
+  font-weight: 700;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background-color: hsl(209, 23%, 22%) !important;
+  color: hsl(0%, 0%, 100%);
+  border-radius: 5px;
+}
+.leaflet-popup-content {
+  font-family: "Nunito Sans", sans-serif;
 }
