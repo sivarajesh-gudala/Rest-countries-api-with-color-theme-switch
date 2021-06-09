@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DarkModeService } from 'angular-dark-mode';
 import * as L from 'leaflet';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,11 +14,17 @@ export class IpAddressTrackerComponent implements OnInit {
   longitudePosition: any;
   latitudePosition: any;
   mapForm: FormGroup;
+  darkModeStatus: boolean;
+  ipAddress: any;
+  country: any;
+  timeZone: any;
+  isp: any;
 
   constructor(
     private apiService: ApiService,
     private fb: FormBuilder,
-    private tostr: ToastrService
+    private tostr: ToastrService,
+    private darkModeService: DarkModeService
   ) {
     this.mapForm = this.fb.group({
       ipaddress: ['', [Validators.required, Validators.minLength(1)]],
@@ -25,6 +32,14 @@ export class IpAddressTrackerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getLocation();
+    this.getDarkModeStatus();
+  }
+
+  /** storing Dark mode status */
+  getDarkModeStatus(): void {
+    this.darkModeService.darkMode$.subscribe((val) => {
+      this.darkModeStatus = val;
+    });
   }
 
   getLocation(): void {
@@ -36,7 +51,12 @@ export class IpAddressTrackerComponent implements OnInit {
         this.longitudePosition = position.coords.longitude;
         this.latitudePosition = position.coords.latitude;
         // console.log(this.longitudePosition, this.latitudePosition);
-        this.mapLayer(position.coords.latitude, position.coords.longitude);
+        this.mapLayer(
+          position.coords.latitude,
+          position.coords.longitude,
+          '',
+          ''
+        );
 
         // this.watchPosition();
       });
@@ -49,7 +69,7 @@ export class IpAddressTrackerComponent implements OnInit {
   }
 
   // setting Map Layer based on latitude and longitude
-  mapLayer(latPos, longPos): void {
+  mapLayer(latPos, longPos, region, city): void {
     // map initialization
     this.map = L.map('map').setView([latPos, longPos], 13);
 
@@ -133,7 +153,16 @@ export class IpAddressTrackerComponent implements OnInit {
         this.apiService.getMapLocation(ipAddress).subscribe((res) => {
           console.log(res);
           this.map.remove();
-          this.mapLayer(res.location.lat, res.location.lng);
+          this.mapLayer(
+            res.location.lat,
+            res.location.lng,
+            res.location.region,
+            res.location.city
+          );
+          this.ipAddress = res.ip;
+          this.country = res.location.country;
+          this.timeZone = res.location.timezone;
+          this.isp = res.isp;
           // this.latitudePosition = res.location.lat;
           // this.longitudePosition = res.location.lng;
           // console.log(this.latitudePosition, this.longitudePosition);
