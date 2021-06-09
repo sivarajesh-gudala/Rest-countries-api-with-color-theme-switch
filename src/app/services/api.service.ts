@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class ApiService {
   apiCountries = `${environment.apiCountriesList}`;
-  apiKey = 'at_Y6YoKAMjsUQEY3KHyEH7vZ8oCVvAp';
+  apiMap = `${environment.geoAPI}`;
   // mapUrl =
   // 'https://geo.ipify.org/api/v1?apiKey=at_Y6YoKAMjsUQEY3KHyEH7vZ8oCVvAp&ipAddress=8.8.8.8';
   constructor(private http: HttpClient) {}
@@ -142,14 +142,10 @@ export class ApiService {
   }
 
   getMapLocation(ipadress): Observable<any> {
-    return this.http
-      .get<any>(
-        `https://geo.ipify.org/api/v1?apiKey=${this.apiKey}&ipAddress=${ipadress}`
-      )
-      .pipe(
-        map((res) => {
-          return res;
-        })
-      );
+    return this.http.get<any>(`${this.apiMap}&ipAddress=${ipadress}`).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }
