@@ -6,8 +6,6 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
 
-import { FirebaseService } from 'src/app/services/firebase.service';
-
 @Component({
   selector: 'app-countries-list',
   templateUrl: './countries-list.component.html',
@@ -37,7 +35,6 @@ export class CountriesListComponent implements OnInit {
   regionParams: any;
   searchedData: any;
   searchFilterOption: any;
-  disable_clear_btn: boolean = false;
   regionSelected: boolean = false;
 
   constructor(
@@ -46,8 +43,7 @@ export class CountriesListComponent implements OnInit {
     private route: ActivatedRoute,
     private fbBuilder: FormBuilder,
     private spinnerService: NgxSpinnerService,
-    private darkModeService: DarkModeService,
-    private fireService: FirebaseService
+    private darkModeService: DarkModeService
   ) {
     this.coutriesForm();
   }
@@ -266,29 +262,4 @@ export class CountriesListComponent implements OnInit {
   searchFilter(event): void {
     this.commonSearchFilter();
   }
-
-  /** Clear all searched data */
-  clearAll(): void {
-    this.countryListForm.get('country').valueChanges.subscribe((val) => {
-      console.log(val);
-      if (val === null) {
-        this.disable_clear_btn = true;
-      } else {
-        this.disable_clear_btn = false;
-      }
-    });
-  }
-
-  // /** Logout from the Website */
-  // signOut(): void {
-  //   const message = `Are you sure you want to sign out?`;
-  //   const dialogData = new ConfirmDialogModel('Confirm Action', message);
-
-  //   this.dialog.open(ConfirmDialogComponent, {
-  //     maxWidth: '400px',
-  //     data: dialogData,
-  //     backdropClass: 'bdrop',
-  //     disableClose: true,
-  //   });
-  // }
 }

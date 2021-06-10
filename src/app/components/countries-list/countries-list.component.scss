@@ -1,45 +1,23 @@
 .main-content {
   font-family: "Nunito Sans", sans-serif;
 
-  span {
-    a.clear-btn {
-      font-weight: 600;
-      float: right;
-      font-family: "Nunito Sans", sans-serif !important;
-    }
-
-    a.dark-clear-btn.mat-button-disabled {
-      cursor: not-allowed;
-      pointer-events: none !important;
-      opacity: 0.3;
-      color: hsl(0, 0%, 100%);
-    }
-
-    a.dark-clear-btn {
-      border-color: hsl(0, 0%, 100%);
-      box-shadow: 0 0 1px hsl(0, 0%, 100%);
-    }
-
-    a.light-clear-btn {
-      border-color: hsl(200, 15%, 8%);
-      box-shadow: 0 0 1px hsl(200, 15%, 8%);
-    }
+  input {
+    box-shadow: none !important;
   }
 
-  .has-search .form-control {
-    padding-left: 2.375rem;
+  span.clear_btn {
+    cursor: pointer;
     border: none !important;
-    border-radius: 5px;
   }
-  input[type="text"] {
-    width: 100%;
-    padding: 10px 10px;
-    margin: 0px auto;
-    box-sizing: border-box;
+
+  .input-group-text.light-clear-btn {
+    color: hsl(200, 15%, 8%);
   }
 
   span.dark-icon {
     color: hsl(0, 0%, 100%) !important;
+    background-color: hsl(209, 23%, 22%) !important;
+    border: none !important;
   }
   span.light-icon {
     color: #aaa !important;
@@ -48,8 +26,7 @@
   input.dark-input {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
-    border-color: hsl(0, 0%, 100%);
-    box-shadow: 0 0 1px hsl(0, 0%, 100%);
+    border: none !important;
   }
   input.dark-input::placeholder {
     color: hsl(0, 0%, 100%);
@@ -57,26 +34,11 @@
   input.light-input {
     background-color: hsl(0, 0%, 100%);
     color: hsl(200, 15%, 8%);
-    border-color: hsl(200, 15%, 8%);
-    box-shadow: 0 0 1px hsl(200, 15%, 8%);
   }
   input.light-input::placeholder {
     color: hsl(200, 15%, 8%) !important;
-    font-size: 14px;
   }
 
-  .has-search .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    padding: 4px;
-    font-weight: normal;
-  }
   select.dark-select {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
@@ -92,9 +54,8 @@
   }
   select {
     border: none !important;
-    border-radius: 5px;
+    border-radius: 2px;
     width: 100%;
-    padding: 11px 11px;
     margin: 0px auto;
     box-sizing: border-box;
     font-size: 14px;
@@ -103,51 +64,47 @@
   }
 
   .card-content {
-    @media screen and (max-width: 992px) and (min-width: 959px) {
-      div.country-card {
-        display: flex !important;
-        flex: 1 1 50% !important;
-        box-sizing: border-box;
-        max-width: 50% !important;
-        padding: 0px 16px 16px 0px;
-      }
-    }
-    .card-content > mat-card {
-      width: 200px;
-    }
     img.country-flag {
       object-fit: cover;
-      height: 160px;
+      height: 190px;
     }
-    mat-card-header {
-      img {
-        height: 30px;
-      }
-      mat-card-title {
-        padding: 3px 0px 0px 0px;
-      }
+    li {
+      border: 0px none !important;
+      border-radius: 0px !important;
     }
-    mat-card-actions {
-      button {
-        font-weight: 900;
-        font-family: "Nunito Sans", sans-serif;
-        font-size: 13px;
-      }
+    h5 {
+      margin-bottom: 0px !important;
+      font-weight: 700;
     }
-    mat-card.dark-card {
+    .dark-title {
+      color: yellow;
+    }
+    .light-title {
+      color: purple;
+    }
+
+    .dark-list {
       background-color: hsl(209, 23%, 22%);
       color: hsl(0, 0%, 100%);
-      button {
-        background-color: hsl(209, 23%, 22%);
-        color: hsl(0, 0%, 100%);
+    }
+    .light-list {
+      color: purple;
+      background-color: hsl(0, 0%, 100%);
+    }
+
+    .card.dark-card {
+      background-color: hsl(209, 23%, 22%);
+      color: hsl(0, 0%, 100%);
+      a {
+        color: hsl(0, 0%, 100%) !important;
       }
     }
-    mat-card.light-mode {
+
+    .card.light-mode {
       color: hsl(200, 15%, 8%);
       background-color: hsl(0, 0%, 100%);
-      button {
+      a {
         color: hsl(200, 15%, 8%);
-        background-color: hsl(0, 0%, 100%);
       }
     }
   }
@@ -159,4 +116,3 @@ ngx-spinner {
     color: hsl(0, 0%, 100%);
   }
 }
-

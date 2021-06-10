@@ -5,23 +5,26 @@
   }
   li {
     list-style-type: none;
+    cursor: pointer;
   }
   li.dark-nav-btn {
+    a.active {
+      color: yellow;
+      font-size: 18px;
+      font-weight: 800;
+    }
     a {
       color: hsl(0%, 0%, 100%);
-    }
-    a.active {
-      background-color: hsl(0%, 0%, 100%);
-      color: hsl(209, 23%, 22%);
     }
   }
   li.light-nav-btn {
-    a {
-      color: hsl(209, 23%, 22%);
-    }
     a.active {
-      background-color: purple;
-      color: hsl(0%, 0%, 100%);
+      color: purple;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    a {
+      color: hsl(200, 15%, 8%);
     }
   }
 
@@ -34,12 +37,19 @@
     }
   }
 
-  .logout-btn.dark-btn-logout {
-    background-color: hsl(209, 23%, 22%);
+  ul.mx-auto {
+    text-transform: uppercase;
+  }
+  .dark-btn-logout {
     color: hsl(0, 0%, 100%);
   }
-  .logout-btn.light-btn-logout {
-    background-color: hsl(0, 0%, 100%);
+  .light-btn-logout {
     color: hsl(200, 15%, 8%);
+  }
+
+  mat-slide-toggle.slide-toggle {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 500 !important;
+    font-size: 14px;
   }
 }

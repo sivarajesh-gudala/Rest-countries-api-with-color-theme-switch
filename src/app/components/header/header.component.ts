@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  /** Dark Mode */
   onToggle(): void {
     this.darkModeService.toggle();
   }

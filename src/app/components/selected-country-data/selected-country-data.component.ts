@@ -14,12 +14,7 @@ export class SelectedCountryDataComponent implements OnInit {
   currencies: any;
   darkMode$ = this.darkModeService.darkMode$;
   darkModeStatus: boolean;
-  regionParam: any;
-  borders: any;
-  alphaCode: any[] = [];
-  borderNames: any[] = [];
   countryName: any;
-  bordersList: any;
   flagImage: any;
 
   constructor(
@@ -43,7 +38,6 @@ export class SelectedCountryDataComponent implements OnInit {
   }
 
   /** Get All Countries  API */
-
   getCountryData(): void {
     this.route.queryParams.subscribe((params) => {
       this.spinnerService.show();
@@ -56,7 +50,6 @@ export class SelectedCountryDataComponent implements OnInit {
             this.countryName = country.name;
           })
           .join('');
-        // console.log(this.flagImage);
         setTimeout(() => {
           this.spinnerService.hide();
         }, 3000);
@@ -81,11 +74,9 @@ export class SelectedCountryDataComponent implements OnInit {
 
   /** Redirect to border Countries */
   borderCountry(val): void {
-    // console.log(val.target.innerText);
     this.apiService
       .getCountriesByCode(val.target.innerText)
       .subscribe((res) => {
-        // console.log(res);
         this.flagImage = res.flag;
         this.countryName = res.name;
         this.spinnerService.show();
@@ -93,7 +84,6 @@ export class SelectedCountryDataComponent implements OnInit {
         setTimeout(() => {
           this.spinnerService.hide();
         }, 3000);
-        // console.log(res, res.name);
         this.router.navigate(['/country'], {
           relativeTo: this.route,
           queryParams: { name: res.name },

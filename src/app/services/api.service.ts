@@ -10,8 +10,7 @@ import { environment } from '../../environments/environment';
 export class ApiService {
   apiCountries = `${environment.apiCountriesList}`;
   apiMap = `${environment.geoAPI}`;
-  // mapUrl =
-  // 'https://geo.ipify.org/api/v1?apiKey=at_Y6YoKAMjsUQEY3KHyEH7vZ8oCVvAp&ipAddress=8.8.8.8';
+
   constructor(private http: HttpClient) {}
 
   /**
@@ -141,6 +140,10 @@ export class ApiService {
       );
   }
 
+  /**
+   * Get Location based on IP Address
+   * @param ipadress
+   */
   getMapLocation(ipadress): Observable<any> {
     return this.http.get<any>(`${this.apiMap}&ipAddress=${ipadress}`).pipe(
       map((res) => {

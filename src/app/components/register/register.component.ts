@@ -34,9 +34,13 @@ export class RegisterComponent implements OnInit {
       (result) => {
         if (this.fireService.isLoggedin === true) {
           console.log(result);
-          this.toastr.success(this.signupForm.value.username, 'Welcome', {
-            timeOut: 5000,
-          });
+          this.toastr.success(
+            this.signupForm.value.username.toUpperCase(),
+            'Welcome',
+            {
+              timeOut: 5000,
+            }
+          );
           this.router.navigate(['/countries']);
         }
       },

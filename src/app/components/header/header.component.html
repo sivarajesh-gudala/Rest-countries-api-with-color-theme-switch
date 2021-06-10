@@ -2,13 +2,13 @@
 <div class="header">
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <ul class="nav nav-pills nav-fill me-auto">
+      <ul class="navbar-nav">
         <li
           class="nav-item ip-tracker"
           [ngClass]="modeStatus === true ? 'dark-nav-btn' : 'light-nav-btn'"
         >
           <a
-            class="nav-link"
+            class="nav-link text-uppercase"
             routerLink="/countries"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -21,46 +21,45 @@
           [ngClass]="modeStatus === true ? 'dark-nav-btn' : 'light-nav-btn'"
         >
           <a
-            class="nav-link"
+            class="nav-link text-uppercase"
             routerLink="/ip-address-tracker"
             routerLinkActive="active"
           >
-            <!-- <mat-icon>location_on</mat-icon> -->
             GPS Tracker
           </a>
         </li>
       </ul>
-
-      <ul class="navbar-nav">
-        <li class="nav-item" class="fw-bold">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
           <a
             class="nav-link"
             [ngClass]="modeStatus === true ? 'dark-text' : 'light-text'"
           >
-            <!-- <i class="material-icons-outlined">
-              {{ modeStatus ? "dark_mode" : "light_mode" }}
-            </i> -->
-            {{ modeStatus ? modeName : "Light Mode" }}
             <mat-slide-toggle
               [checked]="darkMode$ | async"
               (change)="onToggle()"
+              class="slide-toggle"
             >
+              {{
+                modeStatus
+                  ? "Disable" + " " + modeName
+                  : "Enable" + " " + modeName
+              }}
             </mat-slide-toggle>
           </a>
         </li>
 
         <li class="nav-item">
-          <a
-            mat-raised-button
-            class="nav-link"
-            class="logout-btn"
-            (click)="signOut()"
-            [ngClass]="
-              modeStatus === true ? 'dark-btn-logout' : 'light-btn-logout'
-            "
-          >
-            <mat-icon>exit_to_app</mat-icon>
-            Logout
+          <a class="nav-link">
+            <span
+              class="material-icons-outlined"
+              (click)="signOut()"
+              [ngClass]="
+                modeStatus === true ? 'dark-btn-logout' : 'light-btn-logout'
+              "
+            >
+              logout
+            </span>
           </a>
         </li>
       </ul>

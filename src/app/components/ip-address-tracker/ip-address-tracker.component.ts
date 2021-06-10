@@ -54,7 +54,6 @@ export class IpAddressTrackerComponent implements OnInit {
           '',
           ''
         );
-        // this.watchPosition();
       });
     } else {
       this.tostr.error('Please switch on your GPS Location', '', {
@@ -65,9 +64,8 @@ export class IpAddressTrackerComponent implements OnInit {
   }
 
   /**
-   * setting Map based on
-   * latitude and longitude
-   * */
+   * setting Map based on latitude and longitude
+   */
   mapLayer(latPos, longPos, region, city): void {
     // map initialization
     this.map = L.map('map').setView([latPos, longPos], 13);
@@ -80,7 +78,6 @@ export class IpAddressTrackerComponent implements OnInit {
 
     // marker Icon
     var LeafIcon = new L.Icon({
-      // iconUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-icon.png',
       iconUrl: '../../../assets/ip-address/icon-location.svg',
       iconSize: [30, 40],
     });

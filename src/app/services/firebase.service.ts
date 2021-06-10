@@ -12,6 +12,10 @@ export class FirebaseService {
   userDetails: any;
   constructor(private authService: AngularFireAuth) {}
 
+  /** Login
+   * @param email
+   * @param password
+   */
   signInCredentials(credentials: userDetails): Observable<any> {
     return from(
       this.authService
@@ -23,6 +27,11 @@ export class FirebaseService {
     );
   }
 
+  /** Sign up
+   * @param username
+   * @param email
+   * @param password
+   */
   createAccount(credentials: userDetails): Observable<any> {
     return from(
       this.authService
@@ -37,12 +46,16 @@ export class FirebaseService {
     );
   }
 
+  /** Reset Password
+   * @param email
+   */
   resetPassword(email: any): Observable<any> {
     return from(
       this.authService.sendPasswordResetEmail(email).then((res) => {})
     );
   }
 
+  /** Sign out from the account */
   logout() {
     this.authService.signOut();
     localStorage.removeItem('user-details');

@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { timeout } from 'rxjs/operators';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { userDetails } from 'src/app/shared/user-details.interface';
 @Component({
@@ -39,14 +38,14 @@ export class LoginComponent implements OnInit {
       (success) => {
         let userName = JSON.parse(localStorage.getItem('user-details'));
 
-        // console.log(
-        //   JSON.parse(localStorage.getItem('user-details')),
-        //   userName.displayName
-        // );
         if (this.fireService.isLoggedin === true) {
-          this.toastr.success(userName.displayName, 'Welcome Back', {
-            timeOut: 5000,
-          });
+          this.toastr.success(
+            userName.displayName.toUpperCase(),
+            'Welcome Back',
+            {
+              timeOut: 5000,
+            }
+          );
           this.router.navigate(['/countries']);
         }
       },
