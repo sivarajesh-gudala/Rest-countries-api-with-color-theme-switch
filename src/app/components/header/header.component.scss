@@ -25,65 +25,21 @@
     }
   }
 
-  ul.navbar-nav {
-    span.dark-text {
+  ul {
+    a.dark-text {
       color: hsl(0%, 0%, 100%);
     }
-    span.light-text {
+    a.light-text {
       color: purple;
     }
   }
 
-  .logout-btn.mat-button {
-    font-family: "Nunito Sans", sans-serif !important;
-    font-size: 14px;
-    font-weight: 600px;
-  }
-  mat-icon {
-    font-size: 22px;
-    padding-right: 2rem;
-  }
   .logout-btn.dark-btn-logout {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
-    border-color: hsl(0, 0%, 100%);
-    box-shadow: 0 0 1px hsl(0, 0%, 100%);
   }
   .logout-btn.light-btn-logout {
     background-color: hsl(0, 0%, 100%);
     color: hsl(200, 15%, 8%);
-    border-color: hsl(200, 15%, 8%);
-    box-shadow: 0 0 1px hsl(200, 15%, 8%);
-  }
-
-  .toggle {
-    display: none;
-  }
-  .toggle-label {
-    position: relative;
-    display: inline-block;
-    width: 1.7rem;
-    height: 1.3rem;
-    overflow: hidden;
-    .sun,
-    .moon {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: auto;
-      transition: top 0.3s;
-    }
-  }
-  .sun {
-    top: 0;
-  }
-  .moon {
-    top: -150%;
-  }
-  .toggle:checked + .toggle-label .sun {
-    top: 150%;
-  }
-  .toggle:checked + .toggle-label .moon {
-    top: 0;
   }
 }
