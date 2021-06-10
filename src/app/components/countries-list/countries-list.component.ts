@@ -36,7 +36,7 @@ export class CountriesListComponent implements OnInit {
   searchedData: any;
   searchFilterOption: any;
   regionSelected: boolean = false;
-
+  
   constructor(
     private apiService: ApiService,
     private router: Router,

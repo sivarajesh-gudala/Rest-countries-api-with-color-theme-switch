@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <!-- Displaying cards  -->
+    <!-- Displaying Country cards  -->
     <div class="card-content mt-3">
       <div class="row">
         <div
@@ -101,14 +101,14 @@
                 *ngIf="data?.population !== ''"
                 [ngClass]="darkModeStatus == true ? 'dark-list' : 'light-list'"
               >
-                Population : {{ data.population | comaSeperator }}
+                <b> Population : </b> {{ data.population | comaSeperator }}
               </li>
               <li
                 class="list-group-item"
                 *ngIf="data?.region !== ''"
                 [ngClass]="darkModeStatus == true ? 'dark-list' : 'light-list'"
               >
-                Region :
+                <b> Region : </b>
                 {{ data.region }}
               </li>
               <li
@@ -116,17 +116,21 @@
                 *ngIf="data?.capital !== ''"
                 [ngClass]="darkModeStatus == true ? 'dark-list' : 'light-list'"
               >
-                Capital :
+                <b> Capital : </b>
                 {{ data.capital }}
               </li>
             </ul>
             <div class="card-footer">
               <a
+                mat-stroked-button
                 [routerLink]="['/country']"
                 [queryParams]="{ name: data.name }"
-                class="card-link"
+                [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
+                matTooltip="Click here to know more about {{ data.name }}"
+                matTooltipHideDelay="100"
               >
                 More
+                <span class="material-icons-outlined"> read_more </span>
               </a>
             </div>
           </div>
@@ -141,7 +145,7 @@
           class="float-end"
           [ngClass]="darkModeStatus == true ? 'dark-page' : 'light-page'"
           (pageChange)="page = $event"
-          maxSize="4"
+          maxSize="6"
           directionLinks="true"
           autoHide="true"
           responsive="true"

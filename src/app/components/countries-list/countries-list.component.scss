@@ -7,7 +7,6 @@
 
   span.clear_btn {
     cursor: pointer;
-    border: none !important;
   }
 
   .input-group-text.light-clear-btn {
@@ -17,7 +16,6 @@
   span.dark-icon {
     color: hsl(0, 0%, 100%) !important;
     background-color: hsl(209, 23%, 22%) !important;
-    border: none !important;
   }
   span.light-icon {
     color: #aaa !important;
@@ -26,42 +24,38 @@
   input.dark-input {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
-    border: none !important;
+    &::placeholder {
+      color: hsl(0, 0%, 100%);
+      font-weight: 600;
+    }
   }
-  input.dark-input::placeholder {
-    color: hsl(0, 0%, 100%);
-  }
+
   input.light-input {
     background-color: hsl(0, 0%, 100%);
-    color: hsl(200, 15%, 8%);
-  }
-  input.light-input::placeholder {
-    color: hsl(200, 15%, 8%) !important;
+    &::placeholder {
+      color: purple;
+      font-weight: 600;
+    }
   }
 
   select.dark-select {
     background-color: hsl(209, 23%, 22%);
     color: hsl(0, 0%, 100%);
-    border-color: hsl(0, 0%, 100%);
-    box-shadow: 0 0 1px hsl(0, 0%, 100%);
+    border: 1px solid hsl(0, 0%, 100%) !important;
   }
 
   select.light-select {
     background-color: hsl(0, 0%, 100%);
-    color: hsl(200, 15%, 8%);
-    border-color: hsl(200, 15%, 8%);
-    box-shadow: 0 0 1px hsl(200, 15%, 8%);
+    color: purple;
+    border: 1px solid #aaa !important;
   }
   select {
     border: none !important;
-    border-radius: 2px;
-    width: 100%;
     margin: 0px auto;
-    box-sizing: border-box;
-    font-size: 14px;
-    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
-      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
-  }
+    font-weight: 600;
+    box-shadow: none !important;
+    border-radius: 4px;
+    }
 
   .card-content {
     img.country-flag {
@@ -70,7 +64,6 @@
     }
     li {
       border: 0px none !important;
-      border-radius: 0px !important;
     }
     h5 {
       margin-bottom: 0px !important;
@@ -81,6 +74,17 @@
     }
     .light-title {
       color: purple;
+    }
+    .list-group {
+      font-size: 13px;
+      font-weight: 600;
+      li {
+        b {
+          text-transform: capitalize;
+          font-size: 14px;
+          font-weight: 800 !important;
+        }
+      }
     }
 
     .dark-list {
@@ -105,6 +109,23 @@
       background-color: hsl(0, 0%, 100%);
       a {
         color: hsl(200, 15%, 8%);
+      }
+    }
+
+    .card-footer {
+      .mat-stroked-button {
+        font-size: 13px;
+        font-family: "Nunito Sans", sans-serif;
+        border: none !important;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      a.dark-btn {
+        color: white !important;
+      }
+      .mat-stroked-button.light-btn {
+        color: purple;
       }
     }
   }

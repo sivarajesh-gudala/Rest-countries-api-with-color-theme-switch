@@ -14,9 +14,8 @@ import {
 })
 export class HeaderComponent implements OnInit {
   darkMode$ = this.darkModeService.darkMode$;
-  modeName: string = 'Dark Mode';
+  modeName: string = 'Dark theme';
   modeStatus: boolean;
-
   constructor(
     private darkModeService: DarkModeService,
     private dialog: MatDialog

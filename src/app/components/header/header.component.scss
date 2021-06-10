@@ -50,6 +50,8 @@
   mat-slide-toggle.slide-toggle {
     font-family: "Nunito Sans", sans-serif;
     font-weight: 500 !important;
-    font-size: 14px;
+    // font-size: 14px;
+    font-style: italic;
+    line-height: none !important;
   }
 }

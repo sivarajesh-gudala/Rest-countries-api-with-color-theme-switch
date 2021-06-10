@@ -39,12 +39,10 @@
               [checked]="darkMode$ | async"
               (change)="onToggle()"
               class="slide-toggle"
+              matTooltip="Change the Appearance"
+              matTooltipHideDelay="100"
             >
-              {{
-                modeStatus
-                  ? "Disable" + " " + modeName
-                  : "Enable" + " " + modeName
-              }}
+              {{ modeStatus ? modeName : "Light Theme" }}
             </mat-slide-toggle>
           </a>
         </li>
@@ -54,6 +52,8 @@
             <span
               class="material-icons-outlined"
               (click)="signOut()"
+              matTooltip="Signout"
+              matTooltipHideDelay="100"
               [ngClass]="
                 modeStatus === true ? 'dark-btn-logout' : 'light-btn-logout'
               "
