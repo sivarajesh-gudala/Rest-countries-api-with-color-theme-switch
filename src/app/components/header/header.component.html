@@ -42,8 +42,6 @@
             </i> -->
             {{ modeStatus ? modeName : "Light Mode" }}
             <mat-slide-toggle
-              class="example-margin"
-              [color]="color"
               [checked]="darkMode$ | async"
               (change)="onToggle()"
             >
