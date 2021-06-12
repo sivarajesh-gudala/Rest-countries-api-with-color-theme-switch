@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/services/api.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-selected-country-data',
@@ -22,12 +23,12 @@ export class SelectedCountryDataComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private darkModeService: DarkModeService,
-    private spinnerService: NgxSpinnerService
-  ) {
-    this.getCountryData();
-  }
+    private spinnerService: NgxSpinnerService,
+    private sharedService: SharedService
+  ) {}
 
   ngOnInit(): void {
+    this.getCountryData();
     this.getDarkModeStatus();
   }
 
@@ -37,19 +38,17 @@ export class SelectedCountryDataComponent implements OnInit {
     });
   }
 
-  /** Get All Countries  API */
+  /** subscribing Get All Countries  API */
   getCountryData(): void {
     this.route.queryParams.subscribe((params) => {
       this.spinnerService.show();
 
       this.apiService.getCountriesByName(params.name).subscribe((data) => {
-        // console.log(data);
-        data
-          .map((country) => {
-            this.flagImage = country.flag;
-            this.countryName = country.name;
-          })
-          .join('');
+        data.map((country) => {
+          this.flagImage = country.flag;
+          this.countryName = country.name;
+        });
+
         setTimeout(() => {
           this.spinnerService.hide();
         }, 3000);
@@ -60,9 +59,10 @@ export class SelectedCountryDataComponent implements OnInit {
   }
 
   /** Events  */
+
+  /** Back to previous screen */
   back(): void {
     const regParam = sessionStorage.getItem('region');
-    console.log(regParam);
     if (regParam !== 'undefined') {
       this.router.navigate(['/countries'], {
         queryParams: { region: regParam },
@@ -89,5 +89,18 @@ export class SelectedCountryDataComponent implements OnInit {
           queryParams: { name: res.name },
         });
       });
+  }
+
+  /** Get Location of the country based on
+   * Latitude and Longitude
+   * @param latlng
+   */
+  getLocation(latlng): void {
+    if (latlng) {
+      this.sharedService.subject.next(latlng);
+      this.router.navigate(['/ip-address-tracker'], {
+        queryParams: { Lat: latlng[0], Lng: latlng[1] },
+      });
+    }
   }
 }

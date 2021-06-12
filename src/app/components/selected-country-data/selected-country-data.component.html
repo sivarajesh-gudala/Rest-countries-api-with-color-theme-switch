@@ -1,4 +1,7 @@
+<!-- header  -->
 <app-header></app-header>
+
+<!-- country information  -->
 <section class="main-content mt-4">
   <div class="container">
     <div class="row">
@@ -9,6 +12,8 @@
           type="button"
           mat-raised-button
           (click)="back()"
+          matTooltip="Go back to where you left off"
+          matTooltipHideDelay="100"
         >
           <mat-icon>arrow_back</mat-icon>
           Back
@@ -32,6 +37,19 @@
               </div>
               <div class="col-md-12 mt-5 fs-6">
                 <h1 class="mat-display-6 text-center">{{ content.name }}</h1>
+                <button
+                  mat-flat-button
+                  *ngIf="content?.latlng"
+                  class="mx-auto d-block gps-btn"
+                  (click)="getLocation(content.latlng)"
+                  matTooltip="Click here to get location of {{
+                    content.name
+                  }} in the map"
+                  matTooltipHideDelay="100"
+                >
+                  GPS
+                  <mat-icon> location_on</mat-icon>
+                </button>
                 <div class="row pr-5 pl-5 pt-5 pb-3">
                   <div class="col-md-6">
                     <p *ngIf="content?.nativeName !== ''">
@@ -102,11 +120,13 @@
                       type="button"
                       *ngFor="let border of content.borders"
                       mat-raised-button
-                      class="border-btn me-3 mb-3"
+                      class="border-btn me-3 mb-4"
                       (click)="borderCountry($event)"
                       [ngClass]="
                         darkModeStatus == true ? 'dark-btn' : 'light-btn'
                       "
+                      matTooltip="Click here to Know more about this country"
+                      matTooltipHideDelay="100"
                     >
                       {{ border }}
                     </button>

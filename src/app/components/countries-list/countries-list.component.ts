@@ -36,7 +36,8 @@ export class CountriesListComponent implements OnInit {
   searchedData: any;
   searchFilterOption: any;
   regionSelected: boolean = false;
-  
+  srchDataValue: any;
+
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -233,6 +234,7 @@ export class CountriesListComponent implements OnInit {
 
   // searching entries
   search(value): void {
+    this.srchDataValue = value;
     if (this.countryListForm.get('filterOptions').value) {
       this.commonSearchFilter();
     }

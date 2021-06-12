@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
 import * as L from 'leaflet';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
+
 @Component({
   selector: 'app-ip-address-tracker',
   templateUrl: './ip-address-tracker.component.html',
@@ -19,22 +21,30 @@ export class IpAddressTrackerComponent implements OnInit {
   isp: any;
   locationDetails: any;
   invalidIpAddr: boolean = true;
-  ipRegex =
-    /((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/;
 
   constructor(
     private apiService: ApiService,
     private fb: FormBuilder,
     private tostr: ToastrService,
-    private darkModeService: DarkModeService
+    private darkModeService: DarkModeService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.mapForm = this.fb.group({
-      ipaddress: ['', [Validators.required]],
+      ipaddress: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
+          ),
+        ],
+      ],
     });
   }
   ngOnInit(): void {
-    this.getLocation();
     this.getDarkModeStatus();
+    this.getLatLngFromCountry();
     this.searchValueChanges();
   }
 
@@ -69,7 +79,6 @@ export class IpAddressTrackerComponent implements OnInit {
   mapLayer(latPos, longPos, region, city): void {
     // map initialization
     this.map = L.map('map').setView([latPos, longPos], 13);
-
     //Setting Map Layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
@@ -102,32 +111,31 @@ export class IpAddressTrackerComponent implements OnInit {
   searchAddress(): void {
     if (this.mapForm.valid) {
       const ipAddress = this.mapForm.value.ipaddress;
-      if (this.ipRegex.test(ipAddress)) {
-        this.apiService.getMapLocation(ipAddress).subscribe((res) => {
-          this.invalidIpAddr = false;
-          console.log(res);
-          this.locationDetails = res;
-          this.map.remove();
-          this.mapLayer(
-            res.location.lat,
-            res.location.lng,
-            res.location.region,
-            res.location.city
-          );
-          this.ipAddress = res.ip;
-          this.country = res.location.country;
-          this.timeZone = res.location.timezone;
-          this.isp = res.isp;
+      this.apiService.getMapLocation(ipAddress).subscribe((res) => {
+        this.invalidIpAddr = false;
+        this.ipAddress = res.ip;
+        this.country = res.location.country;
+        this.timeZone = res.location.timezone;
+        this.isp = res.isp;
+        this.locationDetails = res;
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: {
+            Lat: res.location.lat,
+            Lng: res.location.lng,
+          },
         });
-      } else {
-        this.invalidIpAddr = true;
-        this.tostr.error('Please enter a valid IP Address', '', {
-          timeOut: 5000,
-        });
-      }
+        this.map.remove();
+        this.mapLayer(
+          res.location.lat,
+          res.location.lng,
+          res.location.region,
+          res.location.city
+        );
+      });
     } else {
       this.invalidIpAddr = true;
-      this.tostr.error('Please enter a valid IP address', '', {
+      this.tostr.error('Please enter a valid IP Address', '', {
         timeOut: 5000,
       });
     }
@@ -137,6 +145,16 @@ export class IpAddressTrackerComponent implements OnInit {
     this.mapForm.get('ipaddress').valueChanges.subscribe((val) => {
       if (val === '' || !this.ipRegex.test(val)) {
         this.invalidIpAddr = true;
+      }
+    });
+  }
+
+  getLatLngFromCountry(): void {
+    this.route.queryParams.subscribe((val) => {
+      if (Object.entries(val).length !== 0 && val.constructor === Object) {
+        this.mapLayer(val.Lat, val.Lng, '', '');
+      } else {
+        this.getLocation();
       }
     });
   }

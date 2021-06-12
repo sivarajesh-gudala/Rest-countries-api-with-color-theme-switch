@@ -71,70 +71,91 @@
     <!-- Displaying Country cards  -->
     <div class="card-content mt-3">
       <div class="row">
-        <div
-          class="col-md-3 mb-3"
-          *ngFor="
-            let data of listOfCountries
-              | filter: searchedData
-              | paginate: { itemsPerPage: 4, currentPage: page };
-            let i = index
-          "
+        <ng-container
+          *ngIf="listOfCountries | filter: searchedData as countriesList"
         >
           <div
-            class="card country-card"
-            [ngClass]="darkModeStatus == true ? 'dark-card' : 'light-card'"
+            class="col-md-3 mb-3 card-info"
+            *ngFor="
+              let data of countriesList
+                | paginate: { itemsPerPage: 4, currentPage: page };
+              let i = index
+            "
           >
-            <img
-              [src]="data.flag"
-              alt="{{ data.name }}"
-              class="country-flag card-img-top"
-            />
             <div
-              class="card-body"
-              [ngClass]="darkModeStatus == true ? 'dark-title' : 'light-title'"
+              class="card country-card"
+              [ngClass]="darkModeStatus == true ? 'dark-card' : 'light-card'"
             >
-              <h5 class="card-title">{{ data.name }}</h5>
-            </div>
-            <ul class="list-group">
-              <li
-                class="list-group-item"
-                *ngIf="data?.population !== ''"
-                [ngClass]="darkModeStatus == true ? 'dark-list' : 'light-list'"
+              <img
+                [src]="data.flag"
+                alt="{{ data.name }}"
+                class="country-flag card-img-top"
+              />
+              <div
+                class="card-body"
+                [ngClass]="
+                  darkModeStatus == true ? 'dark-title' : 'light-title'
+                "
               >
-                <b> Population : </b> {{ data.population | comaSeperator }}
-              </li>
-              <li
-                class="list-group-item"
-                *ngIf="data?.region !== ''"
-                [ngClass]="darkModeStatus == true ? 'dark-list' : 'light-list'"
-              >
-                <b> Region : </b>
-                {{ data.region }}
-              </li>
-              <li
-                class="list-group-item"
-                *ngIf="data?.capital !== ''"
-                [ngClass]="darkModeStatus == true ? 'dark-list' : 'light-list'"
-              >
-                <b> Capital : </b>
-                {{ data.capital }}
-              </li>
-            </ul>
-            <div class="card-footer">
-              <a
-                mat-stroked-button
-                [routerLink]="['/country']"
-                [queryParams]="{ name: data.name }"
-                [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
-                matTooltip="Click here to know more about {{ data.name }}"
-                matTooltipHideDelay="100"
-              >
-                More
-                <span class="material-icons-outlined"> read_more </span>
-              </a>
+                <h5 class="card-title">{{ data.name }}</h5>
+              </div>
+              <ul class="list-group">
+                <li
+                  class="list-group-item"
+                  *ngIf="data?.population !== ''"
+                  [ngClass]="
+                    darkModeStatus == true ? 'dark-list' : 'light-list'
+                  "
+                >
+                  <b> Population : </b> {{ data.population | comaSeperator }}
+                </li>
+                <li
+                  class="list-group-item"
+                  *ngIf="data?.region !== ''"
+                  [ngClass]="
+                    darkModeStatus == true ? 'dark-list' : 'light-list'
+                  "
+                >
+                  <b> Region : </b>
+                  {{ data.region }}
+                </li>
+                <li
+                  class="list-group-item"
+                  *ngIf="data?.capital !== ''"
+                  [ngClass]="
+                    darkModeStatus == true ? 'dark-list' : 'light-list'
+                  "
+                >
+                  <b> Capital : </b>
+                  {{ data.capital }}
+                </li>
+              </ul>
+              <div class="card-footer">
+                <a
+                  mat-stroked-button
+                  [routerLink]="['/country']"
+                  [queryParams]="{ name: data.name }"
+                  [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
+                  matTooltip="Click here to know more about {{ data.name }}"
+                  matTooltipHideDelay="100"
+                >
+                  More
+                  <span class="material-icons-outlined"> read_more </span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+          <p
+            *ngIf="countriesList.length === 0"
+            class="no-result-text"
+            [ngClass]="
+              darkModeStatus == true ? 'noresult-dark' : 'noresult-light'
+            "
+          >
+            No Results Found For
+            <span class=""> "{{ srchDataValue }}" </span>
+          </p>
+        </ng-container>
       </div>
     </div>
 

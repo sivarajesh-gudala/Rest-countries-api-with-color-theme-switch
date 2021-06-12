@@ -55,7 +55,7 @@
     font-weight: 600;
     box-shadow: none !important;
     border-radius: 4px;
-    }
+  }
 
   .card-content {
     img.country-flag {
@@ -128,6 +128,25 @@
         color: purple;
       }
     }
+    .no-result-text {
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 600;
+      font-style: italic !important;
+      span {
+        font-weight: 800;
+      }
+    }
+    p.noresult-dark {
+      span {
+        color: yellow;
+      }
+    }
+    p.noresult-light {
+      color: purple;
+      span {
+        color: hsl(209, 23%, 22%);
+      }
+    }
   }
 }
 ngx-spinner {
@@ -135,5 +154,15 @@ ngx-spinner {
   p {
     font-family: "Nunito Sans", sans-serif;
     color: hsl(0, 0%, 100%);
+  }
+}
+
+// media queries
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .card-info {
+    width: 350px !important;
+    .card {
+      width: 330px;
+    }
   }
 }

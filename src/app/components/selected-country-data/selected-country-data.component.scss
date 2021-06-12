@@ -18,9 +18,26 @@
   .text-content {
     .dark-text {
       color: hsl(0, 0%, 100%) !important;
+      button.gps-btn {
+        background-color: hsl(209, 23%, 22%);
+        color: hsl(0, 0%, 100%);
+      }
     }
     .light-text {
       color: hsl(209, 15%, 8%);
+      button.gps-btn {
+        background-color: purple;
+        color: white;
+      }
+    }
+    .gps-btn {
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      mat-icon {
+        padding-right: 0px !important;
+        font-size: 18px;
+      }
     }
     .img-flag {
       object-fit: cover;
