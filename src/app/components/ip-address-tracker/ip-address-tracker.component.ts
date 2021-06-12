@@ -88,7 +88,7 @@ export class IpAddressTrackerComponent implements OnInit {
     // marker Icon
     var LeafIcon = new L.Icon({
       iconUrl: '../../../assets/ip-address/icon-location.svg',
-      iconSize: [30, 40],
+      iconSize: [25, 30],
     });
 
     //changing position of Marker
@@ -136,14 +136,14 @@ export class IpAddressTrackerComponent implements OnInit {
     } else {
       this.invalidIpAddr = true;
       this.tostr.error('Please enter a valid IP Address', '', {
-        timeOut: 5000,
+        timeOut: 3000,
       });
     }
   }
 
   searchValueChanges(): void {
     this.mapForm.get('ipaddress').valueChanges.subscribe((val) => {
-      if (val === '' || !this.ipRegex.test(val)) {
+      if (val === '') {
         this.invalidIpAddr = true;
       }
     });
