@@ -29,6 +29,8 @@
                 [ngClass]="
                   darkModeStatus == true ? 'dark-icon' : 'light-clear-btn'
                 "
+                matTooltip="Clear all"
+                matTooltipHideDelay="100"
               >
                 clear_all
               </span>
@@ -58,11 +60,31 @@
                 darkModeStatus == true ? 'dark-select' : 'light-select'
               "
             >
-              <option value="" selected disabled>Filter by Region</option>
+              <option value="allregions">All Regions</option>
               <option value="{{ region }}" *ngFor="let region of newRegArr">
                 {{ region }}
               </option>
             </select>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-12">
+            <div class="col-lg-4 col-lg-offset-4">
+              <select
+                class="form-select"
+                [ngClass]="
+                  darkModeStatus == true ? 'dark-select' : 'light-select'
+                "
+                (change)="countrySelected($event)"
+              >
+                <option value="allcountries" selected>All Countries</option>
+                <option
+                  value="{{ country.name }}"
+                  *ngFor="let country of allCountriesList"
+                >
+                  {{ country.name }}
+                </option>
+              </select>
+            </div>
           </div>
         </form>
       </div>

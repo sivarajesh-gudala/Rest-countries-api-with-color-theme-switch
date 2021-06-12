@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { SharedService } from 'src/app/services/shared.service';
 import { userDetails } from 'src/app/shared/user-details.interface';
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private fireService: FirebaseService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sharedService: SharedService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -33,46 +35,50 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login(): void {
-    this.credentials = this.loginForm.value;
-    this.fireService.signInCredentials(this.credentials).subscribe(
-      (success) => {
-        let userName = JSON.parse(localStorage.getItem('user-details'));
+    if (this.loginForm.valid) {
+      this.credentials = this.loginForm.value;
+      this.fireService.signInCredentials(this.credentials).subscribe(
+        (success) => {
+          let userName = JSON.parse(localStorage.getItem('user-details'));
 
-        if (this.fireService.isLoggedin === true) {
-          this.toastr.success(
-            userName.displayName.toUpperCase(),
-            'Welcome Back',
-            {
-              timeOut: 5000,
-            }
-          );
-          this.router.navigate(['/countries']);
+          if (this.fireService.isLoggedin === true) {
+            this.toastr.success(
+              this.sharedService.capitalizeFirstLetter(userName.displayName),
+              'Welcome Back',
+              {
+                timeOut: 5000,
+              }
+            );
+            this.router.navigate(['/all-countries']);
+          }
+        },
+        (error) => {
+          this.toastr.error('', error.message, {
+            timeOut: 3000,
+          });
         }
-      },
-      (error) => {
-        this.toastr.error('', error.message, {
-          timeOut: 3000,
-        });
-      }
-    );
+      );
+    }
   }
 
   resetPassword(): void {
-    this.fireService
-      .resetPassword(this.resetForm.value.resetpwdemail)
-      .subscribe(
-        (success) => {
-          this.toastr.info(
-            this.resetForm.value.resetpwdemail,
-            'Reset link has been sent to your mail Please check ',
-            { timeOut: 5000 }
-          );
-        },
-        (err) => {
-          console.log(err.message);
-          this.toastr.error(err.message, '', { timeOut: 5000 });
-        }
-      );
+    if (this.resetForm.valid) {
+      this.fireService
+        .resetPassword(this.resetForm.value.resetpwdemail)
+        .subscribe(
+          (success) => {
+            this.toastr.info(
+              this.resetForm.value.resetpwdemail,
+              'Reset link has been sent to your mail Please check ',
+              { timeOut: 5000 }
+            );
+          },
+          (err) => {
+            console.log(err.message);
+            this.toastr.error(err.message, '', { timeOut: 5000 });
+          }
+        );
+    }
   }
 
   showPassword(): void {

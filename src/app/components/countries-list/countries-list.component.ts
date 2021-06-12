@@ -53,7 +53,7 @@ export class CountriesListComponent implements OnInit {
     this.countryListForm = this.fbBuilder.group({
       country: [''],
       filterOptions: ['Name'],
-      region: [''],
+      region: ['allregions'],
     });
   }
 
@@ -62,6 +62,25 @@ export class CountriesListComponent implements OnInit {
     this.getAllCounriesInfo();
     this.updatedSearchValue();
     this.getDarkModeStatus();
+  }
+
+  /** Displaying all Countries Data  for all regions*/
+  displayingAllCountries(): void {
+    if (this.countryListForm.get('region').value === 'allregions') {
+      this.apiService.getAllCountriesData().subscribe((res) => {
+        this.listOfCountries = res;
+        this.allCountriesList = res;
+        this.regionSelected = false;
+        this.spinnerService.show();
+        setTimeout(() => {
+          this.spinnerService.hide();
+        }, 2000);
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: null,
+        });
+      });
+    }
   }
 
   /** based on query params setting region value*/
@@ -110,16 +129,17 @@ export class CountriesListComponent implements OnInit {
     this.apiService.getAllCountriesData().subscribe((data) => {
       this.allCountriesList = data;
       this.totalLength = data.length;
-      if (this.countryListForm.get('region').value) {
-        this.getDataByRegion(this.countryListForm.get('region').value);
-      } else {
-        this.listOfCountries = data;
-      }
       const oldRegArr = data.map((item, i, arr) => {
         return arr[i].region;
       });
       const regArr = [...new Set(oldRegArr)];
       this.newRegArr = regArr.slice(0, -1);
+      if (this.countryListForm.get('region').value !== 'allregions') {
+        this.getDataByRegion(this.countryListForm.get('region').value);
+      } else {
+        this.listOfCountries = data;
+        this.allCountriesList = data;
+      }
       setTimeout(() => {
         this.spinnerService.hide();
       }, 3000);
@@ -132,7 +152,8 @@ export class CountriesListComponent implements OnInit {
     this.regionValue = region;
     this.apiService.getCountriesByRegion(region).subscribe((data) => {
       this.regionCountriesList = data;
-      this.listOfCountries = data.slice();
+      this.listOfCountries = data;
+      this.allCountriesList = data;
       this.totalLength = data.length;
       if (region) {
         setTimeout(() => {
@@ -229,7 +250,11 @@ export class CountriesListComponent implements OnInit {
   regionsList(event): void {
     this.regionValue = event.target.value;
     this.regionSelected = true;
-    this.getDataByRegion(this.regionValue);
+    if (this.regionValue === 'allregions') {
+      this.displayingAllCountries();
+    } else {
+      this.getDataByRegion(this.regionValue);
+    }
   }
 
   // searching entries
@@ -256,12 +281,29 @@ export class CountriesListComponent implements OnInit {
         return arr[i];
       }
     });
-    if (this.countryListForm.get('region').value !== '') {
+    if (this.countryListForm.get('region').value !== 'allregions') {
       this.listOfCountries = filterData;
     }
   }
 
   searchFilter(event): void {
     this.commonSearchFilter();
+  }
+
+  countrySelected(event): void {
+    if (event.target.value === 'allcountries') {
+      console.log('all');
+      if (this.countryListForm.get('region').value !== 'allregions') {
+        this.getDataByRegion(this.countryListForm.get('region').value);
+      } else {
+        this.getAllCounriesInfo();
+      }
+    } else {
+      this.apiService
+        .getCountriesByName(event.target.value)
+        .subscribe((res) => {
+          this.listOfCountries = res;
+        });
+    }
   }
 }

@@ -64,11 +64,11 @@ export class SelectedCountryDataComponent implements OnInit {
   back(): void {
     const regParam = sessionStorage.getItem('region');
     if (regParam !== 'undefined') {
-      this.router.navigate(['/countries'], {
+      this.router.navigate(['/all-countries'], {
         queryParams: { region: regParam },
       });
     } else {
-      this.router.navigate(['/countries']);
+      this.router.navigate(['/all-countries']);
     }
   }
 

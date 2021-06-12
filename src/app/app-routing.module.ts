@@ -19,7 +19,7 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'countries',
+    path: 'all-countries',
     canActivate: [AuthGuardGuard],
     component: CountriesListComponent,
   },
