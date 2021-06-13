@@ -292,7 +292,10 @@ export class CountriesListComponent implements OnInit {
 
   countrySelected(event): void {
     if (event.target.value === 'allcountries') {
-      console.log('all');
+      this.router.navigate(['/all-countries'], {
+        relativeTo: this.route,
+        queryParams: null,
+      });
       if (this.countryListForm.get('region').value !== 'allregions') {
         this.getDataByRegion(this.countryListForm.get('region').value);
       } else {
@@ -303,6 +306,12 @@ export class CountriesListComponent implements OnInit {
         .getCountriesByName(event.target.value)
         .subscribe((res) => {
           this.listOfCountries = res;
+          this.router.navigate(['/all-countries'], {
+            relativeTo: this.route,
+            queryParams: {
+              country: event.target.value,
+            },
+          });
         });
     }
   }

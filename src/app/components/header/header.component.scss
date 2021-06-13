@@ -40,24 +40,4 @@
   ul.mx-auto {
     text-transform: uppercase;
   }
-  .dark-btn-logout {
-    color: hsl(0, 0%, 100%);
-  }
-  .light-btn-logout {
-    color: hsl(200, 15%, 8%);
-  }
-
-  mat-slide-toggle.slide-toggle {
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 500 !important;
-    font-style: italic;
-    line-height: none !important;
-  }
-  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: rgba(29, 135, 229, 0.2);
-  }
-
-  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-    background-color: hsl(200, 15%, 8%);
-  }
 }

@@ -5,6 +5,7 @@ import {
   ConfirmDialogComponent,
   ConfirmDialogModel,
 } from '../header/confirm-dialog/confirm-dialog.component';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -14,18 +15,34 @@ import {
 })
 export class HeaderComponent implements OnInit {
   darkMode$ = this.darkModeService.darkMode$;
-  modeName: string = 'Dark theme';
+  modeName: string = 'Dark Mode';
   modeStatus: boolean;
+  userName: any;
 
   constructor(
     private darkModeService: DarkModeService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
+    this.getUserInfo();
+    this.getDarkModeStatus();
+  }
+
+  /** Getting Dark theme status */
+  getDarkModeStatus(): void {
     this.darkModeService.darkMode$.subscribe((val) => {
       this.modeStatus = val;
     });
+  }
+
+  /** Get User Name */
+  getUserInfo() {
+    let userDetails = JSON.parse(localStorage.getItem('user-details'));
+    this.userName = this.sharedService.capitalizeFirstLetter(
+      userDetails.displayName
+    );
   }
 
   /** Dark Mode */

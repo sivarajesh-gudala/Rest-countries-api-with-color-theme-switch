@@ -30,11 +30,11 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [ngClass]="modeStatus === true ? 'dark-text' : 'light-text'"
-          >
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" color="primary" class="customize-menu">
+          <li mat-menu-item>
             <mat-slide-toggle
               [checked]="darkMode$ | async"
               (change)="onToggle()"
@@ -42,26 +42,21 @@
               matTooltip="Change the Appearance"
               matTooltipHideDelay="100"
             >
-              {{ modeStatus ? modeName : "Light Theme" }}
+              {{ modeStatus ? modeName : "Light Mode" }}
             </mat-slide-toggle>
-          </a>
-        </li>
+          </li>
 
-        <li class="nav-item">
-          <a class="nav-link">
-            <span
-              class="material-icons-outlined"
-              (click)="signOut()"
-              matTooltip="Signout"
-              matTooltipHideDelay="100"
-              [ngClass]="
-                modeStatus === true ? 'dark-btn-logout' : 'light-btn-logout'
-              "
-            >
-              logout
-            </span>
-          </a>
-        </li>
+          <button
+            mat-menu-item
+            (click)="signOut()"
+            matTooltip="Signout"
+            matTooltipHideDelay="100"
+            class="log-out"
+          >
+            {{ userName }}
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </mat-menu>
       </ul>
     </div>
   </nav>
