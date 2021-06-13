@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-12">
         <form [formGroup]="countryListForm" class="row g-3">
-          <div class="col-md-5">
+          <div class="col-md-4">
             <div class="input-group">
               <span
                 class="material-icons-outlined input-group-text"
@@ -36,7 +36,6 @@
               </span>
             </div>
           </div>
-
           <div class="col-md-3">
             <select
               class="form-select"
@@ -54,6 +53,23 @@
           <div class="col-md-3">
             <select
               class="form-select"
+              [ngClass]="
+                darkModeStatus == true ? 'dark-select' : 'light-select'
+              "
+              (change)="countrySelected($event)"
+            >
+              <option value="allcountries" selected>All Countries</option>
+              <option
+                value="{{ country.name }}"
+                *ngFor="let country of allCountriesList"
+              >
+                {{ country.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <select
+              class="form-select"
               formControlName="region"
               (change)="regionsList($event)"
               [ngClass]="
@@ -65,26 +81,6 @@
                 {{ region }}
               </option>
             </select>
-          </div>
-          <div class="col-md-1"></div>
-          <div class="col-md-12">
-            <div class="col-lg-4 col-lg-offset-4">
-              <select
-                class="form-select"
-                [ngClass]="
-                  darkModeStatus == true ? 'dark-select' : 'light-select'
-                "
-                (change)="countrySelected($event)"
-              >
-                <option value="allcountries" selected>All Countries</option>
-                <option
-                  value="{{ country.name }}"
-                  *ngFor="let country of allCountriesList"
-                >
-                  {{ country.name }}
-                </option>
-              </select>
-            </div>
           </div>
         </form>
       </div>
@@ -100,8 +96,7 @@
             class="col-md-3 mb-3 card-info"
             *ngFor="
               let data of countriesList
-                | paginate: { itemsPerPage: 4, currentPage: page };
-              let i = index
+                | paginate: { itemsPerPage: 4, currentPage: page }
             "
           >
             <div

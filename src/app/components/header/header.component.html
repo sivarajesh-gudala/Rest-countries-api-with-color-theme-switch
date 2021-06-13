@@ -12,6 +12,8 @@
             routerLink="/all-countries"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
+            matTooltip="All countries in the World"
+            matTooltipHideDelay="100"
           >
             Where in the world?
           </a>
@@ -24,8 +26,10 @@
             class="nav-link text-uppercase"
             routerLink="/ip-address-tracker"
             routerLinkActive="active"
+            matTooltip="Get location based on IP address"
+            matTooltipHideDelay="100"
           >
-            GPS Tracker
+            Map
           </a>
         </li>
       </ul>
@@ -33,18 +37,20 @@
         <button mat-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #menu="matMenu" color="primary" class="customize-menu">
-          <li mat-menu-item>
-            <mat-slide-toggle
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-button-toggle
               [checked]="darkMode$ | async"
-              (change)="onToggle()"
-              class="slide-toggle"
+              (click)="onToggle()"
               matTooltip="Change the Appearance"
               matTooltipHideDelay="100"
-            >
-              {{ modeStatus ? modeName : "Light Mode" }}
-            </mat-slide-toggle>
-          </li>
+              ><span class="material-icons">
+                {{ modeStatus ? "light_mode" : "dark_mode" }}
+              </span>
+
+              {{ modeStatus ? "Light Mode" : modeName }}
+            </mat-button-toggle>
+          </button>
 
           <button
             mat-menu-item
@@ -53,8 +59,8 @@
             matTooltipHideDelay="100"
             class="log-out"
           >
-            {{ userName }}
             <mat-icon>exit_to_app</mat-icon>
+            {{ userName }}
           </button>
         </mat-menu>
       </ul>
