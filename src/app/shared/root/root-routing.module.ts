@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CountriesListComponent } from 'src/app/components/countries-list/countries-list.component';
-import { IpAddressTrackerComponent } from 'src/app/components/ip-address-tracker/ip-address-tracker.component';
+
 import { LoginComponent } from 'src/app/components/login/login.component';
-import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
 import { RegisterComponent } from 'src/app/components/register/register.component';
+import { CountriesListComponent } from 'src/app/components/countries-list/countries-list.component';
 import { SelectedCountryDataComponent } from 'src/app/components/selected-country-data/selected-country-data.component';
+import { IpAddressTrackerComponent } from 'src/app/components/ip-address-tracker/ip-address-tracker.component';
+import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
+
 import { AuthGuardGuard } from '../auth-guard.guard';
 
 const routes: Routes = [
@@ -14,7 +16,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      { path: 'signup', component: RegisterComponent },
       {
         path: 'all-countries',
         canActivate: [AuthGuardGuard],

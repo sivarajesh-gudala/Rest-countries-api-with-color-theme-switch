@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/services/api.service';
-import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-selected-country-data',
@@ -17,14 +16,14 @@ export class SelectedCountryDataComponent implements OnInit {
   darkModeStatus: boolean;
   countryName: any;
   flagImage: any;
+  showSpinner: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private apiService: ApiService,
     private darkModeService: DarkModeService,
-    private spinnerService: NgxSpinnerService,
-    private sharedService: SharedService
+    private spinnerService: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -40,15 +39,17 @@ export class SelectedCountryDataComponent implements OnInit {
 
   /** subscribing Get All Countries  API */
   getCountryData(): void {
+    this.showSpinner = false;
+    this.spinnerService.show();
     this.route.queryParams.subscribe((params) => {
-      this.spinnerService.show();
       this.apiService.getCountriesByName(params.name).subscribe(
         (data) => {
+          this.showSpinner = true;
+          this.spinnerService.show();
           data.map((country) => {
             this.flagImage = country.flag;
             this.countryName = country.name;
           });
-
           setTimeout(() => {
             this.spinnerService.hide();
           }, 3000);
@@ -78,12 +79,13 @@ export class SelectedCountryDataComponent implements OnInit {
 
   /** Redirect to border Countries */
   borderCountry(val): void {
+    this.showSpinner = false;
+    this.spinnerService.show();
     this.apiService.getCountriesByCode(val.target.innerText).subscribe(
       (res) => {
         this.flagImage = res.flag;
         this.countryName = res.name;
         this.spinnerService.show();
-
         setTimeout(() => {
           this.spinnerService.hide();
         }, 3000);
@@ -104,7 +106,6 @@ export class SelectedCountryDataComponent implements OnInit {
    */
   getLocation(latlng): void {
     if (latlng) {
-      this.sharedService.subject.next(latlng);
       this.router.navigate(['/ip-address-tracker'], {
         queryParams: { Lat: latlng[0], Lng: latlng[1] },
       });

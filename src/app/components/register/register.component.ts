@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -11,7 +11,7 @@ import { userDetails } from 'src/app/shared/user-details.interface';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   signupForm: FormGroup;
   signupCreds: userDetails;
   constructor(
@@ -22,20 +22,11 @@ export class RegisterComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.signupForm = this.fb.group({
-      username: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.pattern('[a-zA-Z]{1}[a-zA-Z0-9]*'),
-        ],
-      ],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      username: sharedService.valid.username,
+      email: sharedService.valid.email,
+      password: sharedService.valid.password,
     });
   }
-
-  ngOnInit(): void {}
 
   signUp(): void {
     this.signupCreds = this.signupForm.value;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -8,7 +8,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.scss'],
 })
-export class ConfirmDialogComponent implements OnInit {
+export class ConfirmDialogComponent {
   title: string;
   message: string;
   constructor(
@@ -21,7 +21,6 @@ export class ConfirmDialogComponent implements OnInit {
     this.message = data.message;
   }
 
-  ngOnInit(): void {}
   signOut(): void {
     this.firebaseService.logout();
     this.dialogRef.close();

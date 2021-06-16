@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
 import * as L from 'leaflet';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-ip-address-tracker',
@@ -30,18 +31,11 @@ export class IpAddressTrackerComponent implements OnInit {
     private darkModeService: DarkModeService,
     private route: ActivatedRoute,
     private router: Router,
-    private spinnerService: NgxSpinnerService
+    private spinnerService: NgxSpinnerService,
+    private sharedService: SharedService
   ) {
     this.mapForm = this.fb.group({
-      ipaddress: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
-          ),
-        ],
-      ],
+      ipaddress: this.sharedService.valid.ipaddress,
     });
   }
   ngOnInit(): void {

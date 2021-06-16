@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -10,7 +10,7 @@ import { userDetails } from 'src/app/shared/user-details.interface';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   credentials: userDetails;
   loginForm: FormGroup;
   resetForm: FormGroup;
@@ -24,15 +24,13 @@ export class LoginComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: this.sharedService.valid.email,
+      password: this.sharedService.valid.password,
     });
     this.resetForm = this.fb.group({
-      resetpwdemail: ['', [Validators.required, Validators.email]],
+      resetpwdemail: this.sharedService.valid.email,
     });
   }
-
-  ngOnInit(): void {}
 
   login(): void {
     if (this.loginForm.valid) {
