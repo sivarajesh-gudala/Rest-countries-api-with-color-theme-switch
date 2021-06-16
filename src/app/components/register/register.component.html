@@ -11,7 +11,7 @@
             <input
               type="text"
               placeholder="User Name"
-              class="form-control form-control-sm"
+              class="form-control form-control-sm shadow-none"
               formControlName="username"
             />
             <span
@@ -46,7 +46,7 @@
             <input
               type="email"
               placeholder="Email"
-              class="form-control form-control-sm"
+              class="form-control form-control-sm shadow-none"
               formControlName="email"
             />
             <span
@@ -67,7 +67,7 @@
           <div class="form-group">
             <input
               type="password"
-              class="form-control form-control-sm"
+              class="form-control form-control-sm shadow-none"
               formControlName="password"
               placeholder="Password"
             />
@@ -89,7 +89,7 @@
           <div class="mt-3">
             <button
               type="button"
-              class="btn btn-primary btn-sm"
+              class="btn btn-primary btn-sm shadow-none"
               [disabled]="signupForm.invalid"
               (click)="signUp()"
             >

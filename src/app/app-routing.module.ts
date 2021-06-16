@@ -28,8 +28,13 @@ const routes: Routes = [
     component: SelectedCountryDataComponent,
   },
   { path: 'ip-address-tracker', component: IpAddressTrackerComponent },
-  { path: '**', pathMatch: 'full', redirectTo: 'page-not-found' },
-  { path: 'page-not-found', component: PageNotFoundComponent },
+  {
+    path: 'page-not-found',
+    pathMatch: 'full',
+    component: PageNotFoundComponent,
+  },
+
+  { path: '**', redirectTo: '/page-not-found' },
 ];
 
 @NgModule({

@@ -42,19 +42,23 @@ export class SelectedCountryDataComponent implements OnInit {
   getCountryData(): void {
     this.route.queryParams.subscribe((params) => {
       this.spinnerService.show();
+      this.apiService.getCountriesByName(params.name).subscribe(
+        (data) => {
+          data.map((country) => {
+            this.flagImage = country.flag;
+            this.countryName = country.name;
+          });
 
-      this.apiService.getCountriesByName(params.name).subscribe((data) => {
-        data.map((country) => {
-          this.flagImage = country.flag;
-          this.countryName = country.name;
-        });
-
-        setTimeout(() => {
-          this.spinnerService.hide();
-        }, 3000);
-        this.countryInfo = data;
-        this.currencies = data.currencies;
-      });
+          setTimeout(() => {
+            this.spinnerService.hide();
+          }, 3000);
+          this.countryInfo = data;
+          this.currencies = data.currencies;
+        },
+        (err) => {
+          this.router.navigate(['page-not-found']);
+        }
+      );
     });
   }
 
@@ -74,9 +78,8 @@ export class SelectedCountryDataComponent implements OnInit {
 
   /** Redirect to border Countries */
   borderCountry(val): void {
-    this.apiService
-      .getCountriesByCode(val.target.innerText)
-      .subscribe((res) => {
+    this.apiService.getCountriesByCode(val.target.innerText).subscribe(
+      (res) => {
         this.flagImage = res.flag;
         this.countryName = res.name;
         this.spinnerService.show();
@@ -88,7 +91,11 @@ export class SelectedCountryDataComponent implements OnInit {
           relativeTo: this.route,
           queryParams: { name: res.name },
         });
-      });
+      },
+      (err) => {
+        this.router.navigate(['page-not-found']);
+      }
+    );
   }
 
   /** Get Location of the country based on

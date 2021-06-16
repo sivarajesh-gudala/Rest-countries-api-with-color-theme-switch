@@ -37,6 +37,9 @@ export class CountriesListComponent implements OnInit {
   searchFilterOption: any;
   regionSelected: boolean = false;
   srchDataValue: any;
+  countryName: any;
+  countryParams: any;
+  selectedCountry: any;
 
   constructor(
     private apiService: ApiService,
@@ -53,12 +56,13 @@ export class CountriesListComponent implements OnInit {
     this.countryListForm = this.fbBuilder.group({
       country: [''],
       filterOptions: ['Name'],
+      countries: ['allcountries'],
       region: ['allregions'],
     });
+    this.getQueryParams();
   }
 
   ngOnInit(): void {
-    this.getQueryParams();
     this.getAllCounriesInfo();
     this.updatedSearchValue();
     this.getDarkModeStatus();
@@ -66,7 +70,10 @@ export class CountriesListComponent implements OnInit {
 
   /** Displaying all Countries Data  for all regions*/
   displayingAllCountries(): void {
-    if (this.countryListForm.get('region').value === 'allregions') {
+    if (
+      this.countryListForm.get('region').value === 'allregions' &&
+      this.countryListForm.get('countries').value === 'allcountries'
+    ) {
       this.apiService.getAllCountriesData().subscribe((res) => {
         this.listOfCountries = res;
         this.allCountriesList = res;
@@ -74,7 +81,7 @@ export class CountriesListComponent implements OnInit {
         this.spinnerService.show();
         setTimeout(() => {
           this.spinnerService.hide();
-        }, 2000);
+        }, 1000);
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: null,
@@ -87,10 +94,17 @@ export class CountriesListComponent implements OnInit {
   getQueryParams(): void {
     this.route.queryParams.subscribe((params) => {
       this.regionParams = params['region'];
-      sessionStorage.setItem('region', this.regionParams);
+      this.countryParams = params['countryName'];
+      console.log(this.countryParams);
       if (this.regionParams) {
+        sessionStorage.setItem('region', this.regionParams);
         this.countryListForm.patchValue({
           region: this.regionParams,
+        });
+      } else if (this.countryParams) {
+        sessionStorage.setItem('country', this.countryParams);
+        this.countryListForm.patchValue({
+          countries: this.countryParams,
         });
       }
     });
@@ -136,42 +150,68 @@ export class CountriesListComponent implements OnInit {
       this.newRegArr = regArr.slice(0, -1);
       if (this.countryListForm.get('region').value !== 'allregions') {
         this.getDataByRegion(this.countryListForm.get('region').value);
+      }
+      if (this.countryListForm.get('countries').value !== 'allcountries') {
+        this.getDataByName(this.countryListForm.get('countries').value);
       } else {
-        this.listOfCountries = data;
         this.allCountriesList = data;
+        this.listOfCountries = data;
       }
       setTimeout(() => {
         this.spinnerService.hide();
-      }, 3000);
+      }, 1000);
     });
   }
 
   getDataByRegion(region: any): void {
-    this.spinnerService.show();
-    this.regionSelected = true;
     this.regionValue = region;
-    this.apiService.getCountriesByRegion(region).subscribe((data) => {
-      this.regionCountriesList = data;
-      this.listOfCountries = data;
-      this.allCountriesList = data;
-      this.totalLength = data.length;
-      if (region) {
-        setTimeout(() => {
-          this.spinnerService.hide();
-        }, 3000);
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: { region: region },
-        });
+    this.apiService.getCountriesByRegion(region).subscribe(
+      (data) => {
+        this.regionSelected = true;
+        this.regionCountriesList = data;
+        this.listOfCountries = data;
+        this.allCountriesList = data;
+        this.totalLength = data.length;
+        if (region) {
+          this.spinnerService.show();
+          setTimeout(() => {
+            this.spinnerService.hide();
+          }, 1000);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { region: region },
+          });
+        }
+      },
+      (err) => {
+        this.router.navigate(['page-not-found']);
       }
-    });
+    );
   }
 
   getDataByName(name): void {
-    this.apiService.getCountriesByName(name).subscribe((val) => {
-      this.listOfCountries = val;
-      this.filterItemsInRegion(val);
-    });
+    this.spinnerService.show();
+    this.apiService.getCountriesByName(name).subscribe(
+      (result) => {
+        this.regionSelected = false;
+        this.listOfCountries = result;
+        this.filterItemsInRegion(result);
+        setTimeout(() => {
+          this.spinnerService.hide();
+        }, 1000);
+        if (name) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: {
+              countryName: name,
+            },
+          });
+        }
+      },
+      (err) => {
+        this.router.navigate(['page-not-found']);
+      }
+    );
   }
 
   getDataByFullName(fullName): void {
@@ -222,7 +262,7 @@ export class CountriesListComponent implements OnInit {
     });
   }
 
-  /** search based on selected value from drop down */
+  /** search country based on selected value from drop down */
   commonSearchFilter(): any {
     if (this.searchedData !== '' || this.countryListForm.get('country').value) {
       switch (this.searchFilterOption) {
@@ -247,6 +287,11 @@ export class CountriesListComponent implements OnInit {
   }
 
   /** Events methods and functions */
+  searchFilter(): void {
+    this.commonSearchFilter();
+  }
+
+  /**Filter by region */
   regionsList(event): void {
     this.regionValue = event.target.value;
     this.regionSelected = true;
@@ -257,7 +302,7 @@ export class CountriesListComponent implements OnInit {
     }
   }
 
-  // searching entries
+  /** Search for a country... */
   search(value): void {
     this.srchDataValue = value;
     if (this.countryListForm.get('filterOptions').value) {
@@ -286,11 +331,11 @@ export class CountriesListComponent implements OnInit {
     }
   }
 
-  searchFilter(event): void {
-    this.commonSearchFilter();
-  }
-
+  /** Get Country based on the country selection
+   * @param event
+   */
   countrySelected(event): void {
+    this.selectedCountry = event.target.value;
     if (event.target.value === 'allcountries') {
       this.router.navigate(['/all-countries'], {
         relativeTo: this.route,
@@ -299,20 +344,11 @@ export class CountriesListComponent implements OnInit {
       if (this.countryListForm.get('region').value !== 'allregions') {
         this.getDataByRegion(this.countryListForm.get('region').value);
       } else {
-        this.getAllCounriesInfo();
+        if (this.countryListForm.get('region').value === 'allregions')
+          this.getAllCounriesInfo();
       }
     } else {
-      this.apiService
-        .getCountriesByName(event.target.value)
-        .subscribe((res) => {
-          this.listOfCountries = res;
-          this.router.navigate(['/all-countries'], {
-            relativeTo: this.route,
-            queryParams: {
-              country: event.target.value,
-            },
-          });
-        });
+      this.getDataByName(this.countryListForm.get('countries').value);
     }
   }
 }

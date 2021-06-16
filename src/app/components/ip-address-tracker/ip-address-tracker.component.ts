@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
 import * as L from 'leaflet';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -28,7 +29,8 @@ export class IpAddressTrackerComponent implements OnInit {
     private tostr: ToastrService,
     private darkModeService: DarkModeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private spinnerService: NgxSpinnerService
   ) {
     this.mapForm = this.fb.group({
       ipaddress: [
@@ -107,40 +109,6 @@ export class IpAddressTrackerComponent implements OnInit {
     });
   }
 
-  /** Search Location by ip address with IP Geolocation API */
-  searchAddress(): void {
-    if (this.mapForm.valid) {
-      const ipAddress = this.mapForm.value.ipaddress;
-      this.apiService.getMapLocation(ipAddress).subscribe((res) => {
-        this.invalidIpAddr = false;
-        this.ipAddress = res.ip;
-        this.country = res.location.country;
-        this.timeZone = res.location.timezone;
-        this.isp = res.isp;
-        this.locationDetails = res;
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: {
-            Lat: res.location.lat,
-            Lng: res.location.lng,
-          },
-        });
-        this.map.remove();
-        this.mapLayer(
-          res.location.lat,
-          res.location.lng,
-          res.location.region,
-          res.location.city
-        );
-      });
-    } else {
-      this.invalidIpAddr = true;
-      this.tostr.error('Please enter a valid IP Address', '', {
-        timeOut: 3000,
-      });
-    }
-  }
-
   searchValueChanges(): void {
     this.mapForm.get('ipaddress').valueChanges.subscribe((val) => {
       if (val === '') {
@@ -149,13 +117,62 @@ export class IpAddressTrackerComponent implements OnInit {
     });
   }
 
+  /** Get Location based on country selection */
   getLatLngFromCountry(): void {
     this.route.queryParams.subscribe((val) => {
       if (Object.entries(val).length !== 0 && val.constructor === Object) {
-        this.mapLayer(val.Lat, val.Lng, '', '');
+        try {
+          this.mapLayer(val.Lat, val.Lng, '', '');
+        } catch (err) {
+          this.router.navigate(['page-not-found']);
+        }
       } else {
         this.getLocation();
       }
     });
+  }
+
+  /** Search Location by ip address with IP Geolocation API */
+  searchAddress(): void {
+    this.spinnerService.show();
+    if (this.mapForm.valid) {
+      const ipAddress = this.mapForm.value.ipaddress;
+      this.apiService.getMapLocation(ipAddress).subscribe(
+        (res) => {
+          this.invalidIpAddr = false;
+          this.ipAddress = res.ip;
+          this.country = res.location.country;
+          this.timeZone = res.location.timezone;
+          this.isp = res.isp;
+          this.locationDetails = res;
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: {
+              Lat: res.location.lat,
+              Lng: res.location.lng,
+            },
+          });
+          this.map.remove();
+          this.mapLayer(
+            res.location.lat,
+            res.location.lng,
+            res.location.region,
+            res.location.city
+          );
+          setTimeout(() => {
+            this.spinnerService.hide();
+          }, 2000);
+        },
+        (err) => {
+          this.router.navigate(['page-not-found']);
+        }
+      );
+    } else {
+      this.invalidIpAddr = true;
+      this.tostr.error('Please enter a valid IP Address', '', {
+        timeOut: 3000,
+      });
+    }
   }
 }

@@ -40,7 +40,7 @@
             <select
               class="form-select"
               formControlName="filterOptions"
-              (change)="searchFilter($event)"
+              (change)="searchFilter()"
               [ngClass]="
                 darkModeStatus == true ? 'dark-select' : 'light-select'
               "
@@ -56,11 +56,12 @@
               [ngClass]="
                 darkModeStatus == true ? 'dark-select' : 'light-select'
               "
+              formControlName="countries"
               (change)="countrySelected($event)"
             >
-              <option value="allcountries" selected>All Countries</option>
+              <option value="allcountries">All Countries</option>
               <option
-                value="{{ country.name }}"
+                [value]="country.name"
                 *ngFor="let country of allCountriesList"
               >
                 {{ country.name }}
