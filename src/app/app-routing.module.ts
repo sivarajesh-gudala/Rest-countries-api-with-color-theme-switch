@@ -9,32 +9,11 @@ import { SelectedCountryDataComponent } from './components/selected-country-data
 import { AuthGuardGuard } from './shared/auth-guard.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: '',
+    loadChildren: () =>
+      import('./shared/root/root.module').then((m) => m.RootModule),
   },
-  {
-    path: 'signup',
-    component: RegisterComponent,
-  },
-  {
-    path: 'all-countries',
-    canActivate: [AuthGuardGuard],
-    component: CountriesListComponent,
-  },
-  {
-    path: 'country',
-    component: SelectedCountryDataComponent,
-  },
-  { path: 'ip-address-tracker', component: IpAddressTrackerComponent },
-  {
-    path: 'page-not-found',
-    pathMatch: 'full',
-    component: PageNotFoundComponent,
-  },
-
-  { path: '**', redirectTo: '/page-not-found' },
 ];
 
 @NgModule({

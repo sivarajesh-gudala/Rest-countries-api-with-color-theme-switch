@@ -7,6 +7,12 @@ import {
 } from '../header/confirm-dialog/confirm-dialog.component';
 import { SharedService } from 'src/app/services/shared.service';
 
+interface Nav {
+  link: string;
+  name: string;
+  exact: boolean;
+}
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,6 +20,19 @@ import { SharedService } from 'src/app/services/shared.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
+  nav: Nav[] = [
+    {
+      link: '/all-countries',
+      name: 'Where in the world?',
+      exact: true,
+    },
+
+    {
+      link: '/ip-address-tracker',
+      name: 'IP Address Tracker',
+      exact: false,
+    },
+  ];
   darkMode$ = this.darkModeService.darkMode$;
   modeName: string = 'Dark Mode';
   modeStatus: boolean;

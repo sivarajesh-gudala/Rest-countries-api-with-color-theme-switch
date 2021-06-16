@@ -22,7 +22,8 @@ export class CountriesListComponent implements OnInit {
     'Calling Code',
     'Regional Bloc',
   ];
-  listOfCountries: any;
+
+  listOfCountries: number;
   countryListForm: FormGroup;
   totalLength: any;
   page: number = 1;
@@ -95,7 +96,6 @@ export class CountriesListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.regionParams = params['region'];
       this.countryParams = params['countryName'];
-      console.log(this.countryParams);
       if (this.regionParams) {
         sessionStorage.setItem('region', this.regionParams);
         this.countryListForm.patchValue({

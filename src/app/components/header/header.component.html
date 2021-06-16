@@ -6,19 +6,20 @@
         <li
           class="nav-item ip-tracker"
           [ngClass]="modeStatus === true ? 'dark-nav-btn' : 'light-nav-btn'"
+          *ngFor="let navItems of nav"
         >
           <a
             class="nav-link text-uppercase"
-            routerLink="/all-countries"
+            [routerLink]="navItems.link"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLinkActiveOptions]="{ exact: navItems.exact }"
             matTooltip="All countries in the World"
             matTooltipHideDelay="100"
           >
-            Where in the world?
+            {{ navItems.name }}
           </a>
         </li>
-        <li
+        <!-- <li
           class="nav-item"
           [ngClass]="modeStatus === true ? 'dark-nav-btn' : 'light-nav-btn'"
         >
@@ -31,7 +32,7 @@
           >
             IP Address Tracker
           </a>
-        </li>
+        </li> -->
       </ul>
       <ul class="navbar-nav ms-auto">
         <button mat-button [matMenuTriggerFor]="menu">
