@@ -6,7 +6,7 @@ import { SharedLibModule } from './shared/modules/shared-lib.module';
 import { AngularFireModule } from '@angular/fire';
 
 import { AppComponent } from './app.component';
-
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,14 +14,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedLibModule,
-    AngularFireModule.initializeApp({
-      apiKey: 'AIzaSyDADMX4uCVx2z_0rAgyYpjxbkUnfZYnyaA',
-      authDomain: 'rest-countries-98d9c.firebaseapp.com',
-      projectId: 'rest-countries-98d9c',
-      storageBucket: 'rest-countries-98d9c.appspot.com',
-      messagingSenderId: '1047031453639',
-      appId: '1:1047031453639:web:8862f2c6b14f2b957cabe2',
-    }),
+    AngularFireModule.initializeApp(environment.initializeApp),
   ],
   providers: [],
   bootstrap: [AppComponent],
