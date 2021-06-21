@@ -12,7 +12,7 @@
             class="nav-link text-uppercase"
             [routerLink]="navItems.link"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: navItems.exact }"
+            [routerLinkOptions]="{ match: ['/', '/all-countries'] }"
             matTooltip="All countries in the World"
             matTooltipHideDelay="100"
           >
