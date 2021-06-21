@@ -6,9 +6,9 @@ import {
   ConfirmDialogModel,
 } from '../header/confirm-dialog/confirm-dialog.component';
 import { SharedService } from 'src/app/services/shared.service';
-
+import { RoutePath } from '../../shared/enums/route-path.enum';
 interface Nav {
-  link: string;
+  link: any;
   name: string;
   exact: boolean;
 }
@@ -22,13 +22,13 @@ interface Nav {
 export class HeaderComponent implements OnInit {
   nav: Nav[] = [
     {
-      link: '/all-countries',
+      link: RoutePath.ALLCOUNTRIES,
       name: 'Where in the world?',
       exact: true,
     },
 
     {
-      link: '/ip-address-tracker',
+      link: RoutePath.IPADDRESS,
       name: 'IP Address Tracker',
       exact: false,
     },

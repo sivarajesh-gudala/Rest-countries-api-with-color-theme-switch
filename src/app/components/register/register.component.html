@@ -95,7 +95,9 @@
             >
               Sign Up
             </button>
-            <a mat-button routerLink="/login">Already a user? Login here</a>
+            <a mat-button (click)="switchToLogin()"
+              >Already a user? Login here</a
+            >
           </div>
         </form>
       </div>

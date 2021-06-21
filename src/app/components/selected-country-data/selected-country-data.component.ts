@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/services/api.service';
-
+import { RoutePath } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-selected-country-data',
   templateUrl: './selected-country-data.component.html',
@@ -57,7 +57,7 @@ export class SelectedCountryDataComponent implements OnInit {
           this.currencies = data.currencies;
         },
         (err) => {
-          this.router.navigate(['page-not-found']);
+          this.router.navigate([RoutePath.PAGENOTFOUND]);
         }
       );
     });
@@ -69,11 +69,11 @@ export class SelectedCountryDataComponent implements OnInit {
   back(): void {
     const regParam = sessionStorage.getItem('region');
     if (regParam !== 'undefined') {
-      this.router.navigate(['/all-countries'], {
+      this.router.navigate([RoutePath.ALLCOUNTRIES], {
         queryParams: { region: regParam },
       });
     } else {
-      this.router.navigate(['/all-countries']);
+      this.router.navigate([RoutePath.ALLCOUNTRIES]);
     }
   }
 
@@ -89,13 +89,13 @@ export class SelectedCountryDataComponent implements OnInit {
         setTimeout(() => {
           this.spinnerService.hide();
         }, 3000);
-        this.router.navigate(['/country'], {
+        this.router.navigate([RoutePath.COUNTRY], {
           relativeTo: this.route,
           queryParams: { name: res.name },
         });
       },
       (err) => {
-        this.router.navigate(['page-not-found']);
+        this.router.navigate([RoutePath.PAGENOTFOUND]);
       }
     );
   }
@@ -106,7 +106,7 @@ export class SelectedCountryDataComponent implements OnInit {
    */
   getLocation(latlng): void {
     if (latlng) {
-      this.router.navigate(['/ip-address-tracker'], {
+      this.router.navigate([RoutePath.IPADDRESS], {
         queryParams: { Lat: latlng[0], Lng: latlng[1] },
       });
     }

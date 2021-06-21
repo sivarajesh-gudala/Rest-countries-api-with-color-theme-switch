@@ -10,30 +10,32 @@ import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-no
 
 import { AuthGuardGuard } from '../auth-guard.guard';
 
+import { Path } from '../enums/route-path.enum';
+
 const routes: Routes = [
   {
     path: '',
     children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'signup', component: RegisterComponent },
+      { path: '', redirectTo: Path.LOGIN, pathMatch: 'full' },
+      { path: Path.LOGIN, component: LoginComponent },
+      { path: Path.SIGNUP, component: RegisterComponent },
       {
-        path: 'all-countries',
+        path: Path.ALLCOUNTRIES,
         canActivate: [AuthGuardGuard],
         component: CountriesListComponent,
       },
       {
-        path: 'country',
+        path: Path.COUNTRY,
         component: SelectedCountryDataComponent,
       },
-      { path: 'ip-address-tracker', component: IpAddressTrackerComponent },
+      { path: Path.IPADDRESS, component: IpAddressTrackerComponent },
       {
-        path: 'page-not-found',
+        path: Path.PAGENOTFOUND,
         pathMatch: 'full',
         component: PageNotFoundComponent,
       },
 
-      { path: '**', redirectTo: '/page-not-found' },
+      { path: Path.WILDCARD, redirectTo: Path.PAGENOTFOUND },
     ],
   },
 ];

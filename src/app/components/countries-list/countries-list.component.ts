@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
-
+import { RoutePath } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-countries-list',
   templateUrl: './countries-list.component.html',
@@ -41,6 +41,7 @@ export class CountriesListComponent implements OnInit {
   countryName: any;
   countryParams: any;
   selectedCountry: any;
+  hidesearchFilters: boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -69,94 +70,21 @@ export class CountriesListComponent implements OnInit {
     this.getDarkModeStatus();
   }
 
-  /** Displaying all Countries Data  for all regions*/
-  displayingAllCountries(): void {
-    if (
-      this.countryListForm.get('region').value === 'allregions' &&
-      this.countryListForm.get('countries').value === 'allcountries'
-    ) {
-      this.apiService.getAllCountriesData().subscribe((res) => {
-        this.listOfCountries = res;
-        this.allCountriesList = res;
-        this.regionSelected = false;
-        this.spinnerService.show();
-        setTimeout(() => {
-          this.spinnerService.hide();
-        }, 1000);
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: null,
-        });
-      });
-    }
-  }
-
-  /** based on query params setting region value*/
-  getQueryParams(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.regionParams = params['region'];
-      this.countryParams = params['countryName'];
-      if (this.regionParams) {
-        sessionStorage.setItem('region', this.regionParams);
-        this.countryListForm.patchValue({
-          region: this.regionParams,
-        });
-      } else if (this.countryParams) {
-        sessionStorage.setItem('country', this.countryParams);
-        this.countryListForm.patchValue({
-          countries: this.countryParams,
-        });
-      }
-    });
-  }
-
-  /** storing Dark mode status */
-  getDarkModeStatus(): void {
-    this.darkModeService.darkMode$.subscribe((val) => {
-      this.darkModeStatus = val;
-    });
-  }
-
-  /** storing searched
-   * value and
-   * based on that filtering data */
-  updatedSearchValue(): void {
-    this.countryListForm
-      .get('country')
-      .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((changes) => {
-        this.searchedData = changes;
-      });
-    this.countryListForm
-      .get('filterOptions')
-      .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((changes) => {
-        this.searchFilterOption = changes;
-      });
-  }
-
   /** Subscribing API'S
    * method :Get
    */
   getAllCounriesInfo(): void {
     this.spinnerService.show();
     this.apiService.getAllCountriesData().subscribe((data) => {
-      this.allCountriesList = data;
+      this.showSelecetdCountry(this.countryListForm.get('countries').value);
       this.totalLength = data.length;
-      const oldRegArr = data.map((item, i, arr) => {
+      const oldRegArr = data.map((_, i, arr) => {
         return arr[i].region;
       });
       const regArr = [...new Set(oldRegArr)];
       this.newRegArr = regArr.slice(0, -1);
-      if (this.countryListForm.get('region').value !== 'allregions') {
-        this.getDataByRegion(this.countryListForm.get('region').value);
-      }
-      if (this.countryListForm.get('countries').value !== 'allcountries') {
-        this.getDataByName(this.countryListForm.get('countries').value);
-      } else {
-        this.allCountriesList = data;
-        this.listOfCountries = data;
-      }
+      this.allCountriesList = data;
+      this.listOfCountries = data;
       setTimeout(() => {
         this.spinnerService.hide();
       }, 1000);
@@ -167,24 +95,22 @@ export class CountriesListComponent implements OnInit {
     this.regionValue = region;
     this.apiService.getCountriesByRegion(region).subscribe(
       (data) => {
-        this.regionSelected = true;
         this.regionCountriesList = data;
         this.listOfCountries = data;
         this.allCountriesList = data;
         this.totalLength = data.length;
         if (region) {
-          this.spinnerService.show();
           setTimeout(() => {
             this.spinnerService.hide();
           }, 1000);
-          this.router.navigate([], {
+          this.router.navigate([RoutePath.ALLCOUNTRIES], {
             relativeTo: this.route,
             queryParams: { region: region },
           });
         }
       },
       (err) => {
-        this.router.navigate(['page-not-found']);
+        this.router.navigate([RoutePath.PAGENOTFOUND]);
       }
     );
   }
@@ -193,14 +119,13 @@ export class CountriesListComponent implements OnInit {
     this.spinnerService.show();
     this.apiService.getCountriesByName(name).subscribe(
       (result) => {
-        this.regionSelected = false;
         this.listOfCountries = result;
         this.filterItemsInRegion(result);
         setTimeout(() => {
           this.spinnerService.hide();
         }, 1000);
         if (name) {
-          this.router.navigate([], {
+          this.router.navigate([RoutePath.ALLCOUNTRIES], {
             relativeTo: this.route,
             queryParams: {
               countryName: name,
@@ -209,7 +134,7 @@ export class CountriesListComponent implements OnInit {
         }
       },
       (err) => {
-        this.router.navigate(['page-not-found']);
+        this.router.navigate([RoutePath.PAGENOTFOUND]);
       }
     );
   }
@@ -262,6 +187,8 @@ export class CountriesListComponent implements OnInit {
     });
   }
 
+  /** Functions */
+
   /** search country based on selected value from drop down */
   commonSearchFilter(): any {
     if (this.searchedData !== '' || this.countryListForm.get('country').value) {
@@ -286,21 +213,65 @@ export class CountriesListComponent implements OnInit {
     }
   }
 
-  /** Events methods and functions */
-  searchFilter(): void {
-    this.commonSearchFilter();
-  }
-
-  /**Filter by region */
-  regionsList(event): void {
-    this.regionValue = event.target.value;
-    this.regionSelected = true;
-    if (this.regionValue === 'allregions') {
-      this.displayingAllCountries();
-    } else {
-      this.getDataByRegion(this.regionValue);
+  /** filter items only if particular country
+   * exists in the list of selected region
+   */
+  filterItemsInRegion(data): void {
+    let filterData = data.filter((item, i, arr) => {
+      if (arr[i].region == this.countryListForm.get('region').value) {
+        return arr[i];
+      }
+    });
+    if (this.countryListForm.get('region').value !== 'allregions') {
+      this.listOfCountries = filterData;
     }
   }
+
+  /** based on query params setting region value*/
+  getQueryParams(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.regionParams = params['region'];
+      this.countryParams = params['countryName'];
+      if (this.regionParams) {
+        this.countryListForm.patchValue({
+          region: this.regionParams,
+        });
+      }
+      if (this.countryParams) {
+        sessionStorage.setItem('country', this.countryParams);
+        this.countryListForm.patchValue({
+          countries: this.countryParams,
+        });
+      }
+    });
+  }
+
+  /** storing Dark mode status */
+  getDarkModeStatus(): void {
+    this.darkModeService.darkMode$.subscribe((val) => {
+      this.darkModeStatus = val;
+    });
+  }
+
+  /** storing searched
+   * value and
+   * based on that filtering data */
+  updatedSearchValue(): void {
+    this.countryListForm
+      .get('country')
+      .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((changes) => {
+        this.searchedData = changes;
+      });
+    this.countryListForm
+      .get('filterOptions')
+      .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((changes) => {
+        this.searchFilterOption = changes;
+      });
+  }
+
+  /** Events */
 
   /** Search for a country... */
   search(value): void {
@@ -317,17 +288,40 @@ export class CountriesListComponent implements OnInit {
     }
   }
 
-  /** filter items only if particular country
-   * exists in the list of selected region
-   */
-  filterItemsInRegion(data): void {
-    let filterData = data.filter((item, i, arr) => {
-      if (arr[i].region == this.countryListForm.get('region').value) {
-        return arr[i];
-      }
+  /** Search based on selected Type*/
+  searchFilter(): void {
+    this.commonSearchFilter();
+  }
+
+  commonAllCountries(): void {
+    this.router.navigate([RoutePath.ALLCOUNTRIES]);
+    this.spinnerService.show();
+    this.apiService.getAllCountriesData().subscribe((data) => {
+      this.totalLength = data.length;
+      this.allCountriesList = data;
+      this.listOfCountries = data;
+      setTimeout(() => {
+        this.spinnerService.hide();
+      }, 1000);
     });
-    if (this.countryListForm.get('region').value !== 'allregions') {
-      this.listOfCountries = filterData;
+  }
+
+  /**Filter by region */
+  regionsList(event): void {
+    this.regionValue = event.target.value;
+    this.hidesearchFilters = false;
+    if (this.regionValue === 'allregions') {
+      sessionStorage.clear();
+      this.regionSelected = false;
+      this.commonAllCountries();
+    } else {
+      sessionStorage.setItem('region', this.regionValue);
+      this.spinnerService.show();
+      this.regionSelected = true;
+      this.router.navigate([RoutePath.ALLCOUNTRIES], {
+        queryParams: { region: this.regionValue },
+      });
+      this.getDataByRegion(this.regionValue);
     }
   }
 
@@ -336,19 +330,33 @@ export class CountriesListComponent implements OnInit {
    */
   countrySelected(event): void {
     this.selectedCountry = event.target.value;
+    this.showSelecetdCountry(event.target.value);
     if (event.target.value === 'allcountries') {
-      this.router.navigate(['/all-countries'], {
-        relativeTo: this.route,
-        queryParams: null,
-      });
       if (this.countryListForm.get('region').value !== 'allregions') {
         this.getDataByRegion(this.countryListForm.get('region').value);
       } else {
-        if (this.countryListForm.get('region').value === 'allregions')
-          this.getAllCounriesInfo();
+        this.commonAllCountries();
+      }
+    }
+  }
+
+  showSelecetdCountry(countryName): void {
+    if (countryName === 'allcountries') {
+      this.hidesearchFilters = false;
+
+      if (this.countryListForm.get('region').value !== 'allregions') {
+        this.regionSelected = true;
+        this.spinnerService.show();
+        this.getDataByRegion(this.countryListForm.get('region').value);
       }
     } else {
-      this.getDataByName(this.countryListForm.get('countries').value);
+      this.regionSelected = false;
+      this.hidesearchFilters = true;
+      this.getDataByName(countryName);
     }
+  }
+
+  moreDeatils(name): void {
+    this.router.navigate([RoutePath.COUNTRY], { queryParams: { name: name } });
   }
 }

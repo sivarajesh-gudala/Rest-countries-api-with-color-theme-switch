@@ -7,7 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { SharedService } from 'src/app/services/shared.service';
-
+import { RoutePath } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-ip-address-tracker',
   templateUrl: './ip-address-tracker.component.html',
@@ -118,7 +118,7 @@ export class IpAddressTrackerComponent implements OnInit {
         try {
           this.mapLayer(val.Lat, val.Lng, '', '');
         } catch (err) {
-          this.router.navigate(['page-not-found']);
+          this.router.navigate([RoutePath.PAGENOTFOUND]);
         }
       } else {
         this.getLocation();
@@ -140,7 +140,7 @@ export class IpAddressTrackerComponent implements OnInit {
           this.isp = res.isp;
           this.locationDetails = res;
 
-          this.router.navigate([], {
+          this.router.navigate([RoutePath.ALLCOUNTRIES], {
             relativeTo: this.route,
             queryParams: {
               Lat: res.location.lat,
@@ -159,7 +159,7 @@ export class IpAddressTrackerComponent implements OnInit {
           }, 2000);
         },
         (err) => {
-          this.router.navigate(['page-not-found']);
+          this.router.navigate([RoutePath.PAGENOTFOUND]);
         }
       );
     } else {

@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { userDetails } from 'src/app/shared/user-details.interface';
-
+import { RoutePath } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -44,7 +44,7 @@ export class RegisterComponent {
                 timeOut: 5000,
               }
             );
-            this.router.navigate(['/all-countries']);
+            this.router.navigate([RoutePath.ALLCOUNTRIES]);
           }
         },
         (error) => {
@@ -54,5 +54,9 @@ export class RegisterComponent {
         }
       );
     }
+  }
+
+  switchToLogin(): void {
+    this.router.navigate([RoutePath.LOGIN]);
   }
 }

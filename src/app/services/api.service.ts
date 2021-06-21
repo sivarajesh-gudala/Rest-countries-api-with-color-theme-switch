@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-
+import { ApiEndPoint } from '../shared/enums/api-end-points.enum';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +17,7 @@ export class ApiService {
    * Get All the Countries List
    */
   getAllCountriesData(): Observable<any> {
-    return this.http.get<any>(`${this.apiCountries}all`).pipe(
+    return this.http.get<any>(`${this.apiCountries}${ApiEndPoint.ALL}`).pipe(
       map((res) => {
         return res;
       })
@@ -29,11 +29,13 @@ export class ApiService {
    * @param region
    */
   getCountriesByRegion(region): Observable<any> {
-    return this.http.get<any>(`${this.apiCountries}region/${region}`).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+    return this.http
+      .get<any>(`${this.apiCountries}${ApiEndPoint.REGION}/${region}`)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
   }
 
   /**
@@ -41,11 +43,13 @@ export class ApiService {
    * @param name
    */
   getCountriesByName(name): Observable<any> {
-    return this.http.get<any>(`${this.apiCountries}name/${name}`).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+    return this.http
+      .get<any>(`${this.apiCountries}${ApiEndPoint.NAME}/${name}`)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
   }
 
   /**
@@ -54,7 +58,9 @@ export class ApiService {
    */
   getCountriesByFullName(fullName): Observable<any> {
     return this.http
-      .get<any>(`${this.apiCountries}name/${fullName}?fullText=true`)
+      .get<any>(
+        `${this.apiCountries}${ApiEndPoint.NAME}/${fullName}?${ApiEndPoint.FULLTEXT}=${ApiEndPoint.TRUE}`
+      )
       .pipe(
         map((res) => {
           return res;
@@ -67,11 +73,13 @@ export class ApiService {
    * @param code
    */
   getCountriesByCode(code): Observable<any> {
-    return this.http.get<any>(`${this.apiCountries}alpha/${code}`).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+    return this.http
+      .get<any>(`${this.apiCountries}${ApiEndPoint.ALPHA}/${code}`)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
   }
 
   /**
@@ -79,11 +87,13 @@ export class ApiService {
    * @param currency
    */
   getCountriesByCurrency(currency): Observable<any> {
-    return this.http.get<any>(`${this.apiCountries}currency/${currency}`).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+    return this.http
+      .get<any>(`${this.apiCountries}${ApiEndPoint.CURRENCY}/${currency}`)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
   }
 
   /**
@@ -91,11 +101,13 @@ export class ApiService {
    * @param langCode
    */
   getCountriesByLanguage(langCode): Observable<any> {
-    return this.http.get<any>(`${this.apiCountries}lang/${langCode}`).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+    return this.http
+      .get<any>(`${this.apiCountries}${ApiEndPoint.LANGUAGE}/${langCode}`)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
   }
 
   /**
@@ -104,7 +116,7 @@ export class ApiService {
    */
   getCountriesbyCapital(capitalCity): Observable<any> {
     return this.http
-      .get<any>(`${this.apiCountries}capital/${capitalCity}`)
+      .get<any>(`${this.apiCountries}${ApiEndPoint.CAPITAL}/${capitalCity}`)
       .pipe(
         map((res) => {
           return res;
@@ -118,7 +130,7 @@ export class ApiService {
    */
   getCountriesByCallingCode(callingcode): Observable<any> {
     return this.http
-      .get<any>(`${this.apiCountries}callingcode/${callingcode}`)
+      .get<any>(`${this.apiCountries}${ApiEndPoint.CALLINGCODE}/${callingcode}`)
       .pipe(
         map((res) => {
           return res;
@@ -132,7 +144,9 @@ export class ApiService {
    */
   getCountriesByRegionalbloc(regionalBloc): Observable<any> {
     return this.http
-      .get<any>(`${this.apiCountries}regionalbloc/${regionalBloc}`)
+      .get<any>(
+        `${this.apiCountries}${ApiEndPoint.REGIONALBLOC}/${regionalBloc}`
+      )
       .pipe(
         map((res) => {
           return res;
@@ -145,10 +159,12 @@ export class ApiService {
    * @param ipadress
    */
   getMapLocation(ipadress): Observable<any> {
-    return this.http.get<any>(`${this.apiMap}&ipAddress=${ipadress}`).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+    return this.http
+      .get<any>(`${this.apiMap}&${ApiEndPoint.IPADDRESS}=${ipadress}`)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
   }
 }

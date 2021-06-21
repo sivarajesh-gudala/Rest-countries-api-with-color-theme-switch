@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./shared/root/root.module').then((m) => m.RootModule),
+      import('./shared/modules/root.module').then((m) => m.RootModule),
   },
 ];
 

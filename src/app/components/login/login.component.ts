@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { userDetails } from 'src/app/shared/user-details.interface';
+import { RoutePath } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -37,6 +38,7 @@ export class LoginComponent {
       this.credentials = this.loginForm.value;
       this.fireService.signInCredentials(this.credentials).subscribe(
         (success) => {
+          console.log(success);
           let userName = JSON.parse(localStorage.getItem('user-details'));
 
           if (this.fireService.isLoggedin === true) {
@@ -47,7 +49,7 @@ export class LoginComponent {
                 timeOut: 5000,
               }
             );
-            this.router.navigate(['/all-countries']);
+            this.router.navigate([RoutePath.ALLCOUNTRIES]);
           }
         },
         (error) => {
@@ -87,5 +89,9 @@ export class LoginComponent {
     } else {
       value['type'] = 'password';
     }
+  }
+
+  switchToSignUp(): void {
+    this.router.navigate([RoutePath.SIGNUP]);
   }
 }

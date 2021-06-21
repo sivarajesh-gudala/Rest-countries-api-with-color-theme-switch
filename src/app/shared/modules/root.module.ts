@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RootRoutingModule } from './root-routing.module';
-import { SharedLibModule } from '../shared-lib.module';
+import { SharedLibModule } from './shared-lib.module';
 
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 import { LoginComponent } from 'src/app/components/login/login.component';
