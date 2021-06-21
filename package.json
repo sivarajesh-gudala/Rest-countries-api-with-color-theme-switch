@@ -27,6 +27,7 @@
     "angular-dark-mode": "^2.0.1",
     "bootstrap": "^5.0.1",
     "firebase": "^8.6.3",
+    "firebase-tools": "^9.13.1",
     "jquery": "^3.6.0",
     "leaflet": "^1.7.1",
     "material-icons": "^0.6.4",
