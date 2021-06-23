@@ -44,15 +44,22 @@ export class SelectedCountryDataComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.apiService.getCountriesByName(params.name).subscribe(
         (data) => {
-          this.showSpinner = true;
-          this.spinnerService.show();
+          this.showSpinner = true; // why do you have two variables to control the spinner's visibility>?
+          this.spinnerService.show(); // not needed
+
+          // this map creates a new array and it is not used anywhere
+          // flagImage, countryName will always be reassigned for each country
+          // so below snippet is same as doing 
+          // this.flagImage = data[data.length-1].flag
+          // this.countryName = data[data.length-1].name
           data.map((country) => {
             this.flagImage = country.flag;
             this.countryName = country.name;
           });
+
           setTimeout(() => {
-            this.spinnerService.hide();
-          }, 3000);
+            this.spinnerService.hide(); // extra 3 seconds time waste aa? user ki?
+          }, 3000); 
           this.countryInfo = data;
           this.currencies = data.currencies;
         },
@@ -68,7 +75,7 @@ export class SelectedCountryDataComponent implements OnInit {
   /** Back to previous screen */
   back(): void {
     const regParam = sessionStorage.getItem('region');
-    if (regParam !== 'undefined') {
+    if (regParam !== 'undefined') { // if region is not present in the sessionStorage it will return null, not a string
       this.router.navigate([RoutePath.ALLCOUNTRIES], {
         queryParams: { region: regParam },
       });
@@ -79,16 +86,16 @@ export class SelectedCountryDataComponent implements OnInit {
 
   /** Redirect to border Countries */
   borderCountry(val): void {
-    this.showSpinner = false;
+    this.showSpinner = false; // do you really need this?
     this.spinnerService.show();
     this.apiService.getCountriesByCode(val.target.innerText).subscribe(
       (res) => {
         this.flagImage = res.flag;
         this.countryName = res.name;
-        this.spinnerService.show();
+        this.spinnerService.show(); // not needed
         setTimeout(() => {
-          this.spinnerService.hide();
-        }, 3000);
+          this.spinnerService.hide();        //  why are you showing the spinner for an additional 3 seconds
+        }, 3000);                      
         this.router.navigate([RoutePath.COUNTRY], {
           relativeTo: this.route,
           queryParams: { name: res.name },
@@ -104,10 +111,10 @@ export class SelectedCountryDataComponent implements OnInit {
    * Latitude and Longitude
    * @param latlng
    */
-  getLocation(latlng): void {
-    if (latlng) {
+  getLocation(latlng): void { // give type
+    if (latlng) { // also check the length because `[]` is also truthy 
       this.router.navigate([RoutePath.IPADDRESS], {
-        queryParams: { Lat: latlng[0], Lng: latlng[1] },
+        queryParams: { Lat: latlng[0], Lng: latlng[1] }, // can use array destructuring to avoid using indexes
       });
     }
   }

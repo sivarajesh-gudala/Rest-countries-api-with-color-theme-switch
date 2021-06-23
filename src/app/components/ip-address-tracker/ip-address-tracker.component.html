@@ -33,6 +33,7 @@
       [ngClass]="darkModeStatus ? 'bg-dark' : 'bg-light'"
       *ngIf="locationDetails && invalidIpAddr === false"
     >
+      <!-- *ngIf="locationDetails && !invalidIpAddr" -->
       <div class="card-body">
         <div class="row">
           <div class="col-md-3">

@@ -78,6 +78,7 @@ export class CountriesListComponent implements OnInit {
     this.apiService.getAllCountriesData().subscribe((data) => {
       this.showSelecetdCountry(this.countryListForm.get('countries').value);
       this.totalLength = data.length;
+      // const oldRegArr = data.map(({ region }) => region);
       const oldRegArr = data.map((_, i, arr) => {
         return arr[i].region;
       });
@@ -193,7 +194,7 @@ export class CountriesListComponent implements OnInit {
   commonSearchFilter(): any {
     if (this.searchedData !== '' || this.countryListForm.get('country').value) {
       switch (this.searchFilterOption) {
-        case 'Name':
+        case 'Name': // can use enums for all cases
           return this.getDataByName(this.searchedData);
         case 'Full Name':
           return this.getDataByFullName(this.searchedData);
@@ -217,11 +218,13 @@ export class CountriesListComponent implements OnInit {
    * exists in the list of selected region
    */
   filterItemsInRegion(data): void {
+    // better to return a boolean inside the callback
     let filterData = data.filter((item, i, arr) => {
       if (arr[i].region == this.countryListForm.get('region').value) {
         return arr[i];
       }
     });
+
     if (this.countryListForm.get('region').value !== 'allregions') {
       this.listOfCountries = filterData;
     }
@@ -279,7 +282,7 @@ export class CountriesListComponent implements OnInit {
     if (this.countryListForm.get('filterOptions').value) {
       this.commonSearchFilter();
     }
-    if ((value = '')) {
+    if ((value = '')) { // this will always be false, did you mean `if(value)`?
       if (this.countryListForm.get('region').value) {
         this.listOfCountries = this.regionCountriesList;
       } else {

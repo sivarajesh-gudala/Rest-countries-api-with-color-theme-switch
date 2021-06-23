@@ -34,9 +34,10 @@ export class HeaderComponent implements OnInit {
     },
   ];
   darkMode$ = this.darkModeService.darkMode$;
+  // modeName = 'Dark Mode';
   modeName: string = 'Dark Mode';
   modeStatus: boolean;
-  userName: any;
+  userName: any; // this would be a string for sure :)
 
   constructor(
     private darkModeService: DarkModeService,

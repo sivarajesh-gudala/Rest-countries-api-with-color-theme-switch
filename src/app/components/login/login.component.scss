@@ -9,6 +9,7 @@
       max-width: 100%;
       background-color: hsl(0%, 0%, 98%);
       h2 {
+        // this font-family is used at multiple places why not maintain a variable and reuse
         font-family: "Nunito Sans", sans-serif;
         font-weight: 700;
         font-size: 26px;

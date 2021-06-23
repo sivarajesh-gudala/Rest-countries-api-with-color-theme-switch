@@ -33,6 +33,7 @@ export class RegisterComponent {
     if (this.signupForm.valid) {
       this.fireService.createAccount(this.signupCreds).subscribe(
         (result) => {
+          // if (this.fireService.isLoggedin) {
           if (this.fireService.isLoggedin === true) {
             console.log(result);
             this.toastr.success(

@@ -83,7 +83,10 @@ export class LoginComponent {
 
   showPassword(): void {
     this.toggle = !this.toggle;
+    // what's the purpose of using a framework if you query the element manually
     let value = document.getElementById('password');
+
+    // value.type everywhere
     if (value['type'] == 'password') {
       value['type'] = 'text';
     } else {

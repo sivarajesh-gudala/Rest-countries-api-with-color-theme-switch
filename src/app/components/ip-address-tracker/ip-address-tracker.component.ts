@@ -156,7 +156,7 @@ export class IpAddressTrackerComponent implements OnInit {
           );
           setTimeout(() => {
             this.spinnerService.hide();
-          }, 2000);
+          }, 2000); // why?
         },
         (err) => {
           this.router.navigate([RoutePath.PAGENOTFOUND]);

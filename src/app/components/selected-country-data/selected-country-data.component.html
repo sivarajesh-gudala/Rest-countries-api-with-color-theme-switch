@@ -6,6 +6,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+        <!-- darkModeStatus is already a boolean so "darkModeStatus ? 'dark-btn' : 'light-btn'" is enough -->
         <button
           [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
           class="btn fs-6"
@@ -23,7 +24,8 @@
       <!-- Displaying country Info  -->
       <div class="text-content col-md-12">
         <ng-container *ngFor="let content of countryInfo">
-          <div *ngIf="content.length != 0">
+          <!-- prefer ===/!== -->
+          <div *ngIf="content.length != 0"> 
             <div
               class="p-5"
               [ngClass]="darkModeStatus == true ? 'dark-text' : 'light-text'"
@@ -142,8 +144,9 @@
 </section>
 
 <!-- spinner while loading screen  -->
+<!-- showSpinner is already a boolean -->
 <ngx-spinner
-  *ngIf="showSpinner === true"
+  *ngIf="showSpinner === true" 
   bdOpacity="0.9"
   bdColor="rgba(51, 51, 51,1)"
   size="medium"
