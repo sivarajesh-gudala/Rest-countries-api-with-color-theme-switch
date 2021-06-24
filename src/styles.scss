@@ -4,11 +4,13 @@
 @import "~material-icons/iconfont/material-icons.css";
 @import "../node_modules/ngx-toastr/toastr.css";
 @import "../node_modules/leaflet/dist/leaflet";
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
 
 html,
 body {
   height: 100%;
-  font-family: "Nunito Sans", sans-serif;
 }
 
 body:not(.dark-mode-preloading) {

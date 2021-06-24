@@ -9,12 +9,10 @@
       max-width: 100%;
       background-color: hsl(0%, 0%, 98%);
       h2 {
-        font-family: "Nunito Sans", sans-serif;
         font-weight: 700;
         font-size: 26px;
       }
       input::placeholder {
-        font-family: "Nunito Sans", sans-serif;
         color: hsl(209, 23%, 22%);
         font-size: 12px;
         font-weight: 600;
@@ -29,7 +27,6 @@
       }
       button.btn,
       a.mat-button {
-        font-family: "Nunito Sans", sans-serif;
         font-size: 12px;
         font-weight: 700;
       }
@@ -57,9 +54,7 @@ span.help-block {
 }
 
 .modal {
-  font-family: "Nunito Sans", sans-serif;
   input::placeholder {
-    font-family: "Nunito Sans", sans-serif;
     color: hsl(209, 23%, 22%);
     font-size: 13px;
     font-weight: 700;
@@ -71,7 +66,6 @@ span.help-block {
   }
   .modal-footer {
     button {
-      font-family: "Nunito Sans", sans-serif;
       font-size: 12px;
       font-weight: 600;
     }

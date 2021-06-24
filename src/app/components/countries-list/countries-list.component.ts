@@ -1,28 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
+import { ApiService } from 'src/app/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
+
 import { RoutePath } from 'src/app/shared/enums/route-path.enum';
+import { FilterItems } from 'src/app/shared/enums/filter-items.enum';
 @Component({
   selector: 'app-countries-list',
   templateUrl: './countries-list.component.html',
   styleUrls: ['./countries-list.component.scss'],
 })
 export class CountriesListComponent implements OnInit {
-  searchFilterOptions: any[] = [
-    'Name',
-    'Full Name',
-    'Code',
-    'Currency',
-    'Language',
-    'Capital City',
-    'Calling Code',
-    'Regional Bloc',
-  ];
-
+  searchFilterOptions: any = Object.values(FilterItems);
   listOfCountries: number;
   countryListForm: FormGroup;
   totalLength: any;
@@ -38,7 +32,6 @@ export class CountriesListComponent implements OnInit {
   searchFilterOption: any;
   regionSelected: boolean = false;
   srchDataValue: any;
-  countryName: any;
   countryParams: any;
   selectedCountry: any;
   hidesearchFilters: boolean = false;
@@ -78,16 +71,12 @@ export class CountriesListComponent implements OnInit {
     this.apiService.getAllCountriesData().subscribe((data) => {
       this.showSelecetdCountry(this.countryListForm.get('countries').value);
       this.totalLength = data.length;
-      const oldRegArr = data.map((_, i, arr) => {
-        return arr[i].region;
-      });
+      const oldRegArr = data.map(({ region }) => region);
       const regArr = [...new Set(oldRegArr)];
       this.newRegArr = regArr.slice(0, -1);
       this.allCountriesList = data;
       this.listOfCountries = data;
-      setTimeout(() => {
-        this.spinnerService.hide();
-      }, 1000);
+      this.spinnerService.hide();
     });
   }
 
@@ -100,9 +89,7 @@ export class CountriesListComponent implements OnInit {
         this.allCountriesList = data;
         this.totalLength = data.length;
         if (region) {
-          setTimeout(() => {
-            this.spinnerService.hide();
-          }, 1000);
+          this.spinnerService.hide();
           this.router.navigate([RoutePath.ALLCOUNTRIES], {
             relativeTo: this.route,
             queryParams: { region: region },
@@ -121,9 +108,7 @@ export class CountriesListComponent implements OnInit {
       (result) => {
         this.listOfCountries = result;
         this.filterItemsInRegion(result);
-        setTimeout(() => {
-          this.spinnerService.hide();
-        }, 1000);
+        this.spinnerService.hide();
         if (name) {
           this.router.navigate([RoutePath.ALLCOUNTRIES], {
             relativeTo: this.route,
@@ -193,21 +178,21 @@ export class CountriesListComponent implements OnInit {
   commonSearchFilter(): any {
     if (this.searchedData !== '' || this.countryListForm.get('country').value) {
       switch (this.searchFilterOption) {
-        case 'Name':
+        case FilterItems.NAME:
           return this.getDataByName(this.searchedData);
-        case 'Full Name':
+        case FilterItems.FULLNAME:
           return this.getDataByFullName(this.searchedData);
-        case 'Code':
+        case FilterItems.CODE:
           return this.getDataByCode(this.searchedData);
-        case 'Currency':
+        case FilterItems.CURRENCY:
           return this.getDataByCurrency(this.searchedData);
-        case 'Language':
+        case FilterItems.LANGUAGE:
           return this.getDataByLanguage(this.searchedData);
-        case 'Capital City':
+        case FilterItems.CAPITALCITY:
           return this.getDataByCapitalCity(this.searchedData);
-        case 'Calling Code':
+        case FilterItems.CALLINGCODE:
           return this.getDataByCallingCode(this.searchedData);
-        case 'Regional Bloc':
+        case FilterItems.REGIONALBLOC:
           return this.getDataByRegionalbloc(this.searchedData);
       }
     }
@@ -279,7 +264,7 @@ export class CountriesListComponent implements OnInit {
     if (this.countryListForm.get('filterOptions').value) {
       this.commonSearchFilter();
     }
-    if ((value = '')) {
+    if (!value) {
       if (this.countryListForm.get('region').value) {
         this.listOfCountries = this.regionCountriesList;
       } else {
@@ -300,9 +285,7 @@ export class CountriesListComponent implements OnInit {
       this.totalLength = data.length;
       this.allCountriesList = data;
       this.listOfCountries = data;
-      setTimeout(() => {
-        this.spinnerService.hide();
-      }, 1000);
+      this.spinnerService.hide();
     });
   }
 

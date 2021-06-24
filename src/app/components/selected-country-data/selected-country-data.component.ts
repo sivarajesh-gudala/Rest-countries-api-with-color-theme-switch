@@ -15,8 +15,6 @@ export class SelectedCountryDataComponent implements OnInit {
   darkMode$ = this.darkModeService.darkMode$;
   darkModeStatus: boolean;
   countryName: any;
-  flagImage: any;
-  showSpinner: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,20 +37,12 @@ export class SelectedCountryDataComponent implements OnInit {
 
   /** subscribing Get All Countries  API */
   getCountryData(): void {
-    this.showSpinner = false;
-    this.spinnerService.show();
     this.route.queryParams.subscribe((params) => {
+      this.spinnerService.show();
+      this.countryName = params.name;
       this.apiService.getCountriesByName(params.name).subscribe(
         (data) => {
-          this.showSpinner = true;
-          this.spinnerService.show();
-          data.map((country) => {
-            this.flagImage = country.flag;
-            this.countryName = country.name;
-          });
-          setTimeout(() => {
-            this.spinnerService.hide();
-          }, 3000);
+          this.spinnerService.hide();
           this.countryInfo = data;
           this.currencies = data.currencies;
         },
@@ -68,7 +58,8 @@ export class SelectedCountryDataComponent implements OnInit {
   /** Back to previous screen */
   back(): void {
     const regParam = sessionStorage.getItem('region');
-    if (regParam !== 'undefined') {
+    console.log(regParam);
+    if (regParam) {
       this.router.navigate([RoutePath.ALLCOUNTRIES], {
         queryParams: { region: regParam },
       });
@@ -79,16 +70,8 @@ export class SelectedCountryDataComponent implements OnInit {
 
   /** Redirect to border Countries */
   borderCountry(val): void {
-    this.showSpinner = false;
-    this.spinnerService.show();
     this.apiService.getCountriesByCode(val.target.innerText).subscribe(
       (res) => {
-        this.flagImage = res.flag;
-        this.countryName = res.name;
-        this.spinnerService.show();
-        setTimeout(() => {
-          this.spinnerService.hide();
-        }, 3000);
         this.router.navigate([RoutePath.COUNTRY], {
           relativeTo: this.route,
           queryParams: { name: res.name },
@@ -104,10 +87,11 @@ export class SelectedCountryDataComponent implements OnInit {
    * Latitude and Longitude
    * @param latlng
    */
-  getLocation(latlng): void {
-    if (latlng) {
+  getLocation(latlng: any): void {
+    if (latlng || latlng.length == 2) {
+      const [lat, lng] = latlng;
       this.router.navigate([RoutePath.IPADDRESS], {
-        queryParams: { Lat: latlng[0], Lng: latlng[1] },
+        queryParams: { Lat: lat, Lng: lng },
       });
     }
   }

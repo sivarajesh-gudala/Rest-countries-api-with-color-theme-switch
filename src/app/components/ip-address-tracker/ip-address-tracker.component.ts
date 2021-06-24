@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
@@ -140,13 +140,6 @@ export class IpAddressTrackerComponent implements OnInit {
           this.isp = res.isp;
           this.locationDetails = res;
 
-          this.router.navigate([RoutePath.ALLCOUNTRIES], {
-            relativeTo: this.route,
-            queryParams: {
-              Lat: res.location.lat,
-              Lng: res.location.lng,
-            },
-          });
           this.map.remove();
           this.mapLayer(
             res.location.lat,
@@ -154,9 +147,11 @@ export class IpAddressTrackerComponent implements OnInit {
             res.location.region,
             res.location.city
           );
-          setTimeout(() => {
-            this.spinnerService.hide();
-          }, 2000);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: null,
+          });
+          this.spinnerService.hide();
         },
         (err) => {
           this.router.navigate([RoutePath.PAGENOTFOUND]);

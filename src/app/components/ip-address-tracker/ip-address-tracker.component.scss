@@ -8,7 +8,6 @@
 
   .content {
     h2 {
-      font-family: "Nunito Sans", sans-serif;
       text-align: center;
       color: hsl(0%, 0%, 100%) !important;
       font-size: 16px;
@@ -16,22 +15,16 @@
     }
   }
   input::placeholder {
-    font-family: "Nunito Sans", sans-serif;
     font-size: 13px;
     font-weight: 700;
     color: hsl(209, 23%, 22%);
   }
-  input {
-    border: none !important;
-    border-radius: 7px;
-    box-shadow: none !important;
-  }
   .input-group {
-    .input-group-text {
+    button {
       background-color: hsl(209, 23%, 22%);
       cursor: pointer;
       border: none !important;
-      border-radius: 10px;
+      color: white;
     }
   }
 }
@@ -79,7 +72,6 @@
     float: right !important;
     color: hsl(209, 23%, 22%);
     font-weight: 700;
-    font-family: "Nunito Sans", sans-serif;
     bottom: 10px;
   }
 }

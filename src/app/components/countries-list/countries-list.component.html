@@ -5,11 +5,11 @@
     <div class="row">
       <div class="col-md-12">
         <form [formGroup]="countryListForm" class="row g-3">
-          <div class="col-md-4" *ngIf="hidesearchFilters === false">
+          <div class="col-md-4" *ngIf="!hidesearchFilters">
             <div class="input-group">
               <span
                 class="material-icons-outlined input-group-text"
-                [ngClass]="darkModeStatus == true ? 'dark-icon' : 'light-icon'"
+                [ngClass]="darkModeStatus ? 'dark-icon' : 'light-icon'"
               >
                 search
               </span>
@@ -19,16 +19,12 @@
                 placeholder="Search for a country..."
                 formControlName="country"
                 (input)="search($event.target.value)"
-                [ngClass]="
-                  darkModeStatus == true ? 'dark-input' : 'light-input'
-                "
+                [ngClass]="darkModeStatus ? 'dark-input' : 'light-input'"
               />
               <span
                 class="input-group-text clear_btn material-icons-outlined"
                 (click)="countryListForm.get('country').reset()"
-                [ngClass]="
-                  darkModeStatus == true ? 'dark-icon' : 'light-clear-btn'
-                "
+                [ngClass]="darkModeStatus ? 'dark-icon' : 'light-clear-btn'"
                 matTooltip="Clear all"
                 matTooltipHideDelay="100"
               >
@@ -36,14 +32,12 @@
               </span>
             </div>
           </div>
-          <div class="col-md-3" *ngIf="hidesearchFilters === false">
+          <div class="col-md-3" *ngIf="!hidesearchFilters">
             <select
               class="form-select"
               formControlName="filterOptions"
               (change)="searchFilter()"
-              [ngClass]="
-                darkModeStatus == true ? 'dark-select' : 'light-select'
-              "
+              [ngClass]="darkModeStatus ? 'dark-select' : 'light-select'"
             >
               <option [value]="items" *ngFor="let items of searchFilterOptions">
                 Search by {{ items }}
@@ -53,9 +47,7 @@
           <div class="col-md-3">
             <select
               class="form-select"
-              [ngClass]="
-                darkModeStatus == true ? 'dark-select' : 'light-select'
-              "
+              [ngClass]="darkModeStatus ? 'dark-select' : 'light-select'"
               formControlName="countries"
               (change)="countrySelected($event)"
             >
@@ -73,9 +65,7 @@
               class="form-select"
               formControlName="region"
               (change)="regionsList($event)"
-              [ngClass]="
-                darkModeStatus == true ? 'dark-select' : 'light-select'
-              "
+              [ngClass]="darkModeStatus ? 'dark-select' : 'light-select'"
             >
               <option value="allregions">All Regions</option>
               <option value="{{ region }}" *ngFor="let region of newRegArr">
@@ -102,7 +92,7 @@
           >
             <div
               class="card country-card"
-              [ngClass]="darkModeStatus == true ? 'dark-card' : 'light-card'"
+              [ngClass]="darkModeStatus ? 'dark-card' : 'light-card'"
             >
               <img
                 [src]="data.flag"
@@ -111,9 +101,7 @@
               />
               <div
                 class="card-body"
-                [ngClass]="
-                  darkModeStatus == true ? 'dark-title' : 'light-title'
-                "
+                [ngClass]="darkModeStatus ? 'dark-title' : 'light-title'"
               >
                 <h5 class="card-title">{{ data.name }}</h5>
               </div>
@@ -121,18 +109,14 @@
                 <li
                   class="list-group-item"
                   *ngIf="data?.population !== ''"
-                  [ngClass]="
-                    darkModeStatus == true ? 'dark-list' : 'light-list'
-                  "
+                  [ngClass]="darkModeStatus ? 'dark-list' : 'light-list'"
                 >
                   <b> Population : </b> {{ data.population | comaSeperator }}
                 </li>
                 <li
                   class="list-group-item"
                   *ngIf="data?.region !== ''"
-                  [ngClass]="
-                    darkModeStatus == true ? 'dark-list' : 'light-list'
-                  "
+                  [ngClass]="darkModeStatus ? 'dark-list' : 'light-list'"
                 >
                   <b> Region : </b>
                   {{ data.region }}
@@ -140,9 +124,7 @@
                 <li
                   class="list-group-item"
                   *ngIf="data?.capital !== ''"
-                  [ngClass]="
-                    darkModeStatus == true ? 'dark-list' : 'light-list'
-                  "
+                  [ngClass]="darkModeStatus ? 'dark-list' : 'light-list'"
                 >
                   <b> Capital : </b>
                   {{ data.capital }}
@@ -152,7 +134,7 @@
                 <a
                   mat-stroked-button
                   (click)="moreDeatils(data.name)"
-                  [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
+                  [ngClass]="darkModeStatus ? 'dark-btn' : 'light-btn'"
                   matTooltip="Click here to know more about {{ data.name }}"
                   matTooltipHideDelay="100"
                 >
@@ -165,12 +147,10 @@
           <p
             *ngIf="countriesList.length === 0"
             class="no-result-text"
-            [ngClass]="
-              darkModeStatus == true ? 'noresult-dark' : 'noresult-light'
-            "
+            [ngClass]="darkModeStatus ? 'noresult-dark' : 'noresult-light'"
           >
             No Results Found For
-            <span class=""> "{{ srchDataValue }}" </span>
+            <span> "{{ srchDataValue }}" </span>
           </p>
         </ng-container>
       </div>
@@ -181,7 +161,7 @@
       <div class="col-md-12">
         <pagination-controls
           class="float-end"
-          [ngClass]="darkModeStatus == true ? 'dark-page' : 'light-page'"
+          [ngClass]="darkModeStatus ? 'dark-page' : 'light-page'"
           (pageChange)="page = $event"
           maxSize="6"
           directionLinks="true"
@@ -206,14 +186,10 @@
   size="default"
   type="ball-spin-clockwise"
 >
-  <h4 mat-subheading-1 class="fs-5">
-    {{
-      regionSelected === true
-        ? "Getting " + regionValue + " Countries"
-        : "Please Wait."
-    }}
-  </h4>
-  <p class="text-center fs-6" mat-body-1 *ngIf="regionSelected === true">
+  <p class="fs-5" *ngIf="regionSelected">
+    {{ "Loading" + regionValue }}
+  </p>
+  <p class="text-center fs-6" mat-body-1 *ngIf="!regionSelected">
     Please Wait.
   </p>
 </ngx-spinner>

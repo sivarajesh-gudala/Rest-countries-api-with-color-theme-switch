@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-md-12">
         <button
-          [ngClass]="darkModeStatus == true ? 'dark-btn' : 'light-btn'"
+          [ngClass]="darkModeStatus ? 'dark-btn' : 'light-btn'"
           class="btn fs-6"
           type="button"
           mat-raised-button
@@ -23,10 +23,10 @@
       <!-- Displaying country Info  -->
       <div class="text-content col-md-12">
         <ng-container *ngFor="let content of countryInfo">
-          <div *ngIf="content.length != 0">
+          <div *ngIf="content.length !== 0">
             <div
               class="p-5"
-              [ngClass]="darkModeStatus == true ? 'dark-text' : 'light-text'"
+              [ngClass]="darkModeStatus ? 'dark-text' : 'light-text'"
             >
               <div class="col-md-12">
                 <img
@@ -122,9 +122,7 @@
                       mat-raised-button
                       class="border-btn me-3 mb-4"
                       (click)="borderCountry($event)"
-                      [ngClass]="
-                        darkModeStatus == true ? 'dark-btn' : 'light-btn'
-                      "
+                      [ngClass]="darkModeStatus ? 'dark-btn' : 'light-btn'"
                       matTooltip="Click here to Know more about this country"
                       matTooltipHideDelay="100"
                     >
@@ -143,18 +141,10 @@
 
 <!-- spinner while loading screen  -->
 <ngx-spinner
-  *ngIf="showSpinner === true"
   bdOpacity="0.9"
   bdColor="rgba(51, 51, 51,1)"
-  size="medium"
-  template="<img src='{{ flagImage }}' class='img-fluid mx-auto d-block'
-  style='object-fit:cover;height:170px;width:170px; border-radius:50%';
- />"
+  size="default"
+  type="ball-spin-clockwise"
 >
-  <p class="">{{ countryName }} ...</p>
+  <p class="">Please Wait...</p>
 </ngx-spinner>
-<div *ngIf="showSpinner === false">
-  <ngx-spinner bdOpacity="0.9" bdColor="rgba(51, 51, 51,1)" size="medium">
-    <p class="">Please Wait...</p>
-  </ngx-spinner>
-</div>

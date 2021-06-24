@@ -25,19 +25,19 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-button-toggle
-              [checked]="darkMode$ | async"
-              (click)="onToggle()"
-              matTooltip="Change the Appearance"
-              matTooltipHideDelay="100"
-              ><span class="material-icons">
-                {{ modeStatus ? "light_mode" : "dark_mode" }}
-              </span>
+          <!-- <button> -->
+          <mat-button-toggle
+            [checked]="darkMode$ | async"
+            (click)="onToggle()"
+            matTooltip="Change the Appearance"
+            matTooltipHideDelay="100"
+            ><span class="material-icons">
+              {{ modeStatus ? "light_mode" : "dark_mode" }}
+            </span>
 
-              {{ modeStatus ? "Light Mode" : modeName }}
-            </mat-button-toggle>
-          </button>
+            {{ modeStatus ? "Light Mode" : modeName }}
+          </mat-button-toggle>
+          <!-- </button> -->
 
           <button
             mat-menu-item

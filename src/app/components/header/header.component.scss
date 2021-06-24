@@ -1,5 +1,4 @@
 .header {
-  font-family: "Nunito Sans", sans-serif;
   ul > li > a {
     font-weight: 700;
   }
@@ -39,5 +38,9 @@
 
   ul.mx-auto {
     text-transform: uppercase;
+  }
+  .mat-button-toggle-standalone.mat-button-toggle-appearance-standard,
+  .mat-button-toggle-group-appearance-standard {
+    border: 0px !important;
   }
 }

@@ -12,16 +12,17 @@
               <div class="input-group">
                 <input
                   type="search"
-                  class="form-control"
+                  class="form-control shadow-none"
                   formControlName="ipaddress"
                   placeholder="Search by any IP address or domain"
                 />
-                <span class="input-group-text">
-                  <img
-                    src="../../../assets/ip-address/icon-arrow.svg"
-                    (click)="searchAddress()"
-                  />
-                </span>
+                <button
+                  class="input-group-text"
+                  (click)="searchAddress()"
+                  class="btn btn-sm shadow-none"
+                >
+                  Search
+                </button>
               </div>
             </form>
           </div>
@@ -31,7 +32,7 @@
     <div
       class="card"
       [ngClass]="darkModeStatus ? 'bg-dark' : 'bg-light'"
-      *ngIf="locationDetails && invalidIpAddr === false"
+      *ngIf="locationDetails && !invalidIpAddr"
     >
       <div class="card-body">
         <div class="row">

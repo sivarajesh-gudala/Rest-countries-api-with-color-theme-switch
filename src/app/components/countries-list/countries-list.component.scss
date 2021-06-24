@@ -1,6 +1,4 @@
 .main-content {
-  font-family: "Nunito Sans", sans-serif;
-
   input {
     box-shadow: none !important;
   }
@@ -115,7 +113,6 @@
     .card-footer {
       .mat-stroked-button {
         font-size: 13px;
-        font-family: "Nunito Sans", sans-serif;
         border: none !important;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -129,7 +126,6 @@
       }
     }
     .no-result-text {
-      font-family: "Nunito Sans", sans-serif;
       font-weight: 600;
       font-style: italic !important;
       span {
@@ -152,7 +148,6 @@
 ngx-spinner {
   h4,
   p {
-    font-family: "Nunito Sans", sans-serif;
     color: hsl(0, 0%, 100%);
   }
 }
