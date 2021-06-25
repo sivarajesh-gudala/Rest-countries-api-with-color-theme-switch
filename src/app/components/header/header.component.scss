@@ -39,8 +39,17 @@
   ul.mx-auto {
     text-transform: uppercase;
   }
-  .mat-button-toggle-standalone.mat-button-toggle-appearance-standard,
-  .mat-button-toggle-group-appearance-standard {
-    border: 0px !important;
+
+  form.dark-btn {
+    .nav-btn {
+      background-color: hsl(209, 23%, 22%);
+      color: hsl(0%, 0%, 100%);
+    }
+  }
+  form.light-btn {
+    .nav-btn {
+      background-color: hsl(0%, 0%, 100%);
+      color: purple;
+    }
   }
 }
