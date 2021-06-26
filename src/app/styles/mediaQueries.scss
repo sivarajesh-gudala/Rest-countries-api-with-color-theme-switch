@@ -1,0 +1,37 @@
+//header
+@media only screen and (max-width: 992px) {
+  nav {
+    ul {
+      text-align: center;
+    }
+  }
+}
+
+// countries-list
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .card-info {
+    width: 350px !important;
+    .card {
+      width: 330px;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) and (min-width: 768px) {
+  .media-queries {
+    width: 350px;
+  }
+}
+
+// ip-address-tracker
+@media screen and (max-width: 768px) {
+  .gps-details-card {
+    height: 32vh !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .gps-details-card {
+    height: 12vh !important;
+  }
+}

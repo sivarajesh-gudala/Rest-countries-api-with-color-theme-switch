@@ -1,3 +1,5 @@
+@import "../../styles/mediaQueries";
+
 .main-content {
   input {
     box-shadow: none !important;
@@ -7,16 +9,9 @@
     cursor: pointer;
   }
 
-  .input-group-text.light-clear-btn {
-    color: hsl(200, 15%, 8%);
-  }
-
   span.dark-icon {
     color: hsl(0, 0%, 100%) !important;
     background-color: hsl(209, 23%, 22%) !important;
-  }
-  span.light-icon {
-    color: #aaa !important;
   }
 
   input.dark-input {
@@ -142,22 +137,6 @@
       span {
         color: hsl(209, 23%, 22%);
       }
-    }
-  }
-}
-ngx-spinner {
-  h4,
-  p {
-    color: hsl(0, 0%, 100%);
-  }
-}
-
-// media queries
-@media only screen and (min-width: 768px) and (max-width: 992px) {
-  .card-info {
-    width: 350px !important;
-    .card {
-      width: 330px;
     }
   }
 }

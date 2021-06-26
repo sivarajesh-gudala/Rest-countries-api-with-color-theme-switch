@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { DarkModeService } from 'angular-dark-mode';
 import { MatDialog } from '@angular/material/dialog';
 import {
   ConfirmDialogComponent,
   ConfirmDialogModel,
 } from '../header/confirm-dialog/confirm-dialog.component';
+import { DarkModeService } from 'angular-dark-mode';
 import { SharedService } from 'src/app/services/shared.service';
 import { RoutePath } from '../../shared/enums/route-path.enum';
 interface Nav {
@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
   modeName: string = 'Dark Mode';
   modeStatus: boolean;
   userName: string;
+  isShown: boolean = false;
 
   constructor(
     private darkModeService: DarkModeService,

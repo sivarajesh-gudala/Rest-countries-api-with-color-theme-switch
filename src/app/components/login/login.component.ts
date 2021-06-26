@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { userDetails } from 'src/app/shared/user-details.interface';
-import { RoutePath } from 'src/app/shared/enums/route-path.enum';
+import { Path } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  @ViewChild('togglePwd') togglePwd;
+
   credentials: userDetails;
   loginForm: FormGroup;
   resetForm: FormGroup;
@@ -49,7 +51,7 @@ export class LoginComponent {
                 timeOut: 5000,
               }
             );
-            this.router.navigate([RoutePath.ALLCOUNTRIES]);
+            this.router.navigate([Path.ALLCOUNTRIES]);
           }
         },
         (error) => {
@@ -83,15 +85,15 @@ export class LoginComponent {
 
   showPassword(): void {
     this.toggle = !this.toggle;
-    let value = document.getElementById('password');
-    if (value['type'] == 'password') {
-      value['type'] = 'text';
+    let value = this.togglePwd.nativeElement;
+    if (value.type === 'password') {
+      value.type = 'text';
     } else {
-      value['type'] = 'password';
+      value.type = 'password';
     }
   }
 
   switchToSignUp(): void {
-    this.router.navigate([RoutePath.SIGNUP]);
+    this.router.navigate([Path.SIGNUP]);
   }
 }

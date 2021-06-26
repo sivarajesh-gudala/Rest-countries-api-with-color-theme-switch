@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { userDetails } from 'src/app/shared/user-details.interface';
-import { RoutePath } from 'src/app/shared/enums/route-path.enum';
+import { Path, RoutePath } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -57,6 +57,6 @@ export class RegisterComponent {
   }
 
   switchToLogin(): void {
-    this.router.navigate([RoutePath.LOGIN]);
+    this.router.navigate([Path.LOGIN]);
   }
 }

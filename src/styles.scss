@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap");
 @import "~material-icons/iconfont/material-icons.css";
 @import "../node_modules/ngx-toastr/toastr.css";
@@ -19,20 +18,10 @@ body:not(.dark-mode-preloading) {
 
 body.dark-mode {
   background-color: hsl(207, 26%, 17%);
-  color: hsl(0, 0%, 100%);
-  nav {
-    background-color: hsl(209, 23%, 22%);
-    color: hsl(0, 0%, 100%);
-  }
 }
 
 body.light-mode {
   background-color: hsl(0, 0%, 98%);
-  color: hsl(200, 15%, 8%);
-  nav {
-    background-color: hsl(0, 0%, 100%);
-    color: hsl(200, 15%, 8%);
-  }
 }
 
 pagination-controls.dark-page {
@@ -42,6 +31,7 @@ pagination-controls.dark-page {
     background-color: hsl(209, 23%, 22%);
   }
 }
+
 pagination-controls.light-page {
   .ngx-pagination a,
   .ngx-pagination button {
@@ -53,4 +43,11 @@ pagination-controls.light-page {
 .bdrop {
   background-color: #bbbbbbf2;
   backdrop-filter: blur(4px);
+}
+
+ngx-spinner {
+  p {
+    font-weight: 700;
+    color: hsl(0, 0%, 100%);
+  }
 }

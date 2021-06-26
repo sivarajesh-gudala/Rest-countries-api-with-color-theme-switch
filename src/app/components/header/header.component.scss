@@ -1,3 +1,5 @@
+@import "../../styles/mediaQueries";
+
 .header {
   ul > li > a {
     font-weight: 700;
@@ -6,47 +8,37 @@
     list-style-type: none;
     cursor: pointer;
   }
-  li.dark-nav-btn {
-    a.active {
+  // dark-mode
+  .header-content.dark-nav-btn {
+    mat-icon.toggle-icon {
+      color: yellow;
+    }
+    a.nav-links.active {
       color: yellow;
       font-size: 18px;
       font-weight: 800;
     }
-    a {
+    a.nav-links {
       color: hsl(0%, 0%, 100%);
     }
-  }
-  li.light-nav-btn {
-    a.active {
-      color: purple;
-      font-size: 18px;
-      font-weight: 800;
-    }
-    a {
-      color: hsl(200, 15%, 8%);
-    }
-  }
-
-  ul {
-    a.dark-text {
-      color: hsl(0%, 0%, 100%);
-    }
-    a.light-text {
-      color: purple;
-    }
-  }
-
-  ul.mx-auto {
-    text-transform: uppercase;
-  }
-
-  ul.dark-btn {
     .nav-btn {
       background-color: hsl(209, 23%, 22%);
       color: hsl(0%, 0%, 100%);
     }
   }
-  ul.light-btn {
+  // light-mode
+  .header-content.light-nav-btn {
+    mat-icon.toggle-icon {
+      color: purple;
+    }
+    a.nav-links.active {
+      color: purple;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    a.nav-links {
+      color: hsl(200, 15%, 8%);
+    }
     .nav-btn {
       background-color: hsl(0%, 0%, 100%);
       color: purple;

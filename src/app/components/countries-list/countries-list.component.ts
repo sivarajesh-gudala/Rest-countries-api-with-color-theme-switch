@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
 import { ApiService } from 'src/app/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
-
-import { RoutePath } from 'src/app/shared/enums/route-path.enum';
+import { Path, RoutePath } from 'src/app/shared/enums/route-path.enum';
 import { FilterItems } from 'src/app/shared/enums/filter-items.enum';
 @Component({
   selector: 'app-countries-list',
@@ -97,12 +94,12 @@ export class CountriesListComponent implements OnInit {
         }
       },
       (err) => {
-        this.router.navigate([RoutePath.PAGENOTFOUND]);
+        this.router.navigate([Path.PAGENOTFOUND]);
       }
     );
   }
 
-  getDataByName(name): void {
+  getDataByName(name: any): void {
     this.spinnerService.show();
     this.apiService.getCountriesByName(name).subscribe(
       (result) => {
@@ -119,53 +116,53 @@ export class CountriesListComponent implements OnInit {
         }
       },
       (err) => {
-        this.router.navigate([RoutePath.PAGENOTFOUND]);
+        this.router.navigate([Path.PAGENOTFOUND]);
       }
     );
   }
 
-  getDataByFullName(fullName): void {
+  getDataByFullName(fullName: any): void {
     this.apiService.getCountriesByFullName(fullName).subscribe((val) => {
       this.listOfCountries = val;
       this.filterItemsInRegion(val);
     });
   }
 
-  getDataByCurrency(currency): void {
+  getDataByCurrency(currency: any): void {
     this.apiService.getCountriesByCurrency(currency).subscribe((val) => {
       this.listOfCountries = val;
       this.filterItemsInRegion(val);
     });
   }
 
-  getDataByCode(code): void {
+  getDataByCode(code: any): void {
     this.apiService.getCountriesByCode(code).subscribe((val) => {
       this.filterItemsInRegion(val);
     });
   }
 
-  getDataByCapitalCity(capital): void {
+  getDataByCapitalCity(capital: any): void {
     this.apiService.getCountriesbyCapital(capital).subscribe((val) => {
       this.listOfCountries = val;
       this.filterItemsInRegion(val);
     });
   }
 
-  getDataByLanguage(language): void {
+  getDataByLanguage(language: any): void {
     this.apiService.getCountriesByLanguage(language).subscribe((val) => {
       this.listOfCountries = val;
       this.filterItemsInRegion(val);
     });
   }
 
-  getDataByCallingCode(callingcode): void {
+  getDataByCallingCode(callingcode: any): void {
     this.apiService.getCountriesByLanguage(callingcode).subscribe((val) => {
       this.listOfCountries = val;
       this.filterItemsInRegion(val);
     });
   }
 
-  getDataByRegionalbloc(regbloc): void {
+  getDataByRegionalbloc(regbloc: any): void {
     this.apiService.getCountriesByLanguage(regbloc).subscribe((val) => {
       this.listOfCountries = val;
       this.filterItemsInRegion(val);
@@ -201,10 +198,10 @@ export class CountriesListComponent implements OnInit {
   /** filter items only if particular country
    * exists in the list of selected region
    */
-  filterItemsInRegion(data): void {
+  filterItemsInRegion(data: any): void {
     let filterData = data.filter((item, i, arr) => {
       if (arr[i].region == this.countryListForm.get('region').value) {
-        return arr[i];
+        return true;
       }
     });
     if (this.countryListForm.get('region').value !== 'allregions') {
@@ -279,12 +276,12 @@ export class CountriesListComponent implements OnInit {
   }
 
   commonAllCountries(): void {
-    this.router.navigate([RoutePath.ALLCOUNTRIES]);
     this.spinnerService.show();
     this.apiService.getAllCountriesData().subscribe((data) => {
       this.totalLength = data.length;
       this.allCountriesList = data;
       this.listOfCountries = data;
+      this.router.navigate([Path.ALLCOUNTRIES]);
       this.spinnerService.hide();
     });
   }
@@ -301,9 +298,6 @@ export class CountriesListComponent implements OnInit {
       sessionStorage.setItem('region', this.regionValue);
       this.spinnerService.show();
       this.regionSelected = true;
-      this.router.navigate([RoutePath.ALLCOUNTRIES], {
-        queryParams: { region: this.regionValue },
-      });
       this.getDataByRegion(this.regionValue);
     }
   }
@@ -340,6 +334,6 @@ export class CountriesListComponent implements OnInit {
   }
 
   moreDeatils(name): void {
-    this.router.navigate([RoutePath.COUNTRY], { queryParams: { name: name } });
+    this.router.navigate([Path.COUNTRY], { queryParams: { name: name } });
   }
 }

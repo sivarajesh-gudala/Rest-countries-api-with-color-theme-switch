@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DarkModeService } from 'angular-dark-mode';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/services/api.service';
-import { RoutePath } from 'src/app/shared/enums/route-path.enum';
+import { Path, RoutePath } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-selected-country-data',
   templateUrl: './selected-country-data.component.html',
@@ -47,7 +47,7 @@ export class SelectedCountryDataComponent implements OnInit {
           this.currencies = data.currencies;
         },
         (err) => {
-          this.router.navigate([RoutePath.PAGENOTFOUND]);
+          this.router.navigate([Path.PAGENOTFOUND]);
         }
       );
     });
@@ -64,7 +64,7 @@ export class SelectedCountryDataComponent implements OnInit {
         queryParams: { region: regParam },
       });
     } else {
-      this.router.navigate([RoutePath.ALLCOUNTRIES]);
+      this.router.navigate([Path.ALLCOUNTRIES]);
     }
   }
 
@@ -78,7 +78,7 @@ export class SelectedCountryDataComponent implements OnInit {
         });
       },
       (err) => {
-        this.router.navigate([RoutePath.PAGENOTFOUND]);
+        this.router.navigate([Path.PAGENOTFOUND]);
       }
     );
   }

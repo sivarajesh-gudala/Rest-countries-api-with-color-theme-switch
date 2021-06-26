@@ -12,6 +12,7 @@ import { CountriesListComponent } from 'src/app/components/countries-list/countr
 import { SelectedCountryDataComponent } from 'src/app/components/selected-country-data/selected-country-data.component';
 import { IpAddressTrackerComponent } from 'src/app/components/ip-address-tracker/ip-address-tracker.component';
 import { PageNotFoundComponent } from 'src/app/components/page-not-found/page-not-found.component';
+import { NgxSpinnerComonent } from 'src/app/components/spinner/ngx-spinner';
 
 import { FilterPipe } from '../pipes/filter.pipe';
 import { ComaSeperatorPipe } from '../pipes/coma-seperator.pipe';
@@ -29,6 +30,7 @@ import { FirebaseService } from '../../services/firebase.service';
     SelectedCountryDataComponent,
     IpAddressTrackerComponent,
     PageNotFoundComponent,
+    NgxSpinnerComonent,
     FilterPipe,
     ComaSeperatorPipe,
   ],

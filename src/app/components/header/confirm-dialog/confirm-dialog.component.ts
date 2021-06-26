@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { RoutePath } from 'src/app/shared/enums/route-path.enum';
+import { Path } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-confirm-dialog',
   templateUrl: './confirm-dialog.component.html',
@@ -24,7 +24,7 @@ export class ConfirmDialogComponent {
   signOut(): void {
     this.firebaseService.logout();
     this.dialogRef.close();
-    this.router.navigate([RoutePath.LOGIN]);
+    this.router.navigate([Path.LOGIN]);
   }
 
   close(): void {

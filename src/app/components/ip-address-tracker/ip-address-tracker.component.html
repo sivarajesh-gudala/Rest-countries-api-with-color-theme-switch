@@ -30,7 +30,7 @@
       </div>
     </div>
     <div
-      class="card"
+      class="card gps-details-card"
       [ngClass]="darkModeStatus ? 'bg-dark' : 'bg-light'"
       *ngIf="locationDetails && !invalidIpAddr"
     >
@@ -85,3 +85,6 @@
     </div>
   </div>
 </div>
+
+<!-- Loading-spinner -->
+<app-spinner> </app-spinner>

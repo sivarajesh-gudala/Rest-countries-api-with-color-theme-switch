@@ -36,14 +36,14 @@
                 class="form-control form-control-sm shadow-none"
                 formControlName="password"
                 placeholder="Password"
-                id="password"
+                #togglePwd
               />
-              <span
-                class="material-icons input-group-text"
+              <button
+                class="material-icons input-group-text btn-sm"
                 (click)="showPassword()"
               >
                 {{ toggle ? "visibility" : "visibility_off" }}
-              </span>
+              </button>
             </div>
             <span
               class="help-block"

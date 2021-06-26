@@ -1,13 +1,13 @@
-import { Component, OnInit, QueryList } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DarkModeService } from 'angular-dark-mode';
 import * as L from 'leaflet';
+import { DarkModeService } from 'angular-dark-mode';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { RoutePath } from 'src/app/shared/enums/route-path.enum';
+import { Path } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-ip-address-tracker',
   templateUrl: './ip-address-tracker.component.html',
@@ -118,7 +118,7 @@ export class IpAddressTrackerComponent implements OnInit {
         try {
           this.mapLayer(val.Lat, val.Lng, '', '');
         } catch (err) {
-          this.router.navigate([RoutePath.PAGENOTFOUND]);
+          this.router.navigate([Path.PAGENOTFOUND]);
         }
       } else {
         this.getLocation();
@@ -154,7 +154,7 @@ export class IpAddressTrackerComponent implements OnInit {
           this.spinnerService.hide();
         },
         (err) => {
-          this.router.navigate([RoutePath.PAGENOTFOUND]);
+          this.router.navigate([Path.PAGENOTFOUND]);
         }
       );
     } else {
