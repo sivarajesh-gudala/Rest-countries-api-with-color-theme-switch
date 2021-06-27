@@ -15,21 +15,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    // MatToolbarModule,
-    // MatFormFieldModule,
-    // MatInputModule,
-    // MatCardModule,
-    // MatButtonModule,
-    // MatIconModule,
-    // MatSelectModule,
-    // MatDialogModule,
-    // MatSlideToggleModule,
-    // MatTooltipModule,
-    // MatMenuModule,
-    // MatButtonToggleModule,
-  ],
+  imports: [CommonModule],
   exports: [
     MatToolbarModule,
     MatFormFieldModule,

@@ -13,13 +13,6 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [],
   imports: [
     CommonModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    FlexLayoutModule,
-    NgxSpinnerModule,
-    LeafletModule,
     ToastrModule.forRoot({
       maxOpened: 1,
       preventDuplicates: true,
