@@ -7,10 +7,9 @@
         ? {
             'background-color': 'hsl(209, 23%, 22%)'
           }
-        : {
-            'background-color': 'hsl(0, 0%, 100%)'
-          }
+        : ''
     "
+    [ngClass]="{ 'bg-white': !modeStatus }"
   >
     <div
       class="container header-content"
@@ -35,7 +34,7 @@
               [routerLink]="navItems.link"
               routerLinkActive="active"
               [routerLinkOptions]="{ match: ['/', '/all-countries'] }"
-              matTooltip="All countries in the World"
+              [matTooltip]="navItems.tooltip"
               matTooltipHideDelay="100"
             >
               {{ navItems.name }}
@@ -47,6 +46,14 @@
           <li class="nav-item">
             <a class="nav-link">
               <mat-button-toggle
+                [ngClass]="modeStatus ? 'text-white' : 'bg-white text-dark'"
+                [ngStyle]="
+                  modeStatus
+                    ? {
+                        'background-color': 'hsl(209, 23%, 22%)'
+                      }
+                    : ''
+                "
                 appearance="legacy"
                 [checked]="darkMode$ | async"
                 (click)="onToggle()"
@@ -64,12 +71,20 @@
           <li class="nav-item">
             <a class="nav-link">
               <button
+                [ngClass]="modeStatus ? 'text-white' : 'bg-white text-dark'"
+                [ngStyle]="
+                  modeStatus
+                    ? {
+                        'background-color': 'hsl(209, 23%, 22%)'
+                      }
+                    : ''
+                "
                 (click)="signOut()"
                 mat-flat-button
                 type="button"
                 matTooltip="Signout"
                 matTooltipHideDelay="100"
-                class="nav-btn fw-bold shadow-none"
+                class="nav-btn shadow-none"
               >
                 <mat-icon>exit_to_app</mat-icon>
                 {{ userName }}

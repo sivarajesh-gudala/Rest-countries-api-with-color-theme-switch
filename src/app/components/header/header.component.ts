@@ -7,12 +7,7 @@ import {
 import { DarkModeService } from 'angular-dark-mode';
 import { SharedService } from 'src/app/services/shared.service';
 import { RoutePath } from '../../shared/enums/route-path.enum';
-interface Nav {
-  link: any;
-  name: string;
-  exact: boolean;
-}
-
+import { NavLinks } from 'src/app/shared/interfaces/navlinks.interface';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -20,17 +15,19 @@ interface Nav {
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
-  nav: Nav[] = [
+  nav: NavLinks[] = [
     {
       link: RoutePath.ALLCOUNTRIES,
       name: 'Where in the world?',
       exact: true,
+      tooltip: 'All countries in the World',
     },
 
     {
       link: RoutePath.IPADDRESS,
       name: 'IP Address Tracker',
       exact: false,
+      tooltip: 'Get Location based on IP Address',
     },
   ];
   darkMode$ = this.darkModeService.darkMode$;

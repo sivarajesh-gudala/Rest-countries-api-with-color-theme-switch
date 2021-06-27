@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { userDetails } from 'src/app/shared/user-details.interface';
+import { userDetails } from 'src/app/shared/interfaces/user-details.interface';
 import { Path } from 'src/app/shared/enums/route-path.enum';
 @Component({
   selector: 'app-login',

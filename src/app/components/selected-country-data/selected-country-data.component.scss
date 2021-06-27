@@ -1,35 +1,9 @@
-@import "../countries-list/countries-list.component.scss";
-
-.main-content {
+.country-content {
   mat-icon {
     font-size: 22px;
     padding-right: 2rem;
   }
-  button.light-btn {
-    color: hsl(200, 15%, 8%);
-    background-color: hsl(0, 0%, 100%);
-  }
-
-  button.dark-btn {
-    background-color: hsl(209, 23%, 22%);
-    color: hsl(0, 0%, 100%);
-  }
-
   .text-content {
-    .dark-text {
-      color: hsl(0, 0%, 100%) !important;
-      button.gps-btn {
-        background-color: hsl(209, 23%, 22%);
-        color: hsl(0, 0%, 100%);
-      }
-    }
-    .light-text {
-      color: hsl(209, 15%, 8%);
-      button.gps-btn {
-        background-color: purple;
-        color: white;
-      }
-    }
     .gps-btn {
       font-weight: 800;
       font-size: 13px;
@@ -41,21 +15,26 @@
     .img-flag {
       object-fit: cover;
       height: 300px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 5px;
     }
-    .border-list {
-      button.dark-btn {
-        color: hsl(0, 0%, 100%);
-        background-color: hsl(209, 23%, 22%);
-      }
-      button.light-btn {
-        background-color: hsl(0, 0%, 100%);
-        color: hsl(209, 23%, 22%);
-      }
-      .border-btn {
-        color: hsl(0, 0%, 100%);
-        background-color: hsl(209, 23%, 22%);
-      }
+  }
+
+  .dark-mode {
+    color: hsl(0, 0%, 100%);
+
+    button {
+      color: hsl(0, 0%, 100%);
+      background-color: hsl(209, 23%, 22%);
+    }
+  }
+  .light-mode {
+    color: purple;
+
+    button {
+      background-color: purple;
+      color: hsl(0, 0%, 100%);
     }
   }
 }
-

@@ -5,43 +5,6 @@
     box-shadow: none !important;
   }
 
-  span.clear_btn {
-    cursor: pointer;
-  }
-
-  span.dark-icon {
-    color: hsl(0, 0%, 100%) !important;
-    background-color: hsl(209, 23%, 22%) !important;
-  }
-
-  input.dark-input {
-    background-color: hsl(209, 23%, 22%);
-    color: hsl(0, 0%, 100%);
-    &::placeholder {
-      color: hsl(0, 0%, 100%);
-      font-weight: 600;
-    }
-  }
-
-  input.light-input {
-    background-color: hsl(0, 0%, 100%);
-    &::placeholder {
-      color: purple;
-      font-weight: 600;
-    }
-  }
-
-  select.dark-select {
-    background-color: hsl(209, 23%, 22%);
-    color: hsl(0, 0%, 100%);
-    border: 1px solid hsl(0, 0%, 100%) !important;
-  }
-
-  select.light-select {
-    background-color: hsl(0, 0%, 100%);
-    color: purple;
-    border: 1px solid #aaa !important;
-  }
   select {
     border: none !important;
     margin: 0px auto;
@@ -51,6 +14,11 @@
   }
 
   .card-content {
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border: 0px;
+    }
     img.country-flag {
       object-fit: cover;
       height: 190px;
@@ -62,12 +30,7 @@
       margin-bottom: 0px !important;
       font-weight: 700;
     }
-    .dark-title {
-      color: yellow;
-    }
-    .light-title {
-      color: purple;
-    }
+
     .list-group {
       font-size: 13px;
       font-weight: 600;
@@ -80,31 +43,6 @@
       }
     }
 
-    .dark-list {
-      background-color: hsl(209, 23%, 22%);
-      color: hsl(0, 0%, 100%);
-    }
-    .light-list {
-      color: purple;
-      background-color: hsl(0, 0%, 100%);
-    }
-
-    .card.dark-card {
-      background-color: hsl(209, 23%, 22%);
-      color: hsl(0, 0%, 100%);
-      a {
-        color: hsl(0, 0%, 100%) !important;
-      }
-    }
-
-    .card.light-mode {
-      color: hsl(200, 15%, 8%);
-      background-color: hsl(0, 0%, 100%);
-      a {
-        color: hsl(200, 15%, 8%);
-      }
-    }
-
     .card-footer {
       .mat-stroked-button {
         font-size: 13px;
@@ -112,12 +50,6 @@
         letter-spacing: 1px;
         text-transform: uppercase;
         font-weight: 700;
-      }
-      a.dark-btn {
-        color: white !important;
-      }
-      .mat-stroked-button.light-btn {
-        color: purple;
       }
     }
     .no-result-text {
@@ -127,15 +59,74 @@
         font-weight: 800;
       }
     }
-    p.noresult-dark {
-      span {
-        color: yellow;
+  }
+
+  // dark-mode
+  .dark-theme {
+    color: hsl(0, 0%, 100%);
+    input {
+      background-color: hsl(209, 23%, 22%);
+      color: hsl(0, 0%, 100%);
+      &::placeholder {
+        color: hsl(0, 0%, 100%);
+        font-weight: 600;
       }
     }
-    p.noresult-light {
-      color: purple;
-      span {
-        color: hsl(209, 23%, 22%);
+    span.input-group-text,
+    button.input-group-text {
+      color: hsl(0, 0%, 100%) !important;
+      background-color: hsl(209, 23%, 22%) !important;
+    }
+    select {
+      background-color: hsl(209, 23%, 22%);
+      color: hsl(0, 0%, 100%);
+      border: 1px solid hsl(0, 0%, 100%) !important;
+    }
+    .card {
+      background-color: hsl(209, 23%, 22%);
+      .card-title {
+        color: yellow;
+      }
+      li {
+        background-color: hsl(209, 23%, 22%);
+        color: hsl(0, 0%, 100%);
+      }
+      .card-footer {
+        a.mat-stroked-button {
+          color: white !important;
+        }
+      }
+    }
+  }
+
+  // light-mode
+  .light-theme {
+    color: purple;
+    input {
+      background-color: hsl(0, 0%, 100%);
+      &::placeholder {
+        color: purple;
+        font-weight: 600;
+      }
+    }
+    select {
+      background-color: hsl(0, 0%, 100%);
+      border: 1px solid #aaa !important;
+    }
+
+    .card {
+      background-color: hsl(0, 0%, 100%);
+      .card-title {
+        color: purple;
+      }
+      li {
+        color: purple;
+        background-color: hsl(0, 0%, 100%);
+      }
+      .card-footer {
+        a.mat-stroked-button {
+          color: purple;
+        }
       }
     }
   }

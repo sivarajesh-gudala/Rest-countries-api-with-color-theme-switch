@@ -128,8 +128,8 @@ export class IpAddressTrackerComponent implements OnInit {
 
   /** Search Location by ip address with IP Geolocation API */
   searchAddress(): void {
-    this.spinnerService.show();
     if (this.mapForm.valid) {
+      this.spinnerService.show();
       const ipAddress = this.mapForm.value.ipaddress;
       this.apiService.getMapLocation(ipAddress).subscribe(
         (res) => {

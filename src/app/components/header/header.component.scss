@@ -2,8 +2,12 @@
 @import "../../styles/animations";
 
 .header {
-  ul > li > a {
+  * {
     font-weight: 700;
+  }
+  nav {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 0px;
   }
 
   // dark-mode
@@ -13,13 +17,9 @@
     }
     a.nav-links.active {
       color: yellow;
-      font-weight: 800;
+      font-weight: 900;
     }
     a.nav-links {
-      color: hsl(0%, 0%, 100%);
-    }
-    .nav-btn {
-      background-color: hsl(209, 23%, 22%);
       color: hsl(0%, 0%, 100%);
     }
   }
@@ -30,14 +30,9 @@
     }
     a.nav-links.active {
       color: purple;
-      font-size: 18px;
-      font-weight: 800;
+      font-weight: 900;
     }
     a.nav-links {
-      color: hsl(200, 15%, 8%);
-    }
-    .nav-btn {
-      background-color: hsl(0%, 0%, 100%);
       color: hsl(200, 15%, 8%);
     }
   }

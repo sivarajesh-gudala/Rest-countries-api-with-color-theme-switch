@@ -2,13 +2,15 @@
 <app-header></app-header>
 
 <!-- country information  -->
-<section class="main-content mt-4">
-  <div class="container">
+<section class="mt-4 country-content">
+  <div
+    class="container"
+    [ngClass]="darkModeStatus ? 'dark-mode' : 'light-mode'"
+  >
     <div class="row">
       <div class="col-md-12">
         <button
-          [ngClass]="darkModeStatus ? 'dark-btn' : 'light-btn'"
-          class="btn fs-6"
+          class="fs-6"
           type="button"
           mat-raised-button
           (click)="back()"
@@ -24,10 +26,7 @@
       <div class="text-content col-md-12">
         <ng-container *ngFor="let content of countryInfo">
           <div *ngIf="content.length !== 0">
-            <div
-              class="p-5"
-              [ngClass]="darkModeStatus ? 'dark-text' : 'light-text'"
-            >
+            <div class="p-5">
               <div class="col-md-12">
                 <img
                   [src]="content.flag"
@@ -38,7 +37,7 @@
               <div class="col-md-12 mt-5 fs-6">
                 <h1 class="mat-display-6 text-center">{{ content.name }}</h1>
                 <button
-                  mat-flat-button
+                  mat-raised-button
                   *ngIf="content?.latlng"
                   class="mx-auto d-block gps-btn"
                   (click)="getLocation(content.latlng)"
@@ -111,7 +110,7 @@
                 </div>
 
                 <div
-                  class="border-list col-md-12 text-center"
+                  class="col-md-12 text-center"
                   *ngIf="content.borders.length > 0"
                 >
                   <p class="fs-5 fw-bold">Border Countries:</p>
@@ -120,9 +119,8 @@
                       type="button"
                       *ngFor="let border of content.borders"
                       mat-raised-button
-                      class="border-btn me-3 mb-4"
+                      class="me-3 mb-4"
                       (click)="borderCountry($event)"
-                      [ngClass]="darkModeStatus ? 'dark-btn' : 'light-btn'"
                       matTooltip="Click here to Know more about this country"
                       matTooltipHideDelay="100"
                     >

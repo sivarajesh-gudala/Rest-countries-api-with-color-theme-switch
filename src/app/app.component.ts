@@ -7,5 +7,5 @@ import { FirebaseService } from './services/firebase.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'rest-countries-api';
+  title = 'rest-countries-ipAddress-tracker';
 }
