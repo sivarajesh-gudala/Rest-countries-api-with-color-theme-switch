@@ -31,7 +31,7 @@
         <ul class="navbar-nav me-auto">
           <li class="nav-item" *ngFor="let navItems of nav">
             <a
-              class="nav-link text-uppercase nav-links"
+              class="nav-link text-capitalize nav-links"
               [routerLink]="navItems.link"
               routerLinkActive="active"
               [routerLinkOptions]="{ match: ['/', '/all-countries'] }"
@@ -65,11 +65,11 @@
             <a class="nav-link">
               <button
                 (click)="signOut()"
-                mat-button
+                mat-flat-button
                 type="button"
                 matTooltip="Signout"
                 matTooltipHideDelay="100"
-                class="nav-btn"
+                class="nav-btn fw-bold shadow-none"
               >
                 <mat-icon>exit_to_app</mat-icon>
                 {{ userName }}

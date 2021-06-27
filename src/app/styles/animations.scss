@@ -1,0 +1,17 @@
+nav {
+  a {
+    animation: slidein 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  @keyframes slidein {
+    from {
+      margin-left: 30%;
+      width: 100%;
+    }
+
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+}

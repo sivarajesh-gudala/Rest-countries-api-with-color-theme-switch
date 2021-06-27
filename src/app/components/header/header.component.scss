@@ -1,13 +1,11 @@
 @import "../../styles/mediaQueries";
+@import "../../styles/animations";
 
 .header {
   ul > li > a {
     font-weight: 700;
   }
-  li {
-    list-style-type: none;
-    cursor: pointer;
-  }
+
   // dark-mode
   .header-content.dark-nav-btn {
     mat-icon.toggle-icon {
@@ -15,7 +13,6 @@
     }
     a.nav-links.active {
       color: yellow;
-      font-size: 18px;
       font-weight: 800;
     }
     a.nav-links {
@@ -41,7 +38,7 @@
     }
     .nav-btn {
       background-color: hsl(0%, 0%, 100%);
-      color: purple;
+      color: hsl(200, 15%, 8%);
     }
   }
 }
