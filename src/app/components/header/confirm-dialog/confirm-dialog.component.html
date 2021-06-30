@@ -1,10 +1,13 @@
-<h1 mat-dialog-title>{{ title }}</h1>
-<div mat-dialog-content>
-  <p>{{ message }}</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button class="close-btn" color="accent" (click)="close()">
-    No
-  </button>
-  <button mat-raised-button class="yes-btn" (click)="signOut()">Yes</button>
+<div class="dialog">
+  <div mat-dialog-content>
+    <p>{{ message }}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-flat-button class="close-btn" type="button" (click)="close()">
+      No
+    </button>
+    <button mat-flat-button class="yes-btn" type="button" (click)="signOut()">
+      Yes
+    </button>
+  </div>
 </div>

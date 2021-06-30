@@ -1,86 +1,107 @@
 @import "../header/header.component";
-.ip-address-search.bg-light {
-  background-image: none !important;
-  h2,
-  input::placeholder {
-    color: purple !important;
-  }
-}
-.ip-address-search {
-  background-image: url("../../../assets/ip-address/pattern-bg.png") !important;
-  height: 25vh;
-  width: 100%;
-  margin: 0 auto;
+@import "../../styles/mixins";
 
-  .content {
-    h2 {
-      text-align: center;
-      color: hsl(0%, 0%, 100%);
-      font-size: 16px;
-      font-weight: 800;
-    }
+.ip-address-tracker {
+  h2 {
+    font-size: $fs-16;
+    text-align: center;
+    font-weight: $fw-700;
+    letter-spacing: 2px;
   }
   input::placeholder {
-    font-size: 13px;
-    font-weight: 700;
-    color: hsl(209, 23%, 22%);
+    font-family: $font-family-two;
+    font-size: $fs-13;
+    font-weight: $fw-500;
   }
-  .input-group {
-    button {
-      background-color: hsl(209, 23%, 22%);
-      cursor: pointer;
-      border: none !important;
-      color: white;
-      span {
-        line-height: 1.5 !important;
-      }
+  button {
+    cursor: pointer;
+    span {
+      line-height: 1.5 !important;
+    }
+  }
+  .card {
+    border: none !important;
+    border-radius: 0px !important;
+    ul > li {
+      font-family: $font-family-two;
+      font-weight: $fw-700;
+      text-transform: uppercase;
+      font-size: $fs-12;
+      letter-spacing: 3px;
+      list-style-type: none;
+    }
+    span {
+      font-weight: $fw-600 !important;
+      text-transform: capitalize !important;
     }
   }
 }
 
-.card {
-  height: 20vh;
-  width: 100%;
-  border: none !important;
-  border-radius: 0px !important;
-  ul > li {
-    font-family: "Rubik", sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 3px;
-    list-style-type: none;
+.light-ip-tracker {
+  background-color: $light-text-color;
+  color: $light-color;
+  input {
+    @include light-mode;
+    &::placeholder {
+      color: $dark-color;
+    }
   }
-  span {
-    font-weight: 500 !important;
-    text-transform: capitalize !important;
+  button {
+    @include dark-mode;
+    border-left: 2px solid $dark-color;
+  }
+  .card {
+    background-color: $light-color;
+    ul > li {
+      color: $dark-color;
+    }
+    span {
+      color: $light-text-color;
+    }
+  }
+  #map {
+    .coordinate {
+      color: $dark-color;
+    }
   }
 }
-.card.bg-dark {
-  ul > li {
-    color: yellow;
+.dark-ip-tracker {
+  @include dark-mode;
+  input {
+    @include dark-mode;
+    &::placeholder {
+      color: $light-color;
+    }
   }
-  span {
-    color: hsl(0%, 0%, 100%);
+  button {
+    background-color: $dark-color !important;
+    color: $light-color !important;
+    border: 1px solid $light-color;
   }
-}
-.card.bg-light {
-  ul > li {
-    color: hsl(209, 23%, 22%);
+  .card {
+    background-color: $dark-color;
+    ul > li {
+      color: $light-color;
+    }
+    span {
+      color: $dark-text-color;
+    }
   }
-  span {
-    color: purple;
+  #map {
+    .coordinate {
+      color: $light-color;
+    }
   }
 }
 
 #map {
-  height: 75vh;
+  height: 67vh;
   margin: 0 auto;
   .coordinate {
-    position: absolute;
     float: right !important;
-    color: hsl(209, 23%, 22%);
-    font-weight: 700;
+    font-weight: $fw-400;
+    font-size: $fs-11;
+    font-family: $font-family-two;
     bottom: 10px;
   }
 }

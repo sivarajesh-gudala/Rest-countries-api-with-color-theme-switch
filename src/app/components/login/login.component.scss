@@ -1,40 +1,53 @@
+@import "../../styles/mixins";
+
 .login-form {
+  font-family: $font-family-one;
   .container-fluid {
     .right-sidebar {
-      color: hsl(209, 23%, 22%);
+      color: $dark-color;
       display: flex;
       justify-content: center;
       height: 100vh;
       align-items: center;
       max-width: 100%;
-      background-color: hsl(0%, 0%, 98%);
+      background-color: $light-color;
       h2 {
-        font-weight: 700;
+        font-weight: $fw-700;
         font-size: 26px;
       }
       input::placeholder {
-        color: hsl(209, 23%, 22%);
-        font-size: 12px;
-        font-weight: 600;
+        color: $dark-color;
+        font-size: $fs-12;
+        font-weight: $fw-600;
+        font-family: $font-family-one;
       }
       .input-group {
         button {
           cursor: pointer;
-          background-color: hsl(209, 23%, 22%);
-          color: hsl(0%, 0%, 100%);
+          @include dark-mode;
           line-height: 0 !important;
         }
       }
-      button.btn,
-      a.mat-button {
-        font-size: 12px;
-        font-weight: 700;
+
+      button.mat-button {
+        @include light-mode;
+        font-size: $fs-12;
+        font-weight: $fw-700;
+        font-family: $font-family-one;
+        height: 30px;
+        line-height: 20px;
+        min-height: 20px;
+        vertical-align: top;
       }
-      a.mat-button {
-        color: hsl(209, 23%, 22%);
-      }
-      button {
-        background-color: hsl(209, 23%, 22%);
+
+      button.mat-raised-button {
+        @include dark-mode;
+        font-size: $fs-12;
+        font-family: $font-family-one;
+        height: 30px;
+        line-height: 20px;
+        min-height: 20px;
+        vertical-align: top;
       }
     }
     .left-sidebar {
@@ -43,31 +56,29 @@
       height: 100vh;
       align-items: center;
       max-width: 100%;
-      background-color: hsl(209, 23%, 22%);
+      background-color: $dark-color;
     }
   }
 }
 
 span.help-block {
-  font-size: smaller;
+  font-size: $fs-12;
   color: red;
 }
 
 .modal {
+  font-weight: $fw-700;
+  color: $light-text-color;
+  font-family: $font-family-one;
   input::placeholder {
-    color: hsl(209, 23%, 22%);
-    font-size: 13px;
-    font-weight: 700;
-  }
-  h2,
-  h6 {
-    font-weight: 700;
-    color: hsl(209, 23%, 22%);
+    color: $dark-color;
+    font-size: $fs-13;
+    font-weight: $fw-700;
   }
   .modal-footer {
     button {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: $fs-12;
+      font-weight: $fw-600;
     }
     button.reset-btn {
       background-color: hsl(209, 23%, 22%);

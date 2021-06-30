@@ -3,9 +3,7 @@
 @import "~material-icons/iconfont/material-icons.css";
 @import "../node_modules/ngx-toastr/toastr.css";
 @import "../node_modules/leaflet/dist/leaflet";
-* {
-  font-family: "Nunito Sans", sans-serif;
-}
+@import "./app/styles/variables";
 
 html,
 body {
@@ -17,37 +15,39 @@ body:not(.dark-mode-preloading) {
 }
 
 body.dark-mode {
-  background-color: hsl(207, 26%, 17%);
+  background-color: $dark-background;
 }
 
 body.light-mode {
-  background-color: hsl(0, 0%, 98%);
+  background-color: $light-color;
 }
 
 pagination-controls.dark-page {
   .ngx-pagination a,
   .ngx-pagination button {
-    color: hsl(0, 0%, 100%) !important;
-    background-color: hsl(209, 23%, 22%);
+    color: $light-color !important;
+    background-color: $dark-color;
   }
 }
 
 pagination-controls.light-page {
   .ngx-pagination a,
   .ngx-pagination button {
-    color: hsl(200, 15%, 8%);
-    background-color: hsl(0, 0%, 100%);
+    color: $dark-color;
+    background-color: $light-color;
   }
 }
 
 .bdrop {
   background-color: #bbbbbbf2;
   backdrop-filter: blur(4px);
+  cursor: not-allowed;
 }
 
 ngx-spinner {
   p {
-    font-weight: 700;
-    color: hsl(0, 0%, 100%);
+    font-weight: $fw-600;
+    color: $light-color;
+    font-family: $font-family-one;
   }
 }

@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="main-content mt-4">
+<div class="main-content mt-3">
   <div
     class="container"
     [ngClass]="darkModeStatus ? 'dark-theme' : 'light-theme'"
@@ -8,41 +8,47 @@
     <div class="row">
       <div class="col-md-12">
         <form [formGroup]="countryListForm" class="row g-3">
-          <div class="col-md-4 media-queries" *ngIf="!hidesearchFilters">
-            <div class="input-group">
-              <span class="input-group-text material-icons-outlined">
-                search
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Search for a country..."
-                formControlName="country"
-                (input)="search($event.target.value)"
-              />
-              <button
-                type="button"
-                class="input-group-text clear_btn"
-                (click)="countryListForm.get('country').reset()"
-                [disabled]="!countryListForm.get('country').value"
-                matTooltip="Clear all"
-                matTooltipHideDelay="100"
-              >
-                <span class="material-icons-outlined"> clear_all </span>
-              </button>
+          <ng-container *ngIf="!hidesearchFilters">
+            <div class="col-md-4 media-queries">
+              <div class="input-group">
+                <span class="input-group-text material-icons-outlined">
+                  search
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search for a country..."
+                  formControlName="country"
+                  (input)="search($event.target.value)"
+                />
+                <button
+                  type="button"
+                  class="input-group-text clear_btn"
+                  matTooltip="Clear all"
+                  matTooltipHideDelay="100"
+                  [disabled]="!countryListForm.get('country').value"
+                  (click)="countryListForm.get('country').reset()"
+                >
+                  <span class="material-icons-outlined"> clear_all </span>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3 media-queries" *ngIf="!hidesearchFilters">
-            <select
-              class="form-select"
-              formControlName="filterOptions"
-              (change)="searchFilter()"
-            >
-              <option [value]="items" *ngFor="let items of searchFilterOptions">
-                Search by {{ items }}
-              </option>
-            </select>
-          </div>
+            <div class="col-md-3 media-queries">
+              <select
+                class="form-select"
+                formControlName="filterOptions"
+                (change)="searchFilter()"
+              >
+                <option
+                  [value]="items"
+                  *ngFor="let items of searchFilterOptions"
+                >
+                  Search by {{ items }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
+
           <div class="col-md-3 media-queries">
             <select
               class="form-select"
@@ -111,10 +117,11 @@
               </ul>
               <div class="card-footer">
                 <a
+                  type="button"
                   mat-stroked-button
-                  (click)="moreDeatils(data.name)"
                   matTooltip="Click here to know more about {{ data.name }}"
                   matTooltipHideDelay="100"
+                  (click)="moreDeatils(data.name)"
                 >
                   More
                   <span class="material-icons-outlined"> read_more </span>

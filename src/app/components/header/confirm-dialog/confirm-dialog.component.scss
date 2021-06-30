@@ -1,22 +1,25 @@
-h1 {
-  color: hsl(209, 23%, 22%);
-  font-weight: 700;
-}
+@import "../../../styles/mixins";
 
-.mat-dialog-content {
-  p {
-    color: hsl(209, 23%, 22%);
-    font-weight: 800;
+.dialog {
+  padding: 10px;
+  .mat-dialog-content {
+    p {
+      color: $dark-color;
+      font-weight: $fw-700;
+    }
   }
-}
 
-.mat-dialog-actions {
-  button.close-btn {
-    font-weight: 700;
-  }
-  button.yes-btn {
-    font-weight: 700;
-    color: hsl(0%, 0%, 100%);
-    background-color: hsl(209, 23%, 22%);
+  .mat-dialog-actions {
+    button {
+      font-weight: $fw-600;
+      background-color: $light-text-color;
+      color: $light-color;
+      font-family: $font-family-one;
+    }
+    .mat-flat-button:focus,
+    .mat-flat-button:hover {
+      @include dark-mode;
+      box-shadow: $box-shadow;
+    }
   }
 }

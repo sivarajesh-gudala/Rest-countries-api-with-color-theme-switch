@@ -1,5 +1,4 @@
-import { JsonpClientBackend } from '@angular/common/http';
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,

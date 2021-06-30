@@ -1,22 +1,26 @@
 @import "../../styles/mediaQueries";
+@import "../../styles/mixins";
 
 .main-content {
+  font-family: $font-family-one;
   input {
     box-shadow: none !important;
+    &::placeholder {
+      font-weight: $fw-600;
+    }
   }
 
   select {
     border: none !important;
     margin: 0px auto;
-    font-weight: 600;
+    font-weight: $fw-600;
     box-shadow: none !important;
     border-radius: 4px;
   }
 
   .card-content {
     .card {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: $box-shadow;
       border: 0px;
     }
     img.country-flag {
@@ -28,72 +32,65 @@
     }
     h5 {
       margin-bottom: 0px !important;
-      font-weight: 700;
+      font-weight: $fw-700;
     }
 
     .list-group {
-      font-size: 13px;
-      font-weight: 600;
+      font-weight: $fw-600;
       li {
         b {
           text-transform: capitalize;
-          font-size: 14px;
-          font-weight: 800 !important;
+          font-weight: $fw-800;
         }
       }
     }
 
     .card-footer {
       .mat-stroked-button {
-        font-size: 13px;
+        font-size: $fs-13;
         border: none !important;
         letter-spacing: 1px;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: $fw-700;
       }
     }
     .no-result-text {
-      font-weight: 600;
+      font-weight: $fw-600;
       font-style: italic !important;
       span {
-        font-weight: 800;
+        font-weight: $fw-800;
       }
     }
   }
 
   // dark-mode
   .dark-theme {
-    color: hsl(0, 0%, 100%);
     input {
-      background-color: hsl(209, 23%, 22%);
-      color: hsl(0, 0%, 100%);
+      @include dark-mode;
       &::placeholder {
-        color: hsl(0, 0%, 100%);
-        font-weight: 600;
+        color: $light-color;
       }
     }
     span.input-group-text,
     button.input-group-text {
-      color: hsl(0, 0%, 100%) !important;
-      background-color: hsl(209, 23%, 22%) !important;
+      @include dark-mode;
     }
     select {
-      background-color: hsl(209, 23%, 22%);
-      color: hsl(0, 0%, 100%);
-      border: 1px solid hsl(0, 0%, 100%) !important;
+      @include dark-mode;
+      border: 1px solid $light-color !important;
     }
     .card {
-      background-color: hsl(209, 23%, 22%);
+      background-color: $dark-color;
       .card-title {
-        color: yellow;
+        color: $dark-text-color;
       }
       li {
-        background-color: hsl(209, 23%, 22%);
-        color: hsl(0, 0%, 100%);
+        background-color: $dark-color;
+        color: $light-color;
       }
       .card-footer {
         a.mat-stroked-button {
-          color: white !important;
+          color: $light-color;
         }
       }
     }
@@ -101,31 +98,29 @@
 
   // light-mode
   .light-theme {
-    color: purple;
     input {
-      background-color: hsl(0, 0%, 100%);
+      @include light-mode;
       &::placeholder {
-        color: purple;
-        font-weight: 600;
+        color: $dark-color;
       }
     }
     select {
-      background-color: hsl(0, 0%, 100%);
+      @include light-mode;
       border: 1px solid #aaa !important;
     }
 
     .card {
-      background-color: hsl(0, 0%, 100%);
+      background-color: $light-color;
       .card-title {
-        color: purple;
+        color: $light-text-color;
       }
       li {
-        color: purple;
-        background-color: hsl(0, 0%, 100%);
+        color: $light-text-color;
+        background-color: $light-color;
       }
       .card-footer {
         a.mat-stroked-button {
-          color: purple;
+          color: $light-text-color;
         }
       }
     }

@@ -1,3 +1,5 @@
+@import "../../styles/mixins";
+
 .container-fluid {
   display: flex;
   justify-content: center;
@@ -5,16 +7,22 @@
   height: 100vh;
   margin: 0 auto;
   width: 100%;
-  background-color: #fff;
-  h6,
-  h3,
-  h6 {
-    font-weight: 700;
-    color: hsl(0%, 0%, 52%);
+  background-color: $light-color;
+
+  p.mat-display-1 {
+    font-weight: $fw-700;
+    color: $dark-color;
+    font-family: $font-family-one;
+  }
+  h4,
+  p.mat-body-strong {
+    font-weight: $fw-500;
+    color: $light-text-color;
+    font-family: $font-family-two;
   }
   button {
-    background-color: #2b3945;
-    font-size: 14px;
-    color: hsl(0%, 0%, 100%);
+    @include dark-mode;
+    font-family: $font-family-two;
+    font-size: $fs-14;
   }
 }

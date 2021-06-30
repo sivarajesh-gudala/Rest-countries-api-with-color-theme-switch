@@ -19,9 +19,9 @@ export class SelectedCountryDataComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private apiService: ApiService,
     private darkModeService: DarkModeService,
-    private spinnerService: NgxSpinnerService
+    private spinnerService: NgxSpinnerService,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {

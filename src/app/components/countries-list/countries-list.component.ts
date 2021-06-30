@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { ApiService } from 'src/app/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DarkModeService } from 'angular-dark-mode';
+import { ApiService } from 'src/app/services/api.service';
 import { Path, RoutePath } from 'src/app/shared/enums/route-path.enum';
 import { FilterItems } from 'src/app/shared/enums/filter-items.enum';
 @Component({
@@ -34,12 +34,12 @@ export class CountriesListComponent implements OnInit {
   hidesearchFilters: boolean = false;
 
   constructor(
-    private apiService: ApiService,
+    private fbBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private fbBuilder: FormBuilder,
     private spinnerService: NgxSpinnerService,
-    private darkModeService: DarkModeService
+    private darkModeService: DarkModeService,
+    private apiService: ApiService
   ) {
     this.coutriesForm();
   }

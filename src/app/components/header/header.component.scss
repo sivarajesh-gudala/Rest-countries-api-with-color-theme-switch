@@ -1,39 +1,47 @@
 @import "../../styles/mediaQueries";
 @import "../../styles/animations";
+@import "../../styles/mixins";
 
 .header {
   * {
-    font-weight: 700;
+    font-weight: $fw-600;
   }
   nav {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: $box-shadow;
     border: 0px;
+    font-family: $font-family-one;
+    button,
+    mat-button-toggle {
+      font-family: $font-family-one;
+    }
   }
 
   // dark-mode
-  .header-content.dark-nav-btn {
-    mat-icon.toggle-icon {
-      color: yellow;
-    }
+  nav.dark-nav {
     a.nav-links.active {
-      color: yellow;
-      font-weight: 900;
+      color: $dark-text-color;
+      font-weight: $fw-800;
     }
     a.nav-links {
-      color: hsl(0%, 0%, 100%);
+      color: $light-color;
+    }
+    button,
+    mat-button-toggle {
+      @include dark-mode;
     }
   }
   // light-mode
-  .header-content.light-nav-btn {
-    mat-icon.toggle-icon {
-      color: purple;
-    }
+  nav.light-nav {
     a.nav-links.active {
-      color: purple;
-      font-weight: 900;
+      color: $light-text-color;
+      font-weight: $fw-800;
     }
     a.nav-links {
-      color: hsl(200, 15%, 8%);
+      color: $dark-color;
+    }
+    button,
+    mat-button-toggle {
+      @include light-mode;
     }
   }
 }

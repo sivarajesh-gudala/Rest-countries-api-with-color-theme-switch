@@ -1,21 +1,27 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
       <img
-        class="img-fluid rounded"
+        class="img-fluid"
         width="200px"
         height="150px"
         src="https://images.squarespace-cdn.com/content/v1/51cdafc4e4b09eb676a64e68/1470175715831-NUJOMI6VW13ZNT1MI0VB/ke17ZwdGBToddI8pDm48kEj8h6tFfEHTeCG-xJISxCF7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UQNtHfWuxJOqPNnonx2vPn19YmYaYuKXkbKFz0xx0uTakvjJh3JJWsjdMZ66YIxKAg/image-asset.jpeg?format=500w"
       />
     </div>
 
-    <div class="col-md-6">
-      <h1 class="mat-display-6 fw-bold">AWWW...DON’T CRY.</h1>
-      <h3 mat-subheading-2>It's just a 404 Error!</h3>
-      <h6 class="mat-display-6">
+    <div class="col-md-7">
+      <p class="mat-display-1">AWWW...DON’T CRY.</p>
+      <h4 mat-subheading-1>It's just a 404 Error!</h4>
+      <p class="mat-body-strong">
         What you’re looking for may have been misplaced in Long Term Memory.
-      </h6>
-      <button mat-raised-button routerLink="/all-countries">
+      </p>
+      <button
+        type="button"
+        mat-raised-button
+        matTooltip="Back to home"
+        matTooltipHideDelay="100"
+        routerLink="/all-countries"
+      >
         <mat-icon>arrow_back</mat-icon>
         Home
       </button>

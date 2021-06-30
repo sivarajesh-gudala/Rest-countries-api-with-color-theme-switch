@@ -2,19 +2,9 @@
 <div class="header">
   <nav
     class="navbar navbar-expand-lg"
-    [ngStyle]="
-      modeStatus
-        ? {
-            'background-color': 'hsl(209, 23%, 22%)'
-          }
-        : ''
-    "
-    [ngClass]="{ 'bg-white': !modeStatus }"
+    [ngClass]="modeStatus ? 'dark-nav' : 'light-nav'"
   >
-    <div
-      class="container header-content"
-      [ngClass]="modeStatus ? 'dark-nav-btn' : 'light-nav-btn'"
-    >
+    <div class="container header-content">
       <button
         mat-button
         class="navbar-toggler d-lg-none shadow-none"
@@ -46,14 +36,6 @@
           <li class="nav-item">
             <a class="nav-link">
               <mat-button-toggle
-                [ngClass]="modeStatus ? 'text-white' : 'bg-white text-dark'"
-                [ngStyle]="
-                  modeStatus
-                    ? {
-                        'background-color': 'hsl(209, 23%, 22%)'
-                      }
-                    : ''
-                "
                 appearance="legacy"
                 [checked]="darkMode$ | async"
                 (click)="onToggle()"
@@ -71,20 +53,12 @@
           <li class="nav-item">
             <a class="nav-link">
               <button
-                [ngClass]="modeStatus ? 'text-white' : 'bg-white text-dark'"
-                [ngStyle]="
-                  modeStatus
-                    ? {
-                        'background-color': 'hsl(209, 23%, 22%)'
-                      }
-                    : ''
-                "
-                (click)="signOut()"
-                mat-flat-button
                 type="button"
+                mat-flat-button
+                class="nav-btn shadow-none"
                 matTooltip="Signout"
                 matTooltipHideDelay="100"
-                class="nav-btn shadow-none"
+                (click)="signOut()"
               >
                 <mat-icon>exit_to_app</mat-icon>
                 {{ userName }}

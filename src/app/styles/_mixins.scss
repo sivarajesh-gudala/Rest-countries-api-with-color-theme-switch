@@ -1,0 +1,11 @@
+@import "./variables";
+
+@mixin dark-mode {
+  background-color: $dark-background;
+  color: $light-color;
+}
+
+@mixin light-mode {
+  background-color: $light-color;
+  color: $dark-color;
+}

@@ -1,85 +1,79 @@
 <!-- header  -->
 <app-header></app-header>
 <!-- Map-content -->
-<div class="container-fluid">
+<div
+  class="container-fluid ip-address-tracker"
+  [ngClass]="darkModeStatus ? 'dark-ip-tracker' : 'light-ip-tracker'"
+>
   <div class="row">
-    <div class="ip-address-search" [ngClass]="{ 'bg-light': !darkModeStatus }">
-      <div class="row content">
-        <div class="col-md-12">
-          <div class="col-md-5 mx-auto mt-5 mb-3">
-            <h2 mat-title>IP Address Tracker</h2>
-            <form [formGroup]="mapForm">
-              <div class="input-group">
-                <input
-                  type="search"
-                  class="form-control shadow-none"
-                  formControlName="ipaddress"
-                  placeholder="Search by any IP address or domain"
-                />
-                <button
-                  class="input-group-text"
-                  (click)="searchAddress()"
-                  class="btn btn-sm shadow-none"
-                >
-                  <span class="lh-0 material-icons-outlined"> search </span>
-                </button>
-              </div>
-            </form>
+    <div class="col-md-5 mx-auto mt-5 mb-3">
+      <h2 mat-title>IP Address Tracker</h2>
+      <form [formGroup]="mapForm">
+        <div class="input-group">
+          <input
+            type="search"
+            class="form-control shadow-none"
+            formControlName="ipaddress"
+            placeholder="Search by any IP address or domain"
+          />
+          <button
+            type="button"
+            class="input-group-text btn btn-sm shadow-none"
+            (click)="searchAddress()"
+          >
+            <span class="lh-0 material-icons-outlined"> search </span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <ng-container *ngIf="locationDetails && !invalidIpAddr">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <ul>
+                <li>
+                  IP Address :
+                  <span>
+                    {{ ipAddress }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <ul>
+                <li>
+                  location:
+                  <span>
+                    {{ country }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <ul>
+                <li>
+                  time zone:
+                  <span>
+                    {{ timeZone }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <ul>
+                <li>
+                  isp:
+                  <span>
+                    {{ isp }}
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="card gps-details-card"
-      [ngClass]="darkModeStatus ? 'bg-dark' : 'bg-light'"
-      *ngIf="locationDetails && !invalidIpAddr"
-    >
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-3">
-            <ul>
-              <li>
-                IP Address :
-                <span>
-                  {{ ipAddress }}
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <ul>
-              <li>
-                location:
-                <span>
-                  {{ country }}
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <ul>
-              <li>
-                time zone:
-                <span>
-                  {{ timeZone }}
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <ul>
-              <li>
-                isp:
-                <span>
-                  {{ isp }}
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    </ng-container>
     <div id="map">
       <div class="leaflet-control coordinate"></div>
     </div>

@@ -39,6 +39,7 @@
                 #togglePwd
               />
               <button
+                type="button"
                 class="material-icons input-group-text btn-sm"
                 (click)="showPassword()"
               >
@@ -63,20 +64,21 @@
           <div class="mt-3">
             <button
               type="button"
-              class="btn btn-primary btn-sm shadow-none"
+              mat-raised-button
+              class="btn me-2"
               [disabled]="loginForm.invalid"
               (click)="login()"
             >
               Login
             </button>
-            <a mat-button (click)="switchToSignUp()"
-              >Don't have an account yet? Sign up</a
-            >
+            <button type="button" mat-button (click)="switchToSignUp()">
+              Don't have an account yet? Sign up
+            </button>
           </div>
           <div class="float-end">
             <button
               type="button"
-              class="btn btn-primary btn-sm shadow-none"
+              mat-raised-button
               data-bs-toggle="modal"
               data-bs-target="#resetModal"
             >

@@ -10,12 +10,12 @@
     <div class="row">
       <div class="col-md-12">
         <button
-          class="fs-6"
           type="button"
           mat-raised-button
-          (click)="back()"
+          class="fs-6"
           matTooltip="Go back to where you left off"
           matTooltipHideDelay="100"
+          (click)="back()"
         >
           <mat-icon>arrow_back</mat-icon>
           Back
@@ -36,19 +36,22 @@
               </div>
               <div class="col-md-12 mt-5 fs-6">
                 <h1 class="mat-display-6 text-center">{{ content.name }}</h1>
-                <button
-                  mat-raised-button
-                  *ngIf="content?.latlng"
-                  class="mx-auto d-block gps-btn"
-                  (click)="getLocation(content.latlng)"
-                  matTooltip="Click here to get location of {{
-                    content.name
-                  }} in the map"
-                  matTooltipHideDelay="100"
-                >
-                  GPS
-                  <mat-icon> location_on</mat-icon>
-                </button>
+                <ng-container *ngIf="content?.latlng">
+                  <button
+                    type="button"
+                    class="mx-auto d-block gps-btn"
+                    mat-raised-button
+                    (click)="getLocation(content.latlng)"
+                    matTooltip="Click here to get location of {{
+                      content.name
+                    }} in the map"
+                    matTooltipHideDelay="100"
+                  >
+                    GPS
+                    <mat-icon> location_on</mat-icon>
+                  </button>
+                </ng-container>
+
                 <div class="row pr-5 pl-5 pt-5 pb-3">
                   <div class="col-md-6">
                     <p *ngIf="content?.nativeName !== ''">
@@ -109,25 +112,24 @@
                   </div>
                 </div>
 
-                <div
-                  class="col-md-12 text-center"
-                  *ngIf="content.borders.length > 0"
-                >
-                  <p class="fs-5 fw-bold">Border Countries:</p>
-                  <span class="">
-                    <button
-                      type="button"
-                      *ngFor="let border of content.borders"
-                      mat-raised-button
-                      class="me-3 mb-4"
-                      (click)="borderCountry($event)"
-                      matTooltip="Click here to Know more about this country"
-                      matTooltipHideDelay="100"
-                    >
-                      {{ border }}
-                    </button>
-                  </span>
-                </div>
+                <ng-container *ngIf="content.borders.length > 0">
+                  <div class="col-md-12 text-center mb-5">
+                    <p class="fs-5 fw-bold">Border Countries:</p>
+                    <span class="">
+                      <button
+                        type="button"
+                        *ngFor="let border of content.borders"
+                        mat-raised-button
+                        class="me-3 mb-4"
+                        (click)="borderCountry($event)"
+                        matTooltip="Click here to Know more about this country"
+                        matTooltipHideDelay="100"
+                      >
+                        {{ border }}
+                      </button>
+                    </span>
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>

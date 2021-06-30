@@ -89,15 +89,16 @@
           <div class="mt-3">
             <button
               type="button"
-              class="btn btn-primary btn-sm shadow-none"
+              mat-raised-button
+              class="btn me-2"
               [disabled]="signupForm.invalid"
               (click)="signUp()"
             >
               Sign Up
             </button>
-            <a mat-button (click)="switchToLogin()"
-              >Already a user? Login here</a
-            >
+            <button type="button" mat-button (click)="switchToLogin()">
+              Already a user? Login here
+            </button>
           </div>
         </form>
       </div>

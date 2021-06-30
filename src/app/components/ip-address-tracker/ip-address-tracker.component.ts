@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as L from 'leaflet';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DarkModeService } from 'angular-dark-mode';
+import * as L from 'leaflet';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
@@ -23,15 +23,16 @@ export class IpAddressTrackerComponent implements OnInit {
   isp: any;
   locationDetails: any;
   invalidIpAddr: boolean = true;
+  modeStatus: boolean;
 
   constructor(
-    private apiService: ApiService,
     private fb: FormBuilder,
-    private tostr: ToastrService,
-    private darkModeService: DarkModeService,
-    private route: ActivatedRoute,
     private router: Router,
+    private route: ActivatedRoute,
+    private darkModeService: DarkModeService,
     private spinnerService: NgxSpinnerService,
+    private tostr: ToastrService,
+    private apiService: ApiService,
     private sharedService: SharedService
   ) {
     this.mapForm = this.fb.group({
@@ -75,16 +76,35 @@ export class IpAddressTrackerComponent implements OnInit {
   mapLayer(latPos, longPos, region, city): void {
     // map initialization
     this.map = L.map('map').setView([latPos, longPos], 13);
+
     //Setting Map Layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.map);
+    this.darkModeService.darkMode$.subscribe((val) => {
+      this.modeStatus = val;
+      if (this.modeStatus) {
+        L.tileLayer(
+          'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
+          {
+            maxZoom: 20,
+            attribution:
+              '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+          }
+        ).addTo(this.map);
+      } else {
+        L.tileLayer(
+          'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
+          {
+            maxZoom: 20,
+            attribution:
+              '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+          }
+        ).addTo(this.map);
+      }
+    });
 
     // marker Icon
     var LeafIcon = new L.Icon({
       iconUrl: '../../../assets/ip-address/icon-location.svg',
-      iconSize: [25, 30],
+      iconSize: [20, 25],
     });
 
     //changing position of Marker

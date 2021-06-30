@@ -1,12 +1,19 @@
+@import "../../styles/mixins";
+
 .country-content {
+  font-family: $font-family-one;
+  button {
+    font-family: $font-family-one;
+  }
   mat-icon {
     font-size: 22px;
     padding-right: 2rem;
   }
+
   .text-content {
     .gps-btn {
-      font-weight: 800;
-      font-size: 13px;
+      font-weight: $fw-800;
+      font-size: $fs-13;
       mat-icon {
         padding-right: 0px !important;
         font-size: 18px;
@@ -15,26 +22,24 @@
     .img-flag {
       object-fit: cover;
       height: 300px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: $box-shadow;
       border-radius: 5px;
     }
   }
 
   .dark-mode {
-    color: hsl(0, 0%, 100%);
-
+    color: $light-color;
     button {
-      color: hsl(0, 0%, 100%);
-      background-color: hsl(209, 23%, 22%);
+      @include dark-mode;
+      box-shadow: $box-shadow;
+      border: 2px solid $dark-color;
     }
   }
   .light-mode {
-    color: purple;
-
+    color: $light-text-color;
     button {
-      background-color: purple;
-      color: hsl(0, 0%, 100%);
+      color: $light-color;
+      background-color: #ff4081 !important;
     }
   }
 }

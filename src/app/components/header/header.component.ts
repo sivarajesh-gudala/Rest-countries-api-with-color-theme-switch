@@ -37,8 +37,8 @@ export class HeaderComponent implements OnInit {
   isShown: boolean = false;
 
   constructor(
-    private darkModeService: DarkModeService,
     private dialog: MatDialog,
+    private darkModeService: DarkModeService,
     private sharedService: SharedService
   ) {}
 
