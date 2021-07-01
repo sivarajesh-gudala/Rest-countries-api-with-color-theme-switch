@@ -60,8 +60,10 @@ export class CountriesListComponent implements OnInit {
     this.getDarkModeStatus();
   }
 
-  /** Subscribing API'S
-   * method :Get
+  /**
+   * @description - subscribing api's
+   * @method Get
+   * @type {void}
    */
   getAllCounriesInfo(): void {
     this.spinnerService.show();
@@ -171,7 +173,10 @@ export class CountriesListComponent implements OnInit {
 
   /** Functions */
 
-  /** search country based on selected value from drop down */
+  /**
+   * @description - search country based on selected
+   * value from drop down
+   * @type {any} */
   commonSearchFilter(): any {
     if (this.searchedData !== '' || this.countryListForm.get('country').value) {
       switch (this.searchFilterOption) {
@@ -195,8 +200,9 @@ export class CountriesListComponent implements OnInit {
     }
   }
 
-  /** filter items only if particular country
+  /** @description - filter items only if particular country
    * exists in the list of selected region
+   * @type {void}
    */
   filterItemsInRegion(data: any): void {
     let filterData = data.filter((item, i, arr) => {
@@ -209,7 +215,8 @@ export class CountriesListComponent implements OnInit {
     }
   }
 
-  /** based on query params setting region value*/
+  /**
+   * @description Based on query params setting region value*/
   getQueryParams(): void {
     this.route.queryParams.subscribe((params) => {
       this.regionParams = params['region'];
@@ -228,15 +235,16 @@ export class CountriesListComponent implements OnInit {
     });
   }
 
-  /** storing Dark mode status */
+  /**
+  * @description storing Dark mode status */
   getDarkModeStatus(): void {
     this.darkModeService.darkMode$.subscribe((val) => {
       this.darkModeStatus = val;
     });
   }
 
-  /** storing searched
-   * value and
+  /**
+   * @description storing searched value and
    * based on that filtering data */
   updatedSearchValue(): void {
     this.countryListForm

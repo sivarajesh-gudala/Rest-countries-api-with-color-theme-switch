@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
   getUserInfo() {
     let userDetails = JSON.parse(localStorage.getItem('user-details'));
     this.userName = this.sharedService.capitalizeFirstLetter(
-      userDetails.displayName
+      userDetails?.displayName
     );
   }
 

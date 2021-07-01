@@ -15,6 +15,11 @@
       background-color: $light-text-color;
       color: $light-color;
       font-family: $font-family-one;
+      font-size: $fs-12;
+      height: 30px;
+      line-height: 20px;
+      min-height: 20px;
+      vertical-align: top;
     }
     .mat-flat-button:focus,
     .mat-flat-button:hover {

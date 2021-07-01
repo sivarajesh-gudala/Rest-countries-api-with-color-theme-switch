@@ -24,6 +24,7 @@ export class IpAddressTrackerComponent implements OnInit {
   locationDetails: any;
   invalidIpAddr: boolean = true;
   modeStatus: boolean;
+  tileLayer: any;
 
   constructor(
     private fb: FormBuilder,
@@ -71,6 +72,7 @@ export class IpAddressTrackerComponent implements OnInit {
   }
 
   /**
+   * @description
    * setting Map based on latitude and longitude
    */
   mapLayer(latPos, longPos, region, city): void {
@@ -81,7 +83,8 @@ export class IpAddressTrackerComponent implements OnInit {
     this.darkModeService.darkMode$.subscribe((val) => {
       this.modeStatus = val;
       if (this.modeStatus) {
-        L.tileLayer(
+        this.map.Layer?.remove();
+        this.tileLayer = L.tileLayer(
           'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
           {
             attribution:
@@ -89,31 +92,36 @@ export class IpAddressTrackerComponent implements OnInit {
             subdomains: 'abcd',
             maxZoom: 19,
           }
-        ).addTo(this.map);
+        );
       } else {
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          maxZoom: 19,
-        }).addTo(this.map);
+        this.map.Layer?.remove();
+        this.tileLayer = L.tileLayer(
+          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19,
+          }
+        );
       }
+      this.tileLayer.addTo(this.map);
     });
 
     // marker Icon
-    var LeafIcon = new L.Icon({
-      iconUrl: '../../../assets/ip-address/icon-location.svg',
-      iconSize: [20, 25],
+    const leafIcon = L.icon({
+      iconUrl: '../../../assets/ip-address/marker-icon-2x-yellow.png',
+      iconSize: [20, 30],
     });
 
     //changing position of Marker
-    var marker = L.marker([latPos, longPos], {
-      icon: LeafIcon,
+    const marker = L.marker([latPos, longPos], {
+      icon: leafIcon,
       draggable: true,
     });
 
-    var popUp = marker.bindPopup(city + ' ' + marker.getLatLng()).openPopup();
+    const popUp = marker.bindPopup(city + ' ' + marker.getLatLng()).openPopup();
     popUp.addTo(this.map);
-
+    this.tileLayer.addTo(this.map);
     this.map.on('mousemove', (e) => {
       document.getElementsByClassName(
         'coordinate'

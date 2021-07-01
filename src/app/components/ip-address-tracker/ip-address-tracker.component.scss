@@ -37,6 +37,7 @@
   }
 }
 
+// Light Mode
 .light-ip-tracker {
   background-color: $light-text-color;
   color: $light-color;
@@ -61,10 +62,12 @@
   }
   #map {
     .coordinate {
-      color: $dark-color;
+      color: $light-text-color;
     }
   }
 }
+
+// Dark Mode
 .dark-ip-tracker {
   @include dark-mode;
   input {
@@ -99,7 +102,7 @@
   margin: 0 auto;
   .coordinate {
     float: right !important;
-    font-weight: $fw-400;
+    font-weight: $fw-500;
     font-size: $fs-11;
     font-family: $font-family-two;
     text-align: end;
