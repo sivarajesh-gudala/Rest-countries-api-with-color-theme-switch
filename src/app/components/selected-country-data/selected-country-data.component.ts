@@ -29,6 +29,10 @@ export class SelectedCountryDataComponent implements OnInit {
     this.getDarkModeStatus();
   }
 
+  keys(obj) {
+    return Object.keys(obj);
+  }
+
   getDarkModeStatus(): void {
     this.darkModeService.darkMode$.subscribe((val) => {
       this.darkModeStatus = val;
@@ -74,7 +78,7 @@ export class SelectedCountryDataComponent implements OnInit {
       (res) => {
         this.router.navigate([RoutePath.COUNTRY], {
           relativeTo: this.route,
-          queryParams: { name: res.name },
+          queryParams: { name: res[0].name.common },
         });
       },
       (err) => {

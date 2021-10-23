@@ -12,7 +12,7 @@ export const environment = {
     messagingSenderId: '1047031453639',
     appId: '1:1047031453639:web:8862f2c6b14f2b957cabe2',
   },
-  apiCountriesList: 'https://restcountries.eu/rest/v2/',
+  apiCountriesList: 'https://restcountries.com/v3.1/',
   geoAPI:
     'https://geo.ipify.org/api/v1?apiKey=at_Y6YoKAMjsUQEY3KHyEH7vZ8oCVvAp',
 };

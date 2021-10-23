@@ -57,10 +57,10 @@
             >
               <option value="allcountries">All Countries</option>
               <option
-                [value]="country.name"
+                [value]="country.name.common"
                 *ngFor="let country of allCountriesList"
               >
-                {{ country.name }}
+                {{ country.name.common }}
               </option>
             </select>
           </div>
@@ -95,12 +95,12 @@
           >
             <div class="card country-card">
               <img
-                [src]="data.flag"
+                [src]="data.flags.svg"
                 alt="{{ data.name }}"
                 class="country-flag card-img-top"
               />
               <div class="card-body">
-                <h5 class="card-title">{{ data.name }}</h5>
+                <h5 class="card-title">{{ data.name.common }}</h5>
               </div>
               <ul class="list-group">
                 <li class="list-group-item" *ngIf="data?.population !== ''">
@@ -119,9 +119,11 @@
                 <a
                   type="button"
                   mat-stroked-button
-                  matTooltip="Click here to know more about {{ data.name }}"
+                  matTooltip="Click here to know more about {{
+                    data.name.official
+                  }}"
                   matTooltipHideDelay="100"
-                  (click)="moreDeatils(data.name)"
+                  (click)="moreDeatils(data.name.common)"
                 >
                   More
                   <span class="material-icons-outlined"> read_more </span>

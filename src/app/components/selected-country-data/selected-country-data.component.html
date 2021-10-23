@@ -29,13 +29,15 @@
             <div class="p-5">
               <div class="col-md-12">
                 <img
-                  [src]="content.flag"
-                  alt="{{ content.name }}"
+                  [src]="content.flags.svg"
+                  alt="{{ content.name.common }}"
                   class="img-fluid mx-auto d-block img-flag"
                 />
               </div>
               <div class="col-md-12 mt-5 fs-6">
-                <h1 class="mat-display-6 text-center">{{ content.name }}</h1>
+                <h1 class="mat-display-6 text-center">
+                  {{ content.name.common }}
+                </h1>
                 <ng-container *ngIf="content?.latlng">
                   <button
                     type="button"
@@ -43,7 +45,7 @@
                     mat-raised-button
                     (click)="getLocation(content.latlng)"
                     matTooltip="Click here to get location of {{
-                      content.name
+                      content.name.official
                     }} in the map"
                     matTooltipHideDelay="100"
                   >
@@ -54,43 +56,58 @@
 
                 <div class="row pr-5 pl-5 pt-5 pb-3">
                   <div class="col-md-6">
-                    <p *ngIf="content?.nativeName !== ''">
-                      <span class="fw-bold fs-5"> Native Name: </span>
-                      <span>{{ content.nativeName }}</span>
+                    <p *ngIf="content?.name.nativeName !== ''">
+                      <span class="fw-bold fs-5"> Native Names </span><br />
+                      <span
+                        class="ms-5"
+                        *ngFor="
+                          let item of keys(content.name.nativeName);
+                          let i = index
+                        "
+                        >{{
+                          i +
+                            1 +
+                            ". " +
+                            content?.name.nativeName[item].official
+                        }}<br
+                      /></span>
+                    </p>
+                    <p *ngIf="content?.area !== ''">
+                      <span class="fw-bold fs-5"> Area </span>
+                      <span>{{ content.area | comaSeperator }}</span>
                     </p>
                     <p *ngIf="content?.population !== ''">
-                      <span class="fw-bold fs-5"> Population: </span>
+                      <span class="fw-bold fs-5"> Population </span>
                       <span>{{ content.population | comaSeperator }}</span>
                     </p>
                     <p *ngIf="content?.region !== ''">
-                      <span class="fw-bold fs-5"> Region: </span>
+                      <span class="fw-bold fs-5"> Region </span>
                       <span>{{ content.region }}</span>
                     </p>
                     <p *ngIf="content?.subregion !== ''">
-                      <span class="fw-bold fs-5">Sub Region: </span>
+                      <span class="fw-bold fs-5">Sub Region </span>
                       <span> {{ content.subregion }} </span>
                     </p>
                     <p *ngIf="content?.capital !== ''">
-                      <span class="fw-bold fs-5"> Capital: </span>
+                      <span class="fw-bold fs-5"> Capital </span>
                       <span> {{ content.capital }} </span>
+                    </p>
+                    <p *ngIf="content?.startOfWeek !== ''">
+                      <span class="fw-bold fs-5"> Start of the week </span>
+                      <span> {{ content.startOfWeek }} </span>
                     </p>
                   </div>
                   <div class="col-md-6">
-                    <p *ngIf="content?.topLevelDomain.length > 0">
-                      <span class="fw-bold fs-5"> Top Level Domain: </span>
-                      <span
-                        *ngFor="
-                          let domain of content.topLevelDomain;
-                          let i = index
-                        "
-                      >
+                    <p *ngIf="content?.tld.length > 0">
+                      <span class="fw-bold fs-5"> Top Level Domain </span>
+                      <span *ngFor="let domain of content.tld; let i = index">
                         {{ domain }}
-                        {{ i === content.topLevelDomain.length - 1 ? "" : "," }}
+                        {{ i === content.tld.length - 1 ? "" : "," }}
                       </span>
                     </p>
-                    <p *ngIf="content?.currencies.length > 0">
-                      <span class="fw-bold fs-5">Currencies:</span>
-                      <span
+                    <p *ngIf="keys(content?.currencies).length > 0">
+                      <span class="fw-bold fs-5">Currencies</span><br />
+                      <!-- <span
                         *ngFor="
                           let currency of content.currencies;
                           let i = index
@@ -98,23 +115,67 @@
                       >
                         {{ currency.name }}
                         {{ i === content.currencies.length - 1 ? "" : "," }}
-                      </span>
-                    </p>
-                    <p *ngIf="content?.languages.length > 0">
-                      <span class="fw-bold fs-5">Languages:</span>
+                      </span> -->
                       <span
+                        class="ms-5"
+                        *ngFor="
+                          let item of keys(content.currencies);
+                          let i = index
+                        "
+                        >{{ i + 1 + ". " + content?.currencies[item].name }}<br
+                      /></span>
+                    </p>
+                    <p *ngIf="keys(content?.languages).length > 0">
+                      <span class="fw-bold fs-5">Languages</span>
+                      <!-- <span
                         *ngFor="let lang of content.languages; let i = index"
                       >
                         {{ lang.name }}
                         {{ i === content.languages.length - 1 ? "" : "," }}
+                      </span> --><br />
+                      <span
+                        class="ms-5"
+                        *ngFor="
+                          let item of keys(content.languages);
+                          let i = index
+                        "
+                        >{{ i + 1 + ". " + content?.languages[item] }}<br
+                      /></span>
+                    </p>
+                    <p *ngIf="content?.timezones?.length > 0">
+                      <span class="fw-bold fs-5"> Time Zones </span>
+                      <span
+                        *ngFor="
+                          let timeZone of content.timezones;
+                          let i = index
+                        "
+                      >
+                        {{ timeZone }}
+                        {{ i === content.timezones.length - 1 ? "" : "," }}
                       </span>
+                    </p>
+                    <p *ngIf="keys(content?.maps).length > 0">
+                      <span class="fw-bold fs-5">Location</span>
+                      <br />
+                      <span
+                        class="ms-5"
+                        *ngFor="let item of keys(content.maps); let i = index"
+                      >
+                        {{ i + 1 + ". " }}
+                        <a [href]="content.maps[item]">{{ item }}</a
+                        ><br
+                      /></span>
                     </p>
                   </div>
                 </div>
-
-                <ng-container *ngIf="content.borders.length > 0">
+                <ng-container *ngIf="keys(content?.coatOfArms)?.length > 0">
                   <div class="col-md-12 text-center mb-5">
-                    <p class="fs-5 fw-bold">Border Countries:</p>
+                    <img [src]="content.coatOfArms.svg" alt="Coat Of Arms" />
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="content?.borders?.length > 0">
+                  <div class="col-md-12 text-center mb-5">
+                    <p class="fs-5 fw-bold">Border Countries</p>
                     <span class="">
                       <button
                         type="button"
